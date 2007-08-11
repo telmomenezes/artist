@@ -20,5 +20,18 @@ Canvas::~Canvas()
 {
 }
 
+bool Canvas::init(int width,
+			int height,
+			int colorDepth,
+			bool fullScreen,
+			bool resizable,
+			bool windowDecorations)
+{
+	mWidth = width;
+	mHeight = height;
+
+	return true;
+}
+
 }
 

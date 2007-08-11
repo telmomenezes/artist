@@ -30,6 +30,9 @@ public:
 		bool windowDecorations=true);
 
 	virtual void setCaption(std::string caption);
+
+	virtual void beginFrame();
+        virtual void endFrame();
 };
 
 }

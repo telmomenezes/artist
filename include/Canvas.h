@@ -30,7 +30,7 @@ public:
 		                int colorDepth=0,
 				bool fullScreen=false,
 				bool resizable=false,
-				bool windowDecorations=true)=0;
+				bool windowDecorations=true);
 
 	virtual void setCaption(std::string caption)=0;
 
@@ -74,7 +74,7 @@ public:
 					float y,
 					float rad,
 					float beginAngle=0.0f,
-					float endAngle=M_PI)=0;
+					float endAngle=(M_PI * 2))=0;
 
 	virtual Image* loadPNG(std::string filePath)=0;
 

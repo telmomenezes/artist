@@ -21,6 +21,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
 	src/ImageOpenGL.cpp)
 
 ADD_LIBRARY(pycasso STATIC ${SOURCE_FILES})
-
 TARGET_LINK_LIBRARIES(pycasso SDL GL GLU png)
 
+ADD_EXECUTABLE(demo1 demos/demo1.cpp)
+TARGET_LINK_LIBRARIES(demo1 pycasso)

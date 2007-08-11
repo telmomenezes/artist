@@ -65,13 +65,9 @@ public:
 					float y,
 					float rad,
 					float beginAngle=0.0f,
-					float endAngle=M_PI);
+					float endAngle=(M_PI * 2));
 
 	virtual Image* loadPNG(std::string filePath);
-
-protected:
-	int mWidth;
-	int mHeight;
 };
 
 }

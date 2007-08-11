@@ -1,0 +1,13 @@
+== TODO ==
+
+* Error handling
+* Sub canvases
+* Event handling
+* Fonts
+* All drawing primitives
+* Draw pixel matrix
+* Python module
+* CMake install
+* Managing depth?
+* Zooming
+

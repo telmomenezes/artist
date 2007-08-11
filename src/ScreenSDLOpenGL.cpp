@@ -95,6 +95,17 @@ void ScreenSDLOpenGL::setCaption(std::string caption)
 	SDL_WM_SetCaption(caption.c_str(), NULL);
 }
 
+void ScreenSDLOpenGL::beginFrame()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+}
+
+void ScreenSDLOpenGL::endFrame()
+{
+	SDL_GL_SwapBuffers();
+}
+
 }
 
 #endif
