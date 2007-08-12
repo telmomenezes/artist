@@ -7,8 +7,6 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if defined(__LAYER_SDLOPENGL)
-
 #include "ScreenSDLOpenGL.h"
 
 #include "SDL.h"
@@ -27,8 +25,8 @@ ScreenSDLOpenGL::~ScreenSDLOpenGL()
 
 bool ScreenSDLOpenGL::init(int width,
 				int height,
-				int colorDepth,
 				bool fullScreen,
+				int colorDepth,
 				bool resizable,
 				bool windowDecorations)
 {
@@ -107,6 +105,4 @@ void ScreenSDLOpenGL::endFrame()
 }
 
 }
-
-#endif
 

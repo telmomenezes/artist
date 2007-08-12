@@ -22,18 +22,24 @@ public:
 	Pycasso();
 	virtual ~Pycasso();
 
-	Canvas* createScreen(ScreenType type,
-				int width,
+	Canvas* createScreen(int width,
 				int height,
-				int colorDepth=0,
 				bool fullScreen=false,
+				int colorDepth=0,
 				bool resizable=false,
 				bool windowDecorations=true);
-
 	Canvas* getScreen(){return mScreen;}
+	void destroyScreen();
+
+	bool setPreferredSystem(System sys);
 
 private:
-	Canvas* mScreen;
+	static System mDefaultSystem;
+	static System mPreferredSystem;
+
+	static bool mSystemSDLOpenGL;
+
+	static Canvas* mScreen;
 };
 
 }

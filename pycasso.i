@@ -4,7 +4,7 @@
 %include stl.i
 
 %{
-#include "src/PycassoError.h"
+#include "src/PycassoException.h"
 %}
 
 %exception
@@ -13,9 +13,9 @@
         {
                 $action
         }
-        catch (PycassoError e)
+        catch (PycassoException e)
         {
-                PyErr_SetString(PyExc_RuntimeError, e.getmessage().c_str());
+                PyErr_SetString(PyExc_RuntimeError, e.getMessage().c_str());
                 return NULL;
         }
 }

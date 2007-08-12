@@ -27,8 +27,8 @@ public:
 
 	virtual bool init(int width,
         		        int height,
-		                int colorDepth=0,
 				bool fullScreen=false,
+		                int colorDepth=0,
 				bool resizable=false,
 				bool windowDecorations=true);
 

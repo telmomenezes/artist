@@ -7,8 +7,6 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if defined(__LAYER_SDLOPENGL)
-
 #include "CanvasOpenGL.h"
 #include "ImageOpenGL.h"
 
@@ -171,6 +169,4 @@ Image* CanvasOpenGL::loadPNG(std::string filePath)
 }
 
 }
-
-#endif
 

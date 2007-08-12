@@ -7,13 +7,23 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_TYPES_H)
-#define __INCLUDE_PYCASSO_TYPES_H
+#if !defined(__INCLUDE_PYCASSO_EXCEPTION_H)
+#define __INCLUDE_PYCASSO_EXCEPTION_H
+
+#include <string>
 
 namespace pyc
 {
 
-enum System {NullSystem, SDLOpenGL};
+class PycassoException
+{
+public:
+	PycassoException();
+	virtual ~PycassoException();
+
+protected:
+	std::string mMessage;
+};
 
 }
 
