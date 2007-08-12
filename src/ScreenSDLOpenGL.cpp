@@ -11,6 +11,7 @@
 
 #include "SDL.h"
 #include "SDL_opengl.h" 
+#include <string>
 
 namespace pyc
 {
@@ -30,14 +31,22 @@ bool ScreenSDLOpenGL::init(int width,
 				bool resizable,
 				bool windowDecorations)
 {
-	if (!Canvas::init(width, height, colorDepth, fullScreen, resizable, windowDecorations))
+	try
 	{
+		Canvas::init(width, height, colorDepth, fullScreen, resizable, windowDecorations);
+	}
+	catch (std::string exception)
+	{
+		throw exception;
 		return false;
 	}
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		//printf("Unable to initialize SDL: %s\n", SDL_GetError());
+		char errorText[255];
+		sprintf(errorText, "Unable to initialize SDL: %s\n", SDL_GetError());
+		std::string errorStr = errorText;
+		throw errorText;
 		return false;
 	}
  
@@ -62,6 +71,10 @@ bool ScreenSDLOpenGL::init(int width,
 
 	if (SDL_SetVideoMode(width, height, colorDepth, flags) == NULL)
 	{
+		char errorText[255];
+		sprintf(errorText, "Unable to set SDL video mode: %s\n", SDL_GetError());
+		std::string errorStr = errorText;
+		throw errorText;
 		return false;
 	}
 

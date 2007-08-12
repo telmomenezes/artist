@@ -3,17 +3,13 @@
 
 %include stl.i
 
-%{
-#include "src/PycassoException.h"
-%}
-
 %exception
 {
         try
         {
                 $action
         }
-        catch (PycassoException e)
+        catch (std::string e)
         {
                 PyErr_SetString(PyExc_RuntimeError, e.getMessage().c_str());
                 return NULL;

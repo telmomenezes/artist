@@ -54,8 +54,12 @@ Canvas* Pycasso::createScreen(int width,
 					bool resizable,
 					bool windowDecorations)
 {
-	std::string exception = "Exception test.";
-	throw(exception);
+	if (mScreen)
+	{
+		std::string errorStr = "Screen already created"
+		throw errorStr;
+		return false;
+	}
 
 	switch (mPreferredSystem)
 	{
@@ -70,15 +74,21 @@ Canvas* Pycasso::createScreen(int width,
 
 	if (mScreen != NULL)
 	{
-		if (!mScreen->init(width,
+		try
+		{
+			mScreen->init(width,
 					height,
 					fullScreen,
 					colorDepth,
 					resizable,
-					windowDecorations))
+					windowDecorations);
+		}
+		catch (std::string exception)
 		{
 			delete mScreen;
 			mScreen = NULL;
+			throw exception;
+			return NULL;
 		}
 	}
 
