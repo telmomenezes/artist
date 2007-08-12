@@ -56,7 +56,7 @@ Canvas* Pycasso::createScreen(int width,
 {
 	if (mScreen)
 	{
-		std::string errorStr = "Screen already created"
+		std::string errorStr = "Screen already created";
 		throw errorStr;
 		return false;
 	}

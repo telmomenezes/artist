@@ -27,12 +27,12 @@ int main(int argc, char *argv[])
 
 	for (float x = 0.0f; x < 800.0f; x += 1.0f)
 	{
-		screen->beginFrame();
+		screen->startDrawing();
 		screen->setColor(0.0f, 1.0f, 0.0f);
 		screen->drawFilledCircle(x, 250.0f, 100.0f);
 		screen->setColor(1.0f, 0.0f, 0.0f);
 		screen->drawFilledCircle(x, 300.0f, 100.0f);
-		screen->endFrame();
+		screen->stopDrawing();
 	}
 
 	return 0;

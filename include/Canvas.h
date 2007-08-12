@@ -38,8 +38,8 @@ public:
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}
 
-	virtual void beginFrame()=0;
-	virtual void endFrame()=0;
+	virtual void startDrawing()=0;
+	virtual void stopDrawing()=0;
 
 	virtual void setColor(float red,
 				float green,

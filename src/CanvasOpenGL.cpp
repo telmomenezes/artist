@@ -24,13 +24,13 @@ CanvasOpenGL::~CanvasOpenGL()
 {
 }
 
-void CanvasOpenGL::beginFrame()
+void CanvasOpenGL::startDrawing()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 }
 
-void CanvasOpenGL::endFrame()
+void CanvasOpenGL::stopDrawing()
 {
 	SDL_GL_SwapBuffers();
 }
