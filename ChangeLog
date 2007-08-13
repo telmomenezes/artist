@@ -1,5 +1,13 @@
 pycasso (0.1) unstable developer release
-9-Dec-2006
+13-Aug-2007
 
-  * first pycasso file release! :)
-  * ...
+  * First pycasso file release! :)
+  * Basic classes: Pycasso, Canvas, Image and EventQ
+  * Some drawing primitives: drawPoint(), drawLine(), drawTriangle(),
+  drawFilledTriangle(), drawFilledSquare(), drawFilledCircle()
+  * Set line width and point size
+  * Set background and foreground colors for drawing
+  * Load and draw png images
+  * Skeleton event system with the QUIT event supported
+  * SDL_OPENGL system only for now
+  * Basic demo1 with a moving circle
