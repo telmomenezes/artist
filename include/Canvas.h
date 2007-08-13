@@ -32,7 +32,7 @@ public:
 				bool resizable=false,
 				bool windowDecorations=true);
 
-	virtual void setCaption(std::string caption)=0;
+	virtual void setTitle(std::string title)=0;
 
 
 	int getWidth(){return mWidth;}

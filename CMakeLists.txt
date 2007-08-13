@@ -14,7 +14,8 @@ ADD_SUBDIRECTORY(src)
 SET(SOURCE_FILES ${SOURCE_FILES}
 	src/Pycasso.cpp
 	src/Canvas.cpp
-	src/Image.cpp)	
+	src/Image.cpp
+	src/EventQ.cpp)
 
 SET(INCLUDE_DIRS include)
 
@@ -24,7 +25,8 @@ IF(SYSTEM_SDLOPENGL)
 	SET(SOURCE_FILES ${SOURCE_FILES}
 		src/CanvasOpenGL.cpp
 		src/ScreenSDLOpenGL.cpp
-		src/ImageOpenGL.cpp)	
+		src/ImageOpenGL.cpp
+		src/EventQSDL.cpp)
 
 	SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
 
@@ -40,3 +42,4 @@ TARGET_LINK_LIBRARIES(pycasso SDL GL GLU png)
 
 ADD_EXECUTABLE(demo1 demos/demo1.cpp)
 TARGET_LINK_LIBRARIES(demo1 pycasso)
+

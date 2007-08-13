@@ -14,6 +14,7 @@ namespace pyc
 {
 
 enum System {NullSystem, SDLOpenGL};
+enum EventType {NoEvent, Quit};
 
 }
 

@@ -7,9 +7,18 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "pyc_types.h"
-#include "Pycasso.h"
-#include "Canvas.h"
-#include "Image.h"
 #include "EventQ.h"
+
+namespace pyc
+{
+
+EventQ::EventQ()
+{
+}
+
+EventQ::~EventQ()
+{
+}
+
+}
 

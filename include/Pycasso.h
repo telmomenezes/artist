@@ -11,7 +11,8 @@
 #define __INCLUDE_PYCASSO_H
 
 #include "Canvas.h"
-#include "types.h"
+#include "EventQ.h"
+#include "pyc_types.h"
 
 namespace pyc
 {
@@ -28,8 +29,10 @@ public:
 				int colorDepth=0,
 				bool resizable=false,
 				bool windowDecorations=true);
-	Canvas* getScreen(){return mScreen;}
-	void destroyScreen();
+	Canvas* getScreen();
+
+	EventQ* createEventQ();
+	EventQ* getEventQ();
 
 	bool setPreferredSystem(System sys);
 
@@ -40,6 +43,7 @@ private:
 	static bool mSystemSDLOpenGL;
 
 	static Canvas* mScreen;
+	static EventQ* mEventQ;
 };
 
 }

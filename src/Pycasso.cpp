@@ -13,22 +13,24 @@
 
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 #include "ScreenSDLOpenGL.h"
+#include "EventQSDL.h"
 #endif
 
 namespace pyc
 {
 
-System Pycasso::mDefaultSystem = NullSystem;
-System Pycasso::mPreferredSystem = NullSystem;
+pyc::System Pycasso::mDefaultSystem = pyc::NullSystem;
+pyc::System Pycasso::mPreferredSystem = pyc::NullSystem;
 bool Pycasso::mSystemSDLOpenGL = false;
 Canvas* Pycasso::mScreen = NULL;
+EventQ* Pycasso::mEventQ = NULL;
 
 Pycasso::Pycasso()
 {
-	mDefaultSystem = NullSystem;
+	mDefaultSystem = pyc::NullSystem;
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 	mSystemSDLOpenGL = true;
-	mDefaultSystem = SDLOpenGL;
+	mDefaultSystem = pyc::SDLOpenGL;
 #else
 	mSystemSDLOpenGL = false;
 #endif
@@ -44,6 +46,12 @@ Pycasso::~Pycasso()
 	{
 		delete mScreen;
 		mScreen = NULL;
+	}
+
+	if (mEventQ)
+	{
+		delete mEventQ;
+		mEventQ = NULL;
 	}
 }
 
@@ -64,7 +72,7 @@ Canvas* Pycasso::createScreen(int width,
 	switch (mPreferredSystem)
 	{
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
-	case SDLOpenGL:
+	case pyc::SDLOpenGL:
 		mScreen = new ScreenSDLOpenGL();
 		break;
 #endif
@@ -95,26 +103,79 @@ Canvas* Pycasso::createScreen(int width,
 	return mScreen;
 }
 
-void Pycasso::destroyScreen()
+Canvas* Pycasso::getScreen()
 {
-	if (mScreen)
+	if (!mScreen)
 	{
-		delete mScreen;
-		mScreen = NULL;
+		std::string errorStr = "Screen not created";
+		throw errorStr;
+		return NULL;
 	}
+
+	return mScreen;
 }
 
-bool Pycasso::setPreferredSystem(System sys)
+EventQ* Pycasso::createEventQ()
+{
+	if (mEventQ)
+	{
+		std::string errorStr = "Event queue already created";
+		throw errorStr;
+		return false;
+	}
+
+	switch (mPreferredSystem)
+	{
+#if defined(__PYCASSO_SYSTEM_SDLOPENGL)
+	case SDLOpenGL:
+		mEventQ = new EventQSDL();
+		break;
+#endif
+	default:
+		mEventQ = NULL;
+	}
+
+	if (mEventQ != NULL)
+	{
+		try
+		{
+			mEventQ->init();
+		}
+		catch (std::string exception)
+		{
+			delete mEventQ;
+			mEventQ = NULL;
+			throw exception;
+			return NULL;
+		}
+	}
+
+	return mEventQ;
+}
+
+EventQ* Pycasso::getEventQ()
+{
+	if (!mEventQ)
+	{
+		std::string errorStr = "Event queue not created";
+		throw errorStr;
+		return NULL;
+	}
+
+	return mEventQ;
+}
+
+bool Pycasso::setPreferredSystem(pyc::System sys)
 {
 	switch (sys)
 	{
-		case NullSystem:
-			mPreferredSystem = NullSystem;
+		case pyc::NullSystem:
+			mPreferredSystem = pyc::NullSystem;
 			return true;
-		case SDLOpenGL:
+		case pyc::SDLOpenGL:
 			if (mSystemSDLOpenGL)
 			{
-				mPreferredSystem = SDLOpenGL;
+				mPreferredSystem = pyc::SDLOpenGL;
 				return true;
 			}
 			else

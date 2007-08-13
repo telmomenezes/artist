@@ -29,7 +29,7 @@ public:
 		bool resizable=false,
 		bool windowDecorations=true);
 
-	virtual void setCaption(std::string caption);
+	virtual void setTitle(std::string title);
 
 	virtual void beginFrame();
         virtual void endFrame();

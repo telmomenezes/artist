@@ -101,9 +101,9 @@ bool ScreenSDLOpenGL::init(int width,
 	return true;
 }
 
-void ScreenSDLOpenGL::setCaption(std::string caption)
+void ScreenSDLOpenGL::setTitle(std::string title)
 {
-	SDL_WM_SetCaption(caption.c_str(), NULL);
+	SDL_WM_SetCaption(title.c_str(), NULL);
 }
 
 void ScreenSDLOpenGL::beginFrame()
