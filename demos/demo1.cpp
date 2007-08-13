@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
 		while (event->next())
 		{
-			if (event->getType() == pyc::Quit)
+			if (event->getType() == pyc::QUIT)
 			{
 				exit = true;
 			}

@@ -45,7 +45,7 @@ bool EventQSDL::next()
 			case SDL_MOUSEMOTION:
 				break;
 			case SDL_QUIT:
-				mType = pyc::Quit;
+				mType = QUIT;
 				break;
 			default:
 				break;
