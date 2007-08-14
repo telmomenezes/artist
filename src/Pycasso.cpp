@@ -19,18 +19,18 @@
 namespace pyc
 {
 
-System Pycasso::mDefaultSystem = NULL_SYSTEM;
-System Pycasso::mPreferredSystem = NULL_SYSTEM;
+System Pycasso::mDefaultSystem = SYSTEM_NULL;
+System Pycasso::mPreferredSystem = SYSTEM_NULL;
 bool Pycasso::mSystemSDLOpenGL = false;
 Canvas* Pycasso::mScreen = NULL;
 EventQ* Pycasso::mEventQ = NULL;
 
 Pycasso::Pycasso()
 {
-	mDefaultSystem = NULL_SYSTEM;
+	mDefaultSystem = SYSTEM_NULL;
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 	mSystemSDLOpenGL = true;
-	mDefaultSystem = SDL_OPENGL;
+	mDefaultSystem = SYSTEM_SDL_OPENGL;
 #else
 	mSystemSDLOpenGL = false;
 #endif
@@ -72,7 +72,7 @@ Canvas* Pycasso::createScreen(int width,
 	switch (mPreferredSystem)
 	{
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
-	case SDL_OPENGL:
+	case SYSTEM_SDL_OPENGL:
 		mScreen = new ScreenSDLOpenGL();
 		break;
 #endif
@@ -127,7 +127,7 @@ EventQ* Pycasso::createEventQ()
 	switch (mPreferredSystem)
 	{
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
-	case SDL_OPENGL:
+	case SYSTEM_SDL_OPENGL:
 		mEventQ = new EventQSDL();
 		break;
 #endif
@@ -169,13 +169,13 @@ bool Pycasso::setPreferredSystem(pyc::System sys)
 {
 	switch (sys)
 	{
-		case NULL_SYSTEM:
-			mPreferredSystem = NULL_SYSTEM;
+		case SYSTEM_NULL:
+			mPreferredSystem = SYSTEM_NULL;
 			return true;
-		case SDL_OPENGL:
+		case SYSTEM_SDL_OPENGL:
 			if (mSystemSDLOpenGL)
 			{
-				mPreferredSystem = SDL_OPENGL;
+				mPreferredSystem = SYSTEM_SDL_OPENGL;
 				return true;
 			}
 			else

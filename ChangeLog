@@ -1,5 +1,7 @@
 pycasso (0.2)
 
+  * Complete event system defined
+  * SDL event system implemented
   * ...
 
 pycasso (0.1) unstable developer release

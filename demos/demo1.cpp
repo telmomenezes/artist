@@ -46,9 +46,16 @@ int main(int argc, char *argv[])
 
 		while (event->next())
 		{
-			if (event->getType() == pyc::QUIT)
+			if (event->getType() == pyc::EVENT_QUIT)
 			{
 				exit = true;
+			}
+			else if (event->getType() == pyc::EVENT_KEY_DOWN)
+			{
+				if (event->getKeyCode() == pyc::KEY_ESCAPE)
+				{
+					exit = true;
+				}
 			}
 		}
 	}

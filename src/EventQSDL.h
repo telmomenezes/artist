@@ -24,6 +24,13 @@ public:
 
 	virtual bool init();
 	virtual bool next();
+
+	virtual void enableKeyChar(bool enable=true);
+
+protected:
+	KeyCode getKeyCode(int key);
+	void updateKeyModifiers(int modifiers);
+	MouseButton getMouseButton(int button);
 };
 
 }
