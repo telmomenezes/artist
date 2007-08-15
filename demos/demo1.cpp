@@ -4,13 +4,15 @@
 int main(int argc, char *argv[])
 {
 	pyc::Pycasso pycasso;
+	pyc::Window* win = NULL;
 	pyc::Canvas* screen = NULL;
 	pyc::EventQ* event = NULL;
 
 	try
 	{
-		screen = pycasso.createScreen(800, 600);
+		win = pycasso.createWindow(800, 600);
 		event = pycasso.createEventQ();
+		screen = win->getMainCanvas();
 	}
 	catch(std::string exception)
 	{
@@ -18,7 +20,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	screen->setTitle("Pycasso Demo #1");
+	win->setTitle("Pycasso Demo #1");
 
 	screen->setBackgroundColor(1.0f, 1.0f, 1.0f);
 

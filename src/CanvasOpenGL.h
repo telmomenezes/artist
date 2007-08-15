@@ -15,7 +15,6 @@
 #include "Image.h"
 
 #include <math.h>
-#include <string>
 
 namespace pyc
 {
@@ -26,11 +25,7 @@ public:
 	CanvasOpenGL();
 	virtual ~CanvasOpenGL();
 
-	int getWidth(){return mWidth;}
-	int getHeight(){return mHeight;}
-
 	virtual void startDrawing();
-	virtual void stopDrawing();
 
 	virtual void setColor(float red,
 				float green,

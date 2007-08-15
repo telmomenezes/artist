@@ -14,7 +14,6 @@
 #include "Image.h"
 
 #include <math.h>
-#include <string>
 
 namespace pyc
 {
@@ -24,16 +23,6 @@ class Canvas
 public:
 	Canvas();
 	virtual ~Canvas();
-
-	virtual bool init(int width,
-        		        int height,
-				bool fullScreen=false,
-		                int colorDepth=0,
-				bool resizable=false,
-				bool windowDecorations=true);
-
-	virtual void setTitle(std::string title)=0;
-
 
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}

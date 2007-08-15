@@ -7,24 +7,24 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "ScreenSDLOpenGL.h"
+#include "WindowSDLOpenGL.h"
+#include "CanvasSDLOpenGL.h"
 
 #include "SDL.h"
 #include "SDL_opengl.h" 
-#include <string>
 
 namespace pyc
 {
 
-ScreenSDLOpenGL::ScreenSDLOpenGL()
+WindowSDLOpenGL::WindowSDLOpenGL()
 {
 }
 
-ScreenSDLOpenGL::~ScreenSDLOpenGL()
+WindowSDLOpenGL::~WindowSDLOpenGL()
 {
 }
 
-bool ScreenSDLOpenGL::init(int width,
+bool WindowSDLOpenGL::init(int width,
 				int height,
 				bool fullScreen,
 				int colorDepth,
@@ -33,7 +33,7 @@ bool ScreenSDLOpenGL::init(int width,
 {
 	try
 	{
-		Canvas::init(width, height, colorDepth, fullScreen, resizable, windowDecorations);
+		Window::init(width, height, colorDepth, fullScreen, resizable, windowDecorations);
 	}
 	catch (std::string exception)
 	{
@@ -98,21 +98,23 @@ bool ScreenSDLOpenGL::init(int width,
 	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
 
+	mMainCanvas = new CanvasSDLOpenGL();
+
 	return true;
 }
 
-void ScreenSDLOpenGL::setTitle(std::string title)
+void WindowSDLOpenGL::setTitle(std::string title)
 {
 	SDL_WM_SetCaption(title.c_str(), NULL);
 }
 
-void ScreenSDLOpenGL::beginFrame()
+void WindowSDLOpenGL::beginFrame()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 }
 
-void ScreenSDLOpenGL::endFrame()
+void WindowSDLOpenGL::endFrame()
 {
 	SDL_GL_SwapBuffers();
 }

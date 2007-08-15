@@ -12,7 +12,7 @@
 #include <string>
 
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
-#include "ScreenSDLOpenGL.h"
+#include "WindowSDLOpenGL.h"
 #include "EventQSDL.h"
 #endif
 
@@ -22,7 +22,7 @@ namespace pyc
 System Pycasso::mDefaultSystem = SYSTEM_NULL;
 System Pycasso::mPreferredSystem = SYSTEM_NULL;
 bool Pycasso::mSystemSDLOpenGL = false;
-Canvas* Pycasso::mScreen = NULL;
+Window* Pycasso::mWindow = NULL;
 EventQ* Pycasso::mEventQ = NULL;
 
 Pycasso::Pycasso()
@@ -37,15 +37,15 @@ Pycasso::Pycasso()
 	
 	mPreferredSystem = mDefaultSystem;
 
-	mScreen = NULL;
+	mWindow = NULL;
 }
 
 Pycasso::~Pycasso()
 {
-	if (mScreen)
+	if (mWindow)
 	{
-		delete mScreen;
-		mScreen = NULL;
+		delete mWindow;
+		mWindow = NULL;
 	}
 
 	if (mEventQ)
@@ -55,16 +55,16 @@ Pycasso::~Pycasso()
 	}
 }
 
-Canvas* Pycasso::createScreen(int width,
+Window* Pycasso::createWindow(int width,
 					int height,
 					bool fullScreen,
 					int colorDepth,
 					bool resizable,
 					bool windowDecorations)
 {
-	if (mScreen)
+	if (mWindow)
 	{
-		std::string errorStr = "Screen already created";
+		std::string errorStr = "Window already created";
 		throw errorStr;
 		return false;
 	}
@@ -73,18 +73,18 @@ Canvas* Pycasso::createScreen(int width,
 	{
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 	case SYSTEM_SDL_OPENGL:
-		mScreen = new ScreenSDLOpenGL();
+		mWindow = new WindowSDLOpenGL();
 		break;
 #endif
 	default:
-		mScreen = NULL;
+		mWindow = NULL;
 	}
 
-	if (mScreen != NULL)
+	if (mWindow != NULL)
 	{
 		try
 		{
-			mScreen->init(width,
+			mWindow->init(width,
 					height,
 					fullScreen,
 					colorDepth,
@@ -93,26 +93,26 @@ Canvas* Pycasso::createScreen(int width,
 		}
 		catch (std::string exception)
 		{
-			delete mScreen;
-			mScreen = NULL;
+			delete mWindow;
+			mWindow = NULL;
 			throw exception;
 			return NULL;
 		}
 	}
 
-	return mScreen;
+	return mWindow;
 }
 
-Canvas* Pycasso::getScreen()
+Window* Pycasso::getWindow()
 {
-	if (!mScreen)
+	if (!mWindow)
 	{
-		std::string errorStr = "Screen not created";
+		std::string errorStr = "Window not created";
 		throw errorStr;
 		return NULL;
 	}
 
-	return mScreen;
+	return mWindow;
 }
 
 EventQ* Pycasso::createEventQ()

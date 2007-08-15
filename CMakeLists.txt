@@ -13,6 +13,7 @@ ADD_SUBDIRECTORY(src)
 
 SET(SOURCE_FILES ${SOURCE_FILES}
 	src/Pycasso.cpp
+	src/Window.cpp
 	src/Canvas.cpp
 	src/Image.cpp
 	src/EventQ.cpp)
@@ -24,7 +25,8 @@ IF(SYSTEM_SDLOPENGL)
 
 	SET(SOURCE_FILES ${SOURCE_FILES}
 		src/CanvasOpenGL.cpp
-		src/ScreenSDLOpenGL.cpp
+		src/CanvasSDLOpenGL.cpp
+		src/WindowSDLOpenGL.cpp
 		src/ImageOpenGL.cpp
 		src/EventQSDL.cpp)
 

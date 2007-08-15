@@ -7,20 +7,20 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_SCREEN_SDL_OPENGL_H)
-#define __INCLUDE_PYCASSO_SCREEN_SDL_OPENGL_H
+#if !defined(__INCLUDE_PYCASSO_WINDOW_SDL_OPENGL_H)
+#define __INCLUDE_PYCASSO_WINDOW_SDL_OPENGL_H
 
-#include "CanvasOpenGL.h"
-#include <math.h>
+#include "Window.h"
+#include <string>
 
 namespace pyc
 {
 
-class ScreenSDLOpenGL : public CanvasOpenGL
+class WindowSDLOpenGL : public Window
 {
 public:
-	ScreenSDLOpenGL();
-	virtual ~ScreenSDLOpenGL();
+	WindowSDLOpenGL();
+	virtual ~WindowSDLOpenGL();
 
 	virtual bool init(int width,
 		int height,

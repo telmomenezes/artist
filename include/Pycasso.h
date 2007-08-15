@@ -10,7 +10,7 @@
 #if !defined(__INCLUDE_PYCASSO_H)
 #define __INCLUDE_PYCASSO_H
 
-#include "Canvas.h"
+#include "Window.h"
 #include "EventQ.h"
 #include "pyc_types.h"
 
@@ -23,13 +23,13 @@ public:
 	Pycasso();
 	virtual ~Pycasso();
 
-	Canvas* createScreen(int width,
+	Window* createWindow(int width,
 				int height,
 				bool fullScreen=false,
 				int colorDepth=0,
 				bool resizable=false,
 				bool windowDecorations=true);
-	Canvas* getScreen();
+	Window* getWindow();
 
 	EventQ* createEventQ();
 	EventQ* getEventQ();
@@ -42,7 +42,7 @@ private:
 
 	static bool mSystemSDLOpenGL;
 
-	static Canvas* mScreen;
+	static Window* mWindow;
 	static EventQ* mEventQ;
 };
 

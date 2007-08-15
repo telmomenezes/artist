@@ -10,9 +10,6 @@
 #include "CanvasOpenGL.h"
 #include "ImageOpenGL.h"
 
-#include "SDL.h"
-#include "SDL_opengl.h" 
-
 namespace pyc
 {
 
@@ -28,11 +25,6 @@ void CanvasOpenGL::startDrawing()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-}
-
-void CanvasOpenGL::stopDrawing()
-{
-	SDL_GL_SwapBuffers();
 }
 
 void CanvasOpenGL::setColor(float red,
