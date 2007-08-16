@@ -32,6 +32,8 @@ public:
 	virtual void setTitle(std::string title);
 
 	virtual void showCursor(bool show);
+
+	virtual Layer* createPNGLayer(std::string filePath);
 };
 
 }

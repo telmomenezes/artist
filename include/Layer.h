@@ -11,9 +11,8 @@
 #if !defined(__INCLUDE_PYCASSO_LAYER_H)
 #define __INCLUDE_PYCASSO_LAYER_H
 
-#include "Image.h"
-
 #include <math.h>
+#include <string>
 
 namespace pyc
 {
@@ -65,7 +64,9 @@ public:
 					float beginAngle=0.0f,
 					float endAngle=(M_PI * 2))=0;
 
-	virtual Image* loadPNG(std::string filePath)=0;
+        virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f)=0;
+
+	virtual bool _loadPNG(std::string filePath)=0;
 
 protected:
 	int mWidth;

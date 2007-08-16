@@ -20,42 +20,19 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	win->setTitle("Pycasso Demo #1");
+	win->setTitle("Pycasso Demo #2");
 
 	root->setBackgroundColor(1.0f, 1.0f, 1.0f);
 
+        pyc::Layer* pngImage = win->createPNGLayer("media/avignon.png");
+
 	bool exit = false;
-	float x = 400.0f;
-        float y = 300.0f;
-	float deltaX = 0.5f;
-        float deltaY = 0.5f;
 
 	while (!exit)
 	{
 		root->startDrawing();
-		root->setColor(1.0f, 0.0f, 0.0f);
-		root->drawFilledCircle(x, y, 50.0f);
+		root->drawLayer(pngImage, 10.0f, 10.0f);
 		root->stopDrawing();
-
-		x += deltaX;
-                y += deltaY;
-
-		if (x >= 750)
-		{
-			deltaX = -deltaX;
-		}
-		if (x <= 50)
-		{
-			deltaX = -deltaX;
-		}
-                if (y >= 550)
-		{
-			deltaY = -deltaY;
-		}
-		if (y <= 50)
-		{
-			deltaY = -deltaY;
-		}
 
 		while (event->next())
 		{

@@ -1,13 +1,12 @@
 == TODO ==
 
 * Error handling
-* Sub canvases
-* Event handling
-* Fonts
+* Font drawing
 * All drawing primitives
 * Draw pixel matrix
 * Python module
 * CMake install
-* Managing depth?
 * Zooming
+* Mouse coordinates vs. layer coordinates
+* Time / fixed FPS system
 

@@ -4,7 +4,9 @@ pycasso (0.2)
   * SDL event system implemented
   * Basic class: Window
   * Canvas becomes Layer
-  * 
+  * Image removed, replaced by Layer
+  * createPNGLayer() and drawLayer()
+  * demo2
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

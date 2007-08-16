@@ -15,7 +15,6 @@ SET(SOURCE_FILES ${SOURCE_FILES}
 	src/Pycasso.cpp
 	src/Window.cpp
 	src/Layer.cpp
-	src/Image.cpp
 	src/EventQ.cpp)
 
 SET(INCLUDE_DIRS include)
@@ -27,7 +26,6 @@ IF(SYSTEM_SDLOPENGL)
 		src/LayerOpenGL.cpp
 		src/LayerSDLOpenGL.cpp
 		src/WindowSDLOpenGL.cpp
-		src/ImageOpenGL.cpp
 		src/EventQSDL.cpp)
 
 	SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
@@ -44,4 +42,7 @@ TARGET_LINK_LIBRARIES(pycasso SDL GL GLU png)
 
 ADD_EXECUTABLE(demo1 demos/demo1.cpp)
 TARGET_LINK_LIBRARIES(demo1 pycasso)
+
+ADD_EXECUTABLE(demo2 demos/demo2.cpp)
+TARGET_LINK_LIBRARIES(demo2 pycasso)
 

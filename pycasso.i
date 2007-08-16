@@ -18,51 +18,7 @@
 
 
 %{
-#include "src/Session.h"
+#include "src/Pycasso.h"
 %}
-%include "src/Session.h"
-
-%{
-#include "src/Stage.h"
-%}
-%include "src/Stage.h"
-
-%{
-#include "src/StageObject.h"
-%}
-%include "src/StageObject.h"
-%{
-#include "src/Object2D.h"
-%}
-%include "src/Object2D.h"
-
-%{
-#include "src/Object3D.h"
-%}
-%include "src/Object3D.h"
-
-%{
-#include "src/Shape3D.h"
-%}
-%include "src/Shape3D.h"
-
-%{
-#include "src/PhysicalObject.h"
-%}
-%include "src/PhysicalObject.h"
-
-%{
-#include "src/Light.h"
-%}
-%include "src/Light.h"
-
-%{
-#include "src/Mouse.h"
-%}
-%include "src/Mouse.h"
-
-%{
-#include "src/Keyboard.h"
-%}
-%include "src/Keyboard.h"
+%include "src/Pycasso.h"
 

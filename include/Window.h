@@ -13,6 +13,7 @@
 
 #include "Layer.h"
 #include <string>
+#include <list>
 
 namespace pyc
 {
@@ -35,14 +36,18 @@ public:
 
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}
-	Layer* getLayer();
+	Layer* getRootLayer();
 
 	virtual void showCursor(bool show)=0;
+
+	virtual Layer* createPNGLayer(std::string filePath)=0;
+	bool removeLayer(Layer* layer);
 
 protected:
 	int mWidth;
 	int mHeight;
-	Layer* mLayer;
+	Layer* mRootLayer;
+	std::list<Layer*> mLayers;
 };
 
 }

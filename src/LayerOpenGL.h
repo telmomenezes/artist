@@ -12,9 +12,9 @@
 #define __INCLUDE_PYCASSO_LAYER_OPENGL_H
 
 #include "Layer.h"
-#include "Image.h"
 
 #include <math.h>
+#include <GL/gl.h>
 
 namespace pyc
 {
@@ -62,7 +62,15 @@ public:
 					float beginAngle=0.0f,
 					float endAngle=(M_PI * 2));
 
-	virtual Image* loadPNG(std::string filePath);
+        virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f);
+
+	virtual bool _loadPNG(std::string filePath);
+
+protected:
+        GLuint mTexture;
+
+	int mTextureWidth;
+	int mTextureHeight;
 };
 
 }

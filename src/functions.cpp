@@ -7,9 +7,22 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "pyc_types.h"
-#include "Pycasso.h"
-#include "Window.h"
-#include "Layer.h"
-#include "EventQ.h"
+#include "functions.h"
+
+namespace pyc
+{
+
+int nextPowerOfTwo(int value)
+{
+	int result = 1;
+
+	while (result < value)
+	{
+		result *= 2;
+	}
+
+	return result;
+}
+
+}
 

@@ -14,6 +14,9 @@ namespace pyc
 
 Layer::Layer()
 {
+        mWidth = 0;
+        mHeight = 0;
+
 }
 
 Layer::~Layer()

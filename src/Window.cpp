@@ -14,16 +14,23 @@ namespace pyc
 
 Window::Window()
 {
-	mLayer = NULL;
+	mRootLayer = NULL;
 }
 
 Window::~Window()
 {
-	if (mLayer != NULL)
+	if (mRootLayer != NULL)
 	{
-		delete mLayer;
-		mLayer = NULL;
+		delete mRootLayer;
+		mRootLayer = NULL;
 	}
+        
+        for (std::list<Layer*>::iterator iterLayer = mLayers.begin();
+                iterLayer != mLayers.end();
+                iterLayer++)
+        {
+                delete (*iterLayer);
+        }
 }
 
 bool Window::init(int width,
@@ -39,16 +46,30 @@ bool Window::init(int width,
 	return true;
 }
 
-Layer* Window::getLayer()
+Layer* Window::getRootLayer()
 {
-	if (mLayer == NULL)
+	if (mRootLayer == NULL)
 	{
 		std::string errorText = "Window not initialized";
 		throw errorText;
 		return NULL;
 	}
 
-	return mLayer;
+	return mRootLayer;
+}
+
+bool Window::removeLayer(Layer* layer)
+{
+        for (std::list<Layer*>::iterator iterLayer = mLayers.begin();
+                iterLayer != mLayers.end();
+                iterLayer++)
+        {
+                mLayers.erase(iterLayer);
+                delete (*iterLayer);
+                return true;
+        }
+
+        return false;
 }
 
 }

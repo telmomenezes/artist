@@ -7,32 +7,15 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "Image.h"
+#if !defined(__PYCASSO_INCLUDE_FUNCTIONS)
+#define __PYCASSO_INCLUDE_FUNCTIONS
 
 namespace pyc
 {
 
-Image::Image()
-{
-	mWidth = 0;
-	mHeight = 0;
-}
-
-Image::~Image()
-{
-}
-
-int Image::nextPowerOfTwo(int value)
-{
-	int result = 1;
-
-	while (result < value)
-	{
-		result *= 2;
-	}
-
-	return result;
-}
+int nextPowerOfTwo(int value);
 
 }
+
+#endif
 
