@@ -11,7 +11,7 @@
 #if !defined(__INCLUDE_PYCASSO_WINDOW_H)
 #define __INCLUDE_PYCASSO_WINDOW_H
 
-#include "Canvas.h"
+#include "Layer.h"
 #include <string>
 
 namespace pyc
@@ -35,12 +35,14 @@ public:
 
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}
-	Canvas* getMainCanvas();
+	Layer* getLayer();
+
+	virtual void showCursor(bool show)=0;
 
 protected:
 	int mWidth;
 	int mHeight;
-	Canvas* mMainCanvas;
+	Layer* mLayer;
 };
 
 }

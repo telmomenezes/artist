@@ -31,8 +31,7 @@ public:
 
 	virtual void setTitle(std::string title);
 
-	virtual void beginFrame();
-        virtual void endFrame();
+	virtual void showCursor(bool show);
 };
 
 }

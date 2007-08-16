@@ -8,8 +8,8 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_CANVAS_H)
-#define __INCLUDE_PYCASSO_CANVAS_H
+#if !defined(__INCLUDE_PYCASSO_LAYER_H)
+#define __INCLUDE_PYCASSO_LAYER_H
 
 #include "Image.h"
 
@@ -18,11 +18,11 @@
 namespace pyc
 {
 
-class Canvas
+class Layer
 {
 public:
-	Canvas();
-	virtual ~Canvas();
+	Layer();
+	virtual ~Layer();
 
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}

@@ -167,8 +167,6 @@ bool ImageOpenGL::loadPNG(std::string filePath)
 	png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
 	fclose(infile);
 
-	
-
 	unsigned char* textureData = (unsigned char*)malloc(mTextureWidth * mTextureHeight * bpp);
 
 	for (unsigned int y = 0; y < height; y++)

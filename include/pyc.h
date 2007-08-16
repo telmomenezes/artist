@@ -10,7 +10,7 @@
 #include "pyc_types.h"
 #include "Pycasso.h"
 #include "Window.h"
-#include "Canvas.h"
+#include "Layer.h"
 #include "Image.h"
 #include "EventQ.h"
 

@@ -7,7 +7,7 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "CanvasSDLOpenGL.h"
+#include "LayerSDLOpenGL.h"
 
 #include "SDL.h"
 #include "SDL_opengl.h" 
@@ -15,15 +15,15 @@
 namespace pyc
 {
 
-CanvasSDLOpenGL::CanvasSDLOpenGL()
+LayerSDLOpenGL::LayerSDLOpenGL()
 {
 }
 
-CanvasSDLOpenGL::~CanvasSDLOpenGL()
+LayerSDLOpenGL::~LayerSDLOpenGL()
 {
 }
 
-void CanvasSDLOpenGL::stopDrawing()
+void LayerSDLOpenGL::stopDrawing()
 {
 	SDL_GL_SwapBuffers();
 }

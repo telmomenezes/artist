@@ -14,15 +14,15 @@ namespace pyc
 
 Window::Window()
 {
-	mMainCanvas = NULL;
+	mLayer = NULL;
 }
 
 Window::~Window()
 {
-	if (mMainCanvas != NULL)
+	if (mLayer != NULL)
 	{
-		delete mMainCanvas;
-		mMainCanvas = NULL;
+		delete mLayer;
+		mLayer = NULL;
 	}
 }
 
@@ -39,16 +39,16 @@ bool Window::init(int width,
 	return true;
 }
 
-Canvas* Window::getMainCanvas()
+Layer* Window::getLayer()
 {
-	if (mMainCanvas == NULL)
+	if (mLayer == NULL)
 	{
 		std::string errorText = "Window not initialized";
 		throw errorText;
 		return NULL;
 	}
 
-	return mMainCanvas;
+	return mLayer;
 }
 
 }

@@ -8,10 +8,10 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_CANVAS_OPENGL_H)
-#define __INCLUDE_PYCASSO_CANVAS_OPENGL_H
+#if !defined(__INCLUDE_PYCASSO_LAYER_OPENGL_H)
+#define __INCLUDE_PYCASSO_LAYER_OPENGL_H
 
-#include "Canvas.h"
+#include "Layer.h"
 #include "Image.h"
 
 #include <math.h>
@@ -19,11 +19,11 @@
 namespace pyc
 {
 
-class CanvasOpenGL : public Canvas
+class LayerOpenGL : public Layer
 {
 public:
-	CanvasOpenGL();
-	virtual ~CanvasOpenGL();
+	LayerOpenGL();
+	virtual ~LayerOpenGL();
 
 	virtual void startDrawing();
 

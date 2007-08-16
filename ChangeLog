@@ -3,7 +3,8 @@ pycasso (0.2)
   * Complete event system defined
   * SDL event system implemented
   * Basic class: Window
-  * ...
+  * Canvas becomes Layer
+  * 
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

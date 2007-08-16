@@ -7,16 +7,16 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "Canvas.h"
+#include "Layer.h"
 
 namespace pyc
 {
 
-Canvas::Canvas()
+Layer::Layer()
 {
 }
 
-Canvas::~Canvas()
+Layer::~Layer()
 {
 }
 

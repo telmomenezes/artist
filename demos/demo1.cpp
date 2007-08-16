@@ -5,14 +5,14 @@ int main(int argc, char *argv[])
 {
 	pyc::Pycasso pycasso;
 	pyc::Window* win = NULL;
-	pyc::Canvas* screen = NULL;
+	pyc::Layer* screen = NULL;
 	pyc::EventQ* event = NULL;
 
 	try
 	{
 		win = pycasso.createWindow(800, 600);
 		event = pycasso.createEventQ();
-		screen = win->getMainCanvas();
+		screen = win->getLayer();
 	}
 	catch(std::string exception)
 	{

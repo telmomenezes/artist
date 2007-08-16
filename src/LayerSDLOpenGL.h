@@ -8,19 +8,19 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_CANVAS_SDL_OPENGL_H)
-#define __INCLUDE_PYCASSO_CANVAS_SDL_OPENGL_H
+#if !defined(__INCLUDE_PYCASSO_LAYER_SDL_OPENGL_H)
+#define __INCLUDE_PYCASSO_LAYER_SDL_OPENGL_H
 
-#include "CanvasOpenGL.h"
+#include "LayerOpenGL.h"
 
 namespace pyc
 {
 
-class CanvasSDLOpenGL : public CanvasOpenGL
+class LayerSDLOpenGL : public LayerOpenGL
 {
 public:
-	CanvasSDLOpenGL();
-	virtual ~CanvasSDLOpenGL();
+	LayerSDLOpenGL();
+	virtual ~LayerSDLOpenGL();
 
 	virtual void stopDrawing();
 };

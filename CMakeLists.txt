@@ -14,7 +14,7 @@ ADD_SUBDIRECTORY(src)
 SET(SOURCE_FILES ${SOURCE_FILES}
 	src/Pycasso.cpp
 	src/Window.cpp
-	src/Canvas.cpp
+	src/Layer.cpp
 	src/Image.cpp
 	src/EventQ.cpp)
 
@@ -24,8 +24,8 @@ IF(SYSTEM_SDLOPENGL)
 	INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
 
 	SET(SOURCE_FILES ${SOURCE_FILES}
-		src/CanvasOpenGL.cpp
-		src/CanvasSDLOpenGL.cpp
+		src/LayerOpenGL.cpp
+		src/LayerSDLOpenGL.cpp
 		src/WindowSDLOpenGL.cpp
 		src/ImageOpenGL.cpp
 		src/EventQSDL.cpp)

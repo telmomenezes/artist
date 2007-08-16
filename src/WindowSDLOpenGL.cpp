@@ -8,7 +8,7 @@
  */
 
 #include "WindowSDLOpenGL.h"
-#include "CanvasSDLOpenGL.h"
+#include "LayerSDLOpenGL.h"
 
 #include "SDL.h"
 #include "SDL_opengl.h" 
@@ -98,7 +98,7 @@ bool WindowSDLOpenGL::init(int width,
 	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
 
-	mMainCanvas = new CanvasSDLOpenGL();
+	mLayer = new LayerSDLOpenGL();
 
 	return true;
 }
@@ -108,15 +108,16 @@ void WindowSDLOpenGL::setTitle(std::string title)
 	SDL_WM_SetCaption(title.c_str(), NULL);
 }
 
-void WindowSDLOpenGL::beginFrame()
+void WindowSDLOpenGL::showCursor(bool show)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-}
-
-void WindowSDLOpenGL::endFrame()
-{
-	SDL_GL_SwapBuffers();
+	if (show)
+	{
+		SDL_ShowCursor(SDL_ENABLE);
+	}
+	else
+	{
+		SDL_ShowCursor(SDL_DISABLE);
+	}
 }
 
 }
