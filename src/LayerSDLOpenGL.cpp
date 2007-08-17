@@ -25,7 +25,14 @@ LayerSDLOpenGL::~LayerSDLOpenGL()
 
 void LayerSDLOpenGL::stopDrawing()
 {
-	SDL_GL_SwapBuffers();
+	if (mRoot)
+	{
+		SDL_GL_SwapBuffers();
+	}
+	else
+	{
+		LayerOpenGL::stopDrawing();
+	}
 }
 
 }

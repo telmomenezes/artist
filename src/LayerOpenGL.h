@@ -26,6 +26,7 @@ public:
 	virtual ~LayerOpenGL();
 
 	virtual void startDrawing();
+	virtual void stopDrawing();
 
 	virtual void setColor(float red,
 				float green,
@@ -64,6 +65,7 @@ public:
 
         virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f);
 
+	virtual bool _initEmpty(int width, int height);
 	virtual bool _loadPNG(std::string filePath);
 
 protected:

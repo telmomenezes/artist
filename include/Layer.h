@@ -66,11 +66,16 @@ public:
 
         virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f)=0;
 
+	bool isRoot(){return mRoot;}
+
+	virtual bool _initEmpty(int width, int height)=0;
 	virtual bool _loadPNG(std::string filePath)=0;
+	void _setRoot(int width, int height);
 
 protected:
 	int mWidth;
 	int mHeight;
+	bool mRoot;
 };
 
 }

@@ -7,6 +7,7 @@ pycasso (0.2)
   * Image removed, replaced by Layer
   * createPNGLayer() and drawLayer()
   * demo2
+  * demo3
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

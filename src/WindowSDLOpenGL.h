@@ -33,6 +33,7 @@ public:
 
 	virtual void showCursor(bool show);
 
+	virtual Layer* createLayer(int width, int height);
 	virtual Layer* createPNGLayer(std::string filePath);
 };
 

@@ -40,6 +40,7 @@ public:
 
 	virtual void showCursor(bool show)=0;
 
+	virtual Layer* createLayer(int width, int height)=0;
 	virtual Layer* createPNGLayer(std::string filePath)=0;
 	bool removeLayer(Layer* layer);
 

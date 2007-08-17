@@ -24,12 +24,63 @@ LayerOpenGL::LayerOpenGL()
 
 LayerOpenGL::~LayerOpenGL()
 {
+	GLuint textures[1] = {mTexture};
+	glDeleteTextures(1, textures);
 }
 
 void LayerOpenGL::startDrawing()
 {
+	int width;
+	int height;
+
+	if (mRoot)
+	{
+		width = mWidth;
+		height = mHeight;
+	}
+	else
+	{
+		width = mTextureWidth;
+		height = mTextureHeight;
+	}
+
+	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	
+	glViewport(0, 0, width, height);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	if (mRoot)
+	{
+		glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
+	}
+	else
+	{
+		glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+}
+
+void LayerOpenGL::stopDrawing()
+{
+	if (!mRoot)
+	{
+		glBindTexture(GL_TEXTURE_2D, mTexture);
+		glCopyTexSubImage2D(GL_TEXTURE_2D,
+					0,
+					0,
+					0,
+					0,
+					0,
+					mWidth,
+					mHeight);
+	}
 }
 
 void LayerOpenGL::setColor(float red,
@@ -184,6 +235,46 @@ void LayerOpenGL::drawLayer(Layer* layer, float x, float y)
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);
+}
+
+bool LayerOpenGL::_initEmpty(int width, int height)
+{
+	int texWidth = nextPowerOfTwo(width);
+	int texHeight = nextPowerOfTwo(height);
+
+	unsigned int* data;
+	unsigned int dataSize = texWidth * texHeight;
+
+	data = (unsigned int*)new GLuint[(dataSize * 4 * sizeof(unsigned int))];
+
+	for (unsigned int i = 0; i < dataSize; i++)
+	{
+		data[i] = 0;
+	}
+
+	glGenTextures(1, &mTexture);
+	glBindTexture(GL_TEXTURE_2D, mTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexImage2D(GL_TEXTURE_2D,
+			0,
+			4,
+			texWidth,
+			texHeight,
+			0,
+			GL_RGBA,
+			GL_UNSIGNED_BYTE,
+			data);
+
+	delete [] data;
+
+	mTextureWidth = texWidth;
+	mTextureHeight = texHeight;
+	mWidth = width;
+	mHeight = height;
 }
 
 bool LayerOpenGL::_loadPNG(std::string filePath)

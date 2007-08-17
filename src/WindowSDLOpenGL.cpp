@@ -99,6 +99,7 @@ bool WindowSDLOpenGL::init(int width,
 	glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
 
 	mRootLayer = new LayerSDLOpenGL();
+	mRootLayer->_setRoot(mWidth, mHeight);
 
 	return true;
 }
@@ -118,6 +119,26 @@ void WindowSDLOpenGL::showCursor(bool show)
 	{
 		SDL_ShowCursor(SDL_DISABLE);
 	}
+}
+
+Layer* WindowSDLOpenGL::createLayer(int width, int height)
+{
+	LayerSDLOpenGL* layer = new LayerSDLOpenGL();
+
+        try
+        {
+                layer->_initEmpty(width, height);
+        }
+        catch (std::string exception)
+        {
+                delete layer;
+                throw exception;
+                return NULL;
+        }
+
+        mLayers.push_back(layer);
+
+        return layer;
 }
 
 Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)

@@ -16,11 +16,18 @@ Layer::Layer()
 {
         mWidth = 0;
         mHeight = 0;
-
+	mRoot = false;
 }
 
 Layer::~Layer()
 {
+}
+
+void Layer::_setRoot(int width, int height)
+{
+	mWidth = width;
+	mHeight = height;
+	mRoot = true;
 }
 
 }
