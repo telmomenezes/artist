@@ -63,7 +63,11 @@ public:
 					float beginAngle=0.0f,
 					float endAngle=(M_PI * 2));
 
-        virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f);
+	virtual void drawLayer(Layer* layer,
+				float x=0.0f,
+				float y=0.0f,
+				float width=0.0f,
+				float height=0.0f);
 
 	virtual bool _initEmpty(int width, int height);
 	virtual bool _loadPNG(std::string filePath);

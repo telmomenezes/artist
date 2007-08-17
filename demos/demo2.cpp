@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
 	while (!exit)
 	{
 		root->startDrawing();
+		root->setColor(1.0f, 0.0f, 0.0f);
+		root->drawLayer(pngImage, 0.0f, 0.0f, 1000.0f, 1000.0f);
+		root->setColor(1.0f, 1.0f, 1.0f);
 		root->drawLayer(pngImage, 10.0f, 10.0f);
 		root->stopDrawing();
 

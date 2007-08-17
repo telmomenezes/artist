@@ -64,7 +64,11 @@ public:
 					float beginAngle=0.0f,
 					float endAngle=(M_PI * 2))=0;
 
-        virtual void drawLayer(Layer* layer, float x=0.0f, float y=0.0f)=0;
+        virtual void drawLayer(Layer* layer,
+				float x=0.0f,
+				float y=0.0f,
+				float width=0.0f,
+				float height=0.0f)=0;
 
 	bool isRoot(){return mRoot;}
 

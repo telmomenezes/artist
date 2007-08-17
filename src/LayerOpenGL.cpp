@@ -44,8 +44,6 @@ void LayerOpenGL::startDrawing()
 		height = mTextureHeight;
 	}
 
-	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	
 	glViewport(0, 0, width, height);
 	
 	glMatrixMode(GL_PROJECTION);
@@ -203,17 +201,42 @@ void LayerOpenGL::drawFilledCircle(float x,
 	glEnd();
 }
 
-void LayerOpenGL::drawLayer(Layer* layer, float x, float y)
+void LayerOpenGL::drawLayer(Layer* layer,
+		float x,
+		float y,
+		float width,
+		float height)
 {
         LayerOpenGL* layGL = (LayerOpenGL*)layer;
+
+	float targetWidth;
+	float targetHeight;
+
+	if (width > 0.0f)
+	{
+		targetWidth = width;
+	}
+	else
+	{
+		targetWidth = (float)layGL->mWidth;
+	}
+
+	if (height > 0.0f)
+	{
+		targetHeight = height;
+	}
+	else
+	{
+		targetHeight = (float)layGL->mHeight;
+	}
 
         float origX1 = 0.0f;
 	float origY1 = 0.0f;
 	float origX2 = ((float)layGL->mWidth) / ((float)layGL->mTextureWidth);
 	float origY2 = ((float)layGL->mHeight) / ((float)layGL->mTextureHeight);
 
-	float x2 = x + layGL->mWidth;
-	float y2 = y + layGL->mHeight;
+	float x2 = x + targetWidth;
+	float y2 = y + targetHeight;
 
 	glBindTexture(GL_TEXTURE_2D, layGL->mTexture);
 	glEnable(GL_TEXTURE_2D);
