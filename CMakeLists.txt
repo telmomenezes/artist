@@ -26,7 +26,8 @@ IF(SYSTEM_SDLOPENGL)
 		src/LayerOpenGL.cpp
 		src/LayerSDLOpenGL.cpp
 		src/WindowSDLOpenGL.cpp
-		src/EventQSDL.cpp)
+		src/EventQSDL.cpp
+		src/Color.cpp)
 
 	SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
 

@@ -28,13 +28,8 @@ public:
 	virtual void startDrawing();
 	virtual void stopDrawing();
 
-	virtual void setColor(float red,
-				float green,
-				float blue,
-				float alpha=1.0f);
-	virtual void setBackgroundColor(float red,
-				float green,
-				float blue);
+	virtual void setColor(Color &c);
+	virtual void setBackgroundColor(Color &c);
 
 	virtual void setPointSize(float size);
 	virtual void setLineWidth(float width);
@@ -47,17 +42,17 @@ public:
 					float y2,
 					float x3,
 					float y3);
-	virtual void drawFilledTriangle(float x1,
+	virtual void fillTriangle(float x1,
 					float y1,
 					float x2,
 					float y2,
 					float x3,
 					float y3);
-	virtual void drawFilledSquare(float x,
+	virtual void fillSquare(float x,
 					float y,
 					float rad,
 					float rot=0.0f);
-	virtual void drawFilledCircle(float x,
+	virtual void fillCircle(float x,
 					float y,
 					float rad,
 					float beginAngle=0.0f,

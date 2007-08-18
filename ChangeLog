@@ -8,6 +8,7 @@ pycasso (0.2)
   * createPNGLayer() and drawLayer()
   * demo2
   * demo3
+  * Color class
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

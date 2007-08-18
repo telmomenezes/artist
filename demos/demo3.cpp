@@ -22,15 +22,18 @@ int main(int argc, char *argv[])
 
 	win->setTitle("Pycasso Demo #3");
 
-	root->setBackgroundColor(1.0f, 1.0f, 1.0f);
+	//root->setBackgroundColor(pyc::Color(1.0f, 1.0f, 1.0f));
+	pyc::Color color1(1.0f, 0.0f, 0.0f);
+	pyc::Color color2(0.0f, 1.0f, 1.0f, 0.5f);
+	pyc::Color color3(1.0f, 1.0f, 1.0f);
 
         pyc::Layer* subLayer = win->createLayer(200, 200);
 
 	subLayer->startDrawing();
-	subLayer->setColor(1.0f, 0.0f, 0.0f);
-	subLayer->drawFilledCircle(250.0f, 250.0f, 250.0f);
-	subLayer->setColor(0.0f, 1.0f, 1.0f, 0.5f);
-	subLayer->drawFilledCircle(50.0f, 50.0f, 50.0f);
+	subLayer->setColor(color1);
+	subLayer->fillCircle(250.0f, 250.0f, 250.0f);
+	subLayer->setColor(color2);
+	subLayer->fillCircle(50.0f, 50.0f, 50.0f);
 	subLayer->stopDrawing();
 
 	bool exit = false;
@@ -38,7 +41,7 @@ int main(int argc, char *argv[])
 	while (!exit)
 	{
 		root->startDrawing();
-		root->setColor(1.0f, 1.0f, 1.0f);
+		root->setColor(color3);
 		root->drawLayer(subLayer, 10.0f, 10.0f);
 		root->stopDrawing();
 

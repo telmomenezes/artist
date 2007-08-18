@@ -81,19 +81,14 @@ void LayerOpenGL::stopDrawing()
 	}
 }
 
-void LayerOpenGL::setColor(float red,
-				float green,
-				float blue,
-				float alpha)
+void LayerOpenGL::setColor(Color &c)
 {
-	glColor4f(red, green, blue, alpha);
+	glColor4f(c.mRed, c.mGreen, c.mBlue, c.mAlpha);
 }
 
-void LayerOpenGL::setBackgroundColor(float red,
-				float green,
-				float blue)
+void LayerOpenGL::setBackgroundColor(Color &c)
 {
-	glClearColor(red, green, blue, 0.0f);
+	glClearColor(c.mRed, c.mGreen, c.mBlue, c.mAlpha);
 }
 
 void LayerOpenGL::setPointSize(float size)
@@ -136,7 +131,7 @@ void LayerOpenGL::drawTriangle(float x1,
 	glEnd();
 }
 
-void LayerOpenGL::drawFilledTriangle(float x1,
+void LayerOpenGL::fillTriangle(float x1,
 					float y1,
 					float x2,
 					float y2,
@@ -150,7 +145,7 @@ void LayerOpenGL::drawFilledTriangle(float x1,
 	glEnd();
 }
 
-void LayerOpenGL::drawFilledSquare(float x,
+void LayerOpenGL::fillSquare(float x,
 					float y,
 					float rad,
 					float rot)
@@ -171,7 +166,7 @@ void LayerOpenGL::drawFilledSquare(float x,
 	glEnd();
 }
 
-void LayerOpenGL::drawFilledCircle(float x,
+void LayerOpenGL::fillCircle(float x,
 					float y,
 					float rad,
 					float beginAngle,

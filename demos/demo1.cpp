@@ -22,19 +22,20 @@ int main(int argc, char *argv[])
 
 	win->setTitle("Pycasso Demo #1");
 
-	root->setBackgroundColor(1.0f, 1.0f, 1.0f);
+	//root->setBackgroundColor(pyc::Color(1.0f, 1.0f, 1.0f));
 
 	bool exit = false;
 	float x = 400.0f;
         float y = 300.0f;
 	float deltaX = 0.5f;
         float deltaY = 0.5f;
+	pyc::Color circleColor(1.0f, 0.0f, 0.0f);
 
 	while (!exit)
 	{
 		root->startDrawing();
-		root->setColor(1.0f, 0.0f, 0.0f);
-		root->drawFilledCircle(x, y, 50.0f);
+		root->setColor(circleColor);
+		root->fillCircle(x, y, 50.0f);
 		root->stopDrawing();
 
 		x += deltaX;

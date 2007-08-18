@@ -11,6 +11,7 @@
 #if !defined(__INCLUDE_PYCASSO_LAYER_H)
 #define __INCLUDE_PYCASSO_LAYER_H
 
+#include "Color.h"
 #include <math.h>
 #include <string>
 
@@ -29,13 +30,8 @@ public:
 	virtual void startDrawing()=0;
 	virtual void stopDrawing()=0;
 
-	virtual void setColor(float red,
-				float green,
-				float blue,
-				float alpha=1.0f)=0;
-	virtual void setBackgroundColor(float red,
-				float green,
-				float blue)=0;
+	virtual void setColor(Color &c)=0;
+	virtual void setBackgroundColor(Color &c)=0;
 
 	virtual void setPointSize(float size)=0;
 	virtual void setLineWidth(float width)=0;
@@ -48,17 +44,17 @@ public:
 					float y2,
 					float x3,
 					float y3)=0;
-	virtual void drawFilledTriangle(float x1,
+	virtual void fillTriangle(float x1,
 					float y1,
 					float x2,
 					float y2,
 					float x3,
 					float y3)=0;
-	virtual void drawFilledSquare(float x,
+	virtual void fillSquare(float x,
 					float y,
 					float rad,
 					float rot=0.0f)=0;
-	virtual void drawFilledCircle(float x,
+	virtual void fillCircle(float x,
 					float y,
 					float rad,
 					float beginAngle=0.0f,
