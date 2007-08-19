@@ -15,7 +15,8 @@ SET(SOURCE_FILES ${SOURCE_FILES}
 	src/Pycasso.cpp
 	src/Window.cpp
 	src/Layer.cpp
-	src/EventQ.cpp)
+	src/EventQ.cpp
+	src/PycassoException.cpp)
 
 SET(INCLUDE_DIRS include)
 

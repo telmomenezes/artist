@@ -12,4 +12,5 @@
 #include "Window.h"
 #include "Layer.h"
 #include "EventQ.h"
+#include "PycassoException.h"
 
