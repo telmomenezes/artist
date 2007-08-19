@@ -81,14 +81,28 @@ void LayerOpenGL::stopDrawing()
 	}
 }
 
-void LayerOpenGL::setColor(Color &c)
+void LayerOpenGL::setColor(unsigned int red,
+				unsigned int green,
+				unsigned int blue,
+				unsigned int alpha)
 {
-	glColor4f(c.mRed, c.mGreen, c.mBlue, c.mAlpha);
+	mRed = red;
+	mGreen = green;
+	mBlue = blue;
+	mAlpha = alpha;
+	glColor4ub(mRed, mGreen, mBlue, mAlpha);
 }
 
-void LayerOpenGL::setBackgroundColor(Color &c)
+void LayerOpenGL::setBackgroundColor(unsigned int red,
+					unsigned int green,
+					unsigned int blue)
 {
-	glClearColor(c.mRed, c.mGreen, c.mBlue, c.mAlpha);
+	float fRed = ((float)red) / 255.0f;
+	float fGreen = ((float)green) / 255.0f;
+	float fBlue = ((float)blue) / 255.0f;
+
+	glClearColor(fRed, fGreen, fBlue, 1.0f);
+
 }
 
 void LayerOpenGL::setPointSize(float size)

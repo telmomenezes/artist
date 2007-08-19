@@ -28,8 +28,13 @@ public:
 	virtual void startDrawing();
 	virtual void stopDrawing();
 
-	virtual void setColor(Color &c);
-	virtual void setBackgroundColor(Color &c);
+	virtual void setColor(unsigned int red,
+				unsigned int green,
+				unsigned int blue,
+				unsigned int alpha);
+	virtual void setBackgroundColor(unsigned int red,
+					unsigned int green,
+					unsigned int blue);
 
 	virtual void setPointSize(float size);
 	virtual void setLineWidth(float width);

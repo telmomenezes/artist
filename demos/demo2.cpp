@@ -22,21 +22,18 @@ int main(int argc, char *argv[])
 
 	win->setTitle("Pycasso Demo #2");
 
-	//root->setBackgroundColor(pyc::Color(1.0f, 1.0f, 1.0f));
+	root->setBackgroundColor(255, 255, 255);
 
         pyc::Layer* pngImage = win->createPNGLayer("media/avignon.png");
 
 	bool exit = false;
 
-	pyc::Color backColor(1.0f, 0.0f, 0.0f);
-	pyc::Color frontColor(1.0f, 1.0f, 1.0f);
-
 	while (!exit)
 	{
 		root->startDrawing();
-		root->setColor(backColor);
+		root->setColor(255, 0, 0);
 		root->drawLayer(pngImage, 0.0f, 0.0f, 1000.0f, 1000.0f);
-		root->setColor(frontColor);
+		root->setColor(255, 255, 255);
 		root->drawLayer(pngImage, 10.0f, 10.0f);
 		root->stopDrawing();
 

@@ -12,5 +12,4 @@
 #include "Window.h"
 #include "Layer.h"
 #include "EventQ.h"
-#include "Color.h"
 
