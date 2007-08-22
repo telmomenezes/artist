@@ -8,6 +8,7 @@
  */
 
 #include "LayerOpenGL.h"
+#include "PycassoException.h"
 #include "functions.cpp"
 
 #include <png.h>
@@ -269,7 +270,7 @@ void LayerOpenGL::drawLayer(Layer* layer,
 	glDisable(GL_TEXTURE_2D);
 }
 
-bool LayerOpenGL::_initEmpty(int width, int height)
+void LayerOpenGL::_initEmpty(int width, int height)
 {
 	int texWidth = nextPowerOfTwo(width);
 	int texHeight = nextPowerOfTwo(height);
@@ -309,7 +310,7 @@ bool LayerOpenGL::_initEmpty(int width, int height)
 	mHeight = height;
 }
 
-bool LayerOpenGL::_loadPNG(std::string filePath)
+void LayerOpenGL::_loadPNG(std::string filePath)
 {
         FILE *infile;
 	png_structp pngPtr;
@@ -332,7 +333,9 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 	infile = fopen(filePath.c_str(), "rb");
 	if (!infile)
 	{
-		return false;
+		std::string text = "Loading PNG (" + filePath + "): failed to open file";
+		PycassoException exception(EXCEPTION_FILE, text);
+		throw exception;
 	}
 
 	fread(sig, 1, 8, infile);
@@ -340,16 +343,18 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 	if (!png_check_sig((unsigned char*)sig, 8))
 	{
 		fclose(infile);
-		//ERROR: wrong file format
-		return false;
+		std::string text = "Loading PNG (" + filePath + "): wrong file format";
+		PycassoException exception(EXCEPTION_FILE, text);
+		throw exception;
 	}
  
 	pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!pngPtr)
 	{
 		fclose(infile);
-		//ERROR: out of memory!
-		return false;
+		std::string text = "Loading PNG (" + filePath + "): out of memory";
+		PycassoException exception(EXCEPTION_MEMORY, text);
+		throw exception;
 	}
  
 	infoPtr = png_create_info_struct(pngPtr);
@@ -357,8 +362,9 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 	{
 		png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
 		fclose(infile);
-		//ERROR: out of memory!
-		return false;
+		std::string text = "Loading PNG (" + filePath + "): out of memory";
+		PycassoException exception(EXCEPTION_MEMORY, text);
+		throw exception;
 	}
    
   
@@ -366,7 +372,9 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 	{
 		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
 		fclose(infile);
-		return false;
+		std::string text = "Loading PNG (" + filePath + ")";
+		PycassoException exception(EXCEPTION_MEMORY, text);
+		throw exception;
 	}
 
 	png_init_io(pngPtr, infile);
@@ -431,7 +439,9 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 	if ((imageData = (unsigned char*)malloc(rowbytes * height)) == NULL)
 	{
 		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-		return false;
+		std::string text = "Loading PNG (" + filePath + ")";
+		PycassoException exception(EXCEPTION_MEMORY, text);
+		throw exception;
 	}
 
 	if ((rowPointers = (png_bytepp)malloc(height * sizeof(png_bytep))) == NULL)
@@ -439,7 +449,9 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
 		free(imageData);
 		imageData = NULL;
-		return false;
+		std::string text = "Loading PNG (" + filePath + ")";
+		PycassoException exception(EXCEPTION_MEMORY, text);
+		throw exception;
 	}
 
 	for (i = 0;  i < height;  ++i)
@@ -484,8 +496,6 @@ bool LayerOpenGL::_loadPNG(std::string filePath)
 
 	delete imageData;
 	delete textureData;
-
-	return true;
 }
 
 }

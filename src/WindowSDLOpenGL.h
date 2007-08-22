@@ -22,7 +22,7 @@ public:
 	WindowSDLOpenGL();
 	virtual ~WindowSDLOpenGL();
 
-	virtual bool init(int width,
+	virtual void init(int width,
 		int height,
 		bool fullScreen=false,
 		int colorDepth=0,

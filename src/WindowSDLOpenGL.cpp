@@ -9,6 +9,7 @@
 
 #include "WindowSDLOpenGL.h"
 #include "LayerSDLOpenGL.h"
+#include "PycassoException.h"
 
 #include "SDL.h"
 #include "SDL_opengl.h" 
@@ -24,30 +25,19 @@ WindowSDLOpenGL::~WindowSDLOpenGL()
 {
 }
 
-bool WindowSDLOpenGL::init(int width,
+void WindowSDLOpenGL::init(int width,
 				int height,
 				bool fullScreen,
 				int colorDepth,
 				bool resizable,
 				bool windowDecorations)
 {
-	try
-	{
-		Window::init(width, height, colorDepth, fullScreen, resizable, windowDecorations);
-	}
-	catch (std::string exception)
-	{
-		throw exception;
-		return false;
-	}
+	Window::init(width, height, colorDepth, fullScreen, resizable, windowDecorations);
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		char errorText[255];
-		sprintf(errorText, "Unable to initialize SDL: %s\n", SDL_GetError());
-		std::string errorStr = errorText;
-		throw errorText;
-		return false;
+		PycassoException exception(EXCEPTION_INITIALIZATION, SDL_GetError());
+		throw exception;
 	}
  
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -71,11 +61,8 @@ bool WindowSDLOpenGL::init(int width,
 
 	if (SDL_SetVideoMode(width, height, colorDepth, flags) == NULL)
 	{
-		char errorText[255];
-		sprintf(errorText, "Unable to set SDL video mode: %s\n", SDL_GetError());
-		std::string errorStr = errorText;
-		throw errorText;
-		return false;
+		PycassoException exception(EXCEPTION_INITIALIZATION, SDL_GetError());
+		throw exception;
 	}
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -100,8 +87,6 @@ bool WindowSDLOpenGL::init(int width,
 
 	mRootLayer = new LayerSDLOpenGL();
 	mRootLayer->_setRoot(mWidth, mHeight);
-
-	return true;
 }
 
 void WindowSDLOpenGL::setTitle(std::string title)
@@ -129,11 +114,10 @@ Layer* WindowSDLOpenGL::createLayer(int width, int height)
         {
                 layer->_initEmpty(width, height);
         }
-        catch (std::string exception)
+        catch (PycassoException exception)
         {
                 delete layer;
                 throw exception;
-                return NULL;
         }
 
         mLayers.push_back(layer);
@@ -149,11 +133,10 @@ Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
         {
                 layer->_loadPNG(filePath);
         }
-        catch (std::string exception)
+        catch (PycassoException exception)
         {
                 delete layer;
                 throw exception;
-                return NULL;
         }
 
         mLayers.push_back(layer);

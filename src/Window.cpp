@@ -8,6 +8,7 @@
  */
 
 #include "Window.h"
+#include "PycassoException.h"
 
 namespace pyc
 {
@@ -33,7 +34,7 @@ Window::~Window()
         }
 }
 
-bool Window::init(int width,
+void Window::init(int width,
 			int height,
 			bool fullScreen,
 			int colorDepth,
@@ -42,17 +43,14 @@ bool Window::init(int width,
 {
 	mWidth = width;
 	mHeight = height;
-
-	return true;
 }
 
 Layer* Window::getRootLayer()
 {
 	if (mRootLayer == NULL)
 	{
-		std::string errorText = "Window not initialized";
-		throw errorText;
-		return NULL;
+		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Window not initialized");
+		throw exception;
 	}
 
 	return mRootLayer;

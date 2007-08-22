@@ -1,20 +1,11 @@
-/*
- * Pycasso
- * Copyright (C) 2007 Telmo Menezes.
- * telmo@telmomenezes.com
- *
- * This program is free software, released under the zlib/libpng
- * license. The license text is available in the file COPYING.
- */
-
-#if !defined(__INCLUDE_PYCASSO_TYPES_H)
-#define __INCLUDE_PYCASSO_TYPES_H
-
-namespace pyc
-{
+%ModuleCode
+#include "pyc_types.h"
+using namespace pyc;
+%End
 
 enum System
 {
+
 	SYSTEM_NULL,
 	SYSTEM_SDL_OPENGL
 };
@@ -188,8 +179,3 @@ enum ExceptionCode
 	EXCEPTION_MEMORY = 4,
 	EXCEPTION_FILE = 5
 };
-
-}
-
-#endif
-

@@ -69,8 +69,8 @@ public:
 				float width=0.0f,
 				float height=0.0f);
 
-	virtual bool _initEmpty(int width, int height);
-	virtual bool _loadPNG(std::string filePath);
+	virtual void _initEmpty(int width, int height);
+	virtual void _loadPNG(std::string filePath);
 
 protected:
         GLuint mTexture;

@@ -8,17 +8,9 @@ int main(int argc, char *argv[])
 	pyc::Layer* root = NULL;
 	pyc::EventQ* event = NULL;
 
-	try
-	{
-		win = pycasso.createWindow(800, 600);
-		event = pycasso.createEventQ();
-		root = win->getRootLayer();
-	}
-	catch(std::string exception)
-	{
-		printf("%s", exception.c_str());
-		return 1;
-	}
+	win = pycasso.createWindow(800, 600);
+	event = pycasso.createEventQ();
+	root = win->getRootLayer();
 
 	win->setTitle("Pycasso Demo #1");
 

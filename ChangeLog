@@ -10,6 +10,7 @@ pycasso (0.2)
   * demo3
   * Color functions
   * PycassoException
+  * Python Module by way of SIP
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

@@ -8,6 +8,7 @@
  */
 
 #include "Pycasso.h"
+#include "PycassoException.h"
 #include <stdio.h>
 #include <string>
 
@@ -64,9 +65,8 @@ Window* Pycasso::createWindow(int width,
 {
 	if (mWindow)
 	{
-		std::string errorStr = "Window already created";
-		throw errorStr;
-		return false;
+		PycassoException exception(EXCEPTION_INITIALIZATION, "Window already created");
+		throw exception;
 	}
 
 	switch (mPreferredSystem)
@@ -91,12 +91,11 @@ Window* Pycasso::createWindow(int width,
 					resizable,
 					windowDecorations);
 		}
-		catch (std::string exception)
+		catch (PycassoException exception)
 		{
 			delete mWindow;
 			mWindow = NULL;
 			throw exception;
-			return NULL;
 		}
 	}
 
@@ -107,9 +106,8 @@ Window* Pycasso::getWindow()
 {
 	if (!mWindow)
 	{
-		std::string errorStr = "Window not created";
-		throw errorStr;
-		return NULL;
+		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Window not created");
+		throw exception;
 	}
 
 	return mWindow;
@@ -119,9 +117,8 @@ EventQ* Pycasso::createEventQ()
 {
 	if (mEventQ)
 	{
-		std::string errorStr = "Event queue already created";
-		throw errorStr;
-		return false;
+		PycassoException exception(EXCEPTION_OBJECT_EXISTS, "Event queue already created");
+		throw exception;
 	}
 
 	switch (mPreferredSystem)
@@ -146,7 +143,6 @@ EventQ* Pycasso::createEventQ()
 			delete mEventQ;
 			mEventQ = NULL;
 			throw exception;
-			return NULL;
 		}
 	}
 
@@ -157,9 +153,8 @@ EventQ* Pycasso::getEventQ()
 {
 	if (!mEventQ)
 	{
-		std::string errorStr = "Event queue not created";
-		throw errorStr;
-		return NULL;
+		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Event queue not created");
+		throw exception;
 	}
 
 	return mEventQ;

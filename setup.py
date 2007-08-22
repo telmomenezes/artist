@@ -1,16 +1,18 @@
+#!/usr/bin/python
+
 from distutils.core import setup, Extension
+import sipdistutils
 
 setup(name='pycasso',
-      version='0.1',
+      version='0.2',
       description='Cross-platform 2D graphics library with hardware acceleration support',
       author='Telmo Menezes',
       author_email='telmo@telmomenezes.com',
       url='http://www.telmomenezes.com/pycasso',
-      ext_modules=[Extension('_pycasso', ['pycasso.i', 'src/Session.cpp', 'src/Stage.cpp', 'src/StageObject.cpp', 'src/Object2D.cpp', 'src/Object3D.cpp', 'src/Shape3D.cpp', 'src/PhysicalObject.cpp', 'src/Light.cpp', 'src/EventHandler.cpp', 'src/Mouse.cpp', 'src/Keyboard.cpp', 'src/functions.cpp', 'src/PycassoError.cpp'],
-                swig_opts=['-c++'],
-                include_dirs=['src', '/usr/include/irrlicht'],
-                libraries=['Irrlicht', 'ode', 'GL', 'GLU', 'Xxf86vm', 'Xext', 'X11']
+      ext_modules=[Extension('pyc', ['sip/pyc.sip', 'src/Pycasso.cpp', 'src/Window.cpp', 'src/Layer.cpp', 'src/EventQ.cpp', 'src/PycassoException.cpp', 'src/LayerOpenGL.cpp', 'src/LayerSDLOpenGL.cpp', 'src/WindowSDLOpenGL.cpp', 'src/EventQSDL.cpp'],
+                include_dirs=['include', 'src', '/usr/include/SDL'],
+                libraries=['SDL', 'GL', 'GLU', 'png'],
+		define_macros=[('__PYCASSO_SYSTEM_SDLOPENGL', None)]
         )],
-      options={'build_ext':{'swig_opts':'-c++'}},
-      py_modules=['pycasso']
+      cmdclass = {'build_ext': sipdistutils.build_ext}
       )

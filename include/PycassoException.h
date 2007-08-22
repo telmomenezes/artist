@@ -10,6 +10,7 @@
 #if !defined(__INCLUDE_PYCASSO_EXCEPTION_H)
 #define __INCLUDE_PYCASSO_EXCEPTION_H
 
+#include "pyc_types.h"
 #include <string>
 
 namespace pyc
@@ -19,12 +20,18 @@ class PycassoException
 {
 public:
 	PycassoException();
-	PycassoException(unsigned int code);
-	PycassoException(unsigned int code, std::string extraText);
+	PycassoException(const PycassoException& exception);
+	PycassoException(ExceptionCode code);
+	PycassoException(ExceptionCode code, std::string extraText);
 	virtual ~PycassoException();
 
+	ExceptionCode getCode(){return mCode;}
+	std::string getText();
+
 protected:
-	unsigned int mCode;
+	std::string getCodeText();
+
+	ExceptionCode mCode;
 	std::string mExtraText;
 };
 

@@ -26,14 +26,14 @@ public:
 	int getWidth(){return mWidth;}
 	int getHeight(){return mHeight;}
 
-	virtual void startDrawing()=0;
-	virtual void stopDrawing()=0;
+	virtual void startDrawing(){}
+	virtual void stopDrawing(){}
 
 	
 	virtual void setColor(unsigned int red,
 				unsigned int green,
 				unsigned int blue,
-				unsigned int alpha)=0;
+				unsigned int alpha){}
 	virtual void setColor(unsigned int red,
 				unsigned int green,
 				unsigned int blue);
@@ -42,46 +42,46 @@ public:
 	virtual void setColorRGB(unsigned int color);
 	virtual void setBackgroundColor(unsigned int red,
 					unsigned int green,
-					unsigned int blue)=0;
+					unsigned int blue){}
 	virtual void setBackgroundColorRGB(unsigned int color);
 
-	virtual void setPointSize(float size)=0;
-	virtual void setLineWidth(float width)=0;
+	virtual void setPointSize(float size){}
+	virtual void setLineWidth(float width){}
 
-	virtual void drawPoint(float x, float y)=0;
-	virtual void drawLine(float x1, float y1, float x2, float y2)=0;
+	virtual void drawPoint(float x, float y){}
+	virtual void drawLine(float x1, float y1, float x2, float y2){}
 	virtual void drawTriangle(float x1,
 					float y1,
 					float x2,
 					float y2,
 					float x3,
-					float y3)=0;
+					float y3){}
 	virtual void fillTriangle(float x1,
 					float y1,
 					float x2,
 					float y2,
 					float x3,
-					float y3)=0;
+					float y3){}
 	virtual void fillSquare(float x,
 					float y,
 					float rad,
-					float rot=0.0f)=0;
+					float rot=0.0f){}
 	virtual void fillCircle(float x,
 					float y,
 					float rad,
 					float beginAngle=0.0f,
-					float endAngle=(M_PI * 2))=0;
+					float endAngle=(M_PI * 2)){}
 
         virtual void drawLayer(Layer* layer,
 				float x=0.0f,
 				float y=0.0f,
 				float width=0.0f,
-				float height=0.0f)=0;
+				float height=0.0f){}
 
 	bool isRoot(){return mRoot;}
 
-	virtual bool _initEmpty(int width, int height)=0;
-	virtual bool _loadPNG(std::string filePath)=0;
+	virtual void _initEmpty(int width, int height){}
+	virtual void _loadPNG(std::string filePath){}
 	void _setRoot(int width, int height);
 
 protected:
