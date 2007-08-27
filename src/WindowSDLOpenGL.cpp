@@ -8,7 +8,7 @@
  */
 
 #include "WindowSDLOpenGL.h"
-#include "LayerSDLOpenGL.h"
+#include "LayerOpenGL.h"
 #include "PycassoException.h"
 
 #include "SDL.h"
@@ -85,8 +85,18 @@ void WindowSDLOpenGL::init(int width,
 	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
 
-	mRootLayer = new LayerSDLOpenGL();
+	mRootLayer = new LayerOpenGL();
 	mRootLayer->_setRoot(mWidth, mHeight);
+}
+
+void WindowSDLOpenGL::update()
+{
+	SDL_GL_SwapBuffers();
+
+	if (mClearOnUpdate)
+	{
+		mRootLayer->clear();
+	}
 }
 
 void WindowSDLOpenGL::setTitle(std::string title)
@@ -108,7 +118,7 @@ void WindowSDLOpenGL::showCursor(bool show)
 
 Layer* WindowSDLOpenGL::createLayer(int width, int height)
 {
-	LayerSDLOpenGL* layer = new LayerSDLOpenGL();
+	LayerOpenGL* layer = new LayerOpenGL();
 
         try
         {
@@ -127,7 +137,7 @@ Layer* WindowSDLOpenGL::createLayer(int width, int height)
 
 Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
 {
-        LayerSDLOpenGL* layer = new LayerSDLOpenGL();
+        LayerOpenGL* layer = new LayerOpenGL();
 
         try
         {
@@ -142,6 +152,11 @@ Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
         mLayers.push_back(layer);
 
         return layer;
+}
+
+void WindowSDLOpenGL::setClearOnUpdate(bool clear)
+{
+	Window::setClearOnUpdate(clear);
 }
 
 }

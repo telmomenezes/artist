@@ -24,10 +24,10 @@ int main(int argc, char *argv[])
 
 	while (!exit)
 	{
-		root->startDrawing();
 		root->setColor(255, 0, 0);
 		root->fillCircle(x, y, 50.0f);
-		root->stopDrawing();
+
+		win->update();
 
 		x += deltaX;
                 y += deltaY;

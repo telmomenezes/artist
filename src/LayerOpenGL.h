@@ -25,9 +25,6 @@ public:
 	LayerOpenGL();
 	virtual ~LayerOpenGL();
 
-	virtual void startDrawing();
-	virtual void stopDrawing();
-
 	virtual void setColor(unsigned int red,
 				unsigned int green,
 				unsigned int blue,
@@ -38,6 +35,8 @@ public:
 
 	virtual void setPointSize(float size);
 	virtual void setLineWidth(float width);
+
+	virtual void clear();
 
 	virtual void drawPoint(float x, float y);
 	virtual void drawLine(float x1, float y1, float x2, float y2);
@@ -73,6 +72,13 @@ public:
 	virtual void _loadPNG(std::string filePath);
 
 protected:
+	void lock();
+	void unlock();
+
+	bool mLocked;
+
+	static LayerOpenGL* mWorkingLayer;
+
         GLuint mTexture;
 
 	int mTextureWidth;

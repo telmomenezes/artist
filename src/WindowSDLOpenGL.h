@@ -29,12 +29,16 @@ public:
 		bool resizable=false,
 		bool windowDecorations=true);
 
+	virtual void update();
+
 	virtual void setTitle(std::string title);
 
 	virtual void showCursor(bool show);
 
 	virtual Layer* createLayer(int width, int height);
 	virtual Layer* createPNGLayer(std::string filePath);
+
+	virtual void setClearOnUpdate(bool clear);
 };
 
 }

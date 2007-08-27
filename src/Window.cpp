@@ -16,6 +16,7 @@ namespace pyc
 Window::Window()
 {
 	mRootLayer = NULL;
+	mClearOnUpdate = true;
 }
 
 Window::~Window()

@@ -18,21 +18,19 @@ int main(int argc, char *argv[])
 
         pyc::Layer* subLayer = win->createLayer(200, 200);
 
-	subLayer->startDrawing();
 	subLayer->setColor(255, 0, 0);
 	subLayer->fillCircle(250.0f, 250.0f, 250.0f);
 	subLayer->setColor(0, 255, 255, 100);
 	subLayer->fillCircle(50.0f, 50.0f, 50.0f);
-	subLayer->stopDrawing();
 
 	bool exit = false;
 
 	while (!exit)
 	{
-		root->startDrawing();
 		root->setColor(255, 255, 255, 255);
 		root->drawLayer(subLayer, 10.0f, 10.0f);
-		root->stopDrawing();
+
+		win->update();
 
 		while (event->next())
 		{

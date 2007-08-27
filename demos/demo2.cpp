@@ -22,12 +22,12 @@ int main(int argc, char *argv[])
 
 	while (!exit)
 	{
-		root->startDrawing();
 		root->setColor(255, 0, 0);
 		root->drawLayer(pngImage, 0.0f, 0.0f, 1000.0f, 1000.0f);
 		root->setColor(255, 255, 255);
 		root->drawLayer(pngImage, 10.0f, 10.0f);
-		root->stopDrawing();
+
+		win->update();
 
 		while (event->next())
 		{

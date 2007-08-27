@@ -16,8 +16,11 @@
 namespace pyc
 {
 
+LayerOpenGL* LayerOpenGL::mWorkingLayer = NULL;
+
 LayerOpenGL::LayerOpenGL()
 {
+	mLocked = true;
         mTexture = 0;
 	mTextureWidth = 0;
 	mTextureHeight = 0;
@@ -29,44 +32,56 @@ LayerOpenGL::~LayerOpenGL()
 	glDeleteTextures(1, textures);
 }
 
-void LayerOpenGL::startDrawing()
+void LayerOpenGL::unlock()
 {
-	int width;
-	int height;
-
-	if (mRoot)
+	if (mWorkingLayer != this)
 	{
-		width = mWidth;
-		height = mHeight;
-	}
-	else
-	{
-		width = mTextureWidth;
-		height = mTextureHeight;
-	}
+		if (mWorkingLayer != NULL)
+		{
+			mWorkingLayer->lock();
+		}
 
-	glViewport(0, 0, width, height);
+		mWorkingLayer = this;
+
+		int width;
+		int height;
+
+		if (mRoot)
+		{
+			width = mWidth;
+			height = mHeight;
+		}
+		else
+		{
+			width = mTextureWidth;
+			height = mTextureHeight;
+		}
+
+		glViewport(0, 0, width, height);
 	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
 
-	if (mRoot)
-	{
-		glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
+		if (mRoot)
+		{
+			glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
+		}
+		else
+		{
+			glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
+		}
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
 	}
-	else
-	{
-		glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
-	}
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
+	mLocked = false;
 }
 
-void LayerOpenGL::stopDrawing()
+void LayerOpenGL::lock()
 {
 	if (!mRoot)
 	{
@@ -80,6 +95,8 @@ void LayerOpenGL::stopDrawing()
 					mWidth,
 					mHeight);
 	}
+
+	mLocked = true;
 }
 
 void LayerOpenGL::setColor(unsigned int red,
@@ -87,6 +104,11 @@ void LayerOpenGL::setColor(unsigned int red,
 				unsigned int blue,
 				unsigned int alpha)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+	
 	mRed = red;
 	mGreen = green;
 	mBlue = blue;
@@ -98,6 +120,11 @@ void LayerOpenGL::setBackgroundColor(unsigned int red,
 					unsigned int green,
 					unsigned int blue)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	float fRed = ((float)red) / 255.0f;
 	float fGreen = ((float)green) / 255.0f;
 	float fBlue = ((float)blue) / 255.0f;
@@ -108,16 +135,42 @@ void LayerOpenGL::setBackgroundColor(unsigned int red,
 
 void LayerOpenGL::setPointSize(float size)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glPointSize(size);
 }
 
 void LayerOpenGL::setLineWidth(float width)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glLineWidth(width);
+}
+
+void LayerOpenGL::clear()
+{
+	if (mLocked)
+	{
+		unlock();
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 }
 
 void LayerOpenGL::drawPoint(float x, float y)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glBegin(GL_POINTS);
 		glVertex3f(x, y, 0.0f);
 	glEnd();
@@ -125,6 +178,11 @@ void LayerOpenGL::drawPoint(float x, float y)
 
 void LayerOpenGL::drawLine(float x1, float y1, float x2, float y2)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glBegin(GL_LINES);
 		glVertex3f(x1, y1, 0.0f);
 		glVertex3f(x2, y2, 0.0f);
@@ -138,6 +196,11 @@ void LayerOpenGL::drawTriangle(float x1,
 					float x3,
 					float y3)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glBegin(GL_LINE_STRIP);
 		glVertex3f(x1, y1, 0.0f);
 		glVertex3f(x2, y2, 0.0f);
@@ -153,6 +216,11 @@ void LayerOpenGL::fillTriangle(float x1,
 					float x3,
 					float y3)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	glBegin(GL_TRIANGLES);
 		glVertex3f(x1, y1, 0.0f);
 		glVertex3f(x2, y2, 0.0f);
@@ -165,6 +233,11 @@ void LayerOpenGL::fillSquare(float x,
 					float rad,
 					float rot)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	float ang = rot;
 	float deltaAng = M_PI * 0.5;
 
@@ -187,6 +260,11 @@ void LayerOpenGL::fillCircle(float x,
 					float beginAngle,
 					float endAngle)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
 	float ang = beginAngle;
 	bool stop = false;
 
@@ -217,6 +295,11 @@ void LayerOpenGL::drawLayer(Layer* layer,
 		float width,
 		float height)
 {
+	if (mLocked)
+	{
+		unlock();
+	}
+
         LayerOpenGL* layGL = (LayerOpenGL*)layer;
 
 	float targetWidth;

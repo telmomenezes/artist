@@ -25,7 +25,6 @@ IF(SYSTEM_SDLOPENGL)
 
 	SET(SOURCE_FILES ${SOURCE_FILES}
 		src/LayerOpenGL.cpp
-		src/LayerSDLOpenGL.cpp
 		src/WindowSDLOpenGL.cpp
 		src/EventQSDL.cpp)
 

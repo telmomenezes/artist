@@ -31,6 +31,8 @@ public:
 				bool resizable=false,
 				bool windowDecorations=true);
 
+	virtual void update()=0;
+
 	virtual void setTitle(std::string title)=0;
 
 
@@ -44,11 +46,14 @@ public:
 	virtual Layer* createPNGLayer(std::string filePath)=0;
 	bool removeLayer(Layer* layer);
 
+	virtual void setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
+
 protected:
 	int mWidth;
 	int mHeight;
 	Layer* mRootLayer;
 	std::list<Layer*> mLayers;
+	bool mClearOnUpdate;
 };
 
 }
