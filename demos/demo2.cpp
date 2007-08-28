@@ -17,11 +17,17 @@ int main(int argc, char *argv[])
 	root->setBackgroundColor(255, 255, 255);
 
         pyc::Layer* pngImage = win->createPNGLayer("media/avignon.png");
+	
 
 	bool exit = false;
 
+	float xit = 0;
 	while (!exit)
 	{
+		pngImage->setColor(0, 255, 0);
+		pngImage->drawLine(0, 0, xit, xit);
+		xit += 0.1;
+
 		root->setColor(255, 0, 0);
 		root->drawLayer(pngImage, 0.0f, 0.0f, 1000.0f, 1000.0f);
 		root->setColor(255, 255, 255);

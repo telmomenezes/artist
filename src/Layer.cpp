@@ -17,9 +17,9 @@ Layer::Layer()
         mWidth = 0;
         mHeight = 0;
 	mRoot = false;
-	mRed = 0;
-	mGreen = 0;
-	mBlue = 0;
+	mRed = 255;
+	mGreen = 255;
+	mBlue = 255;
 	mAlpha = 255;
 }
 

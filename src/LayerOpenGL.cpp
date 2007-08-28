@@ -24,6 +24,11 @@ LayerOpenGL::LayerOpenGL()
         mTexture = 0;
 	mTextureWidth = 0;
 	mTextureHeight = 0;
+	mClearOnUpdate = true;
+	mFirstUnlock = true;
+	mfRed = 1.0f;
+	mfGreen = 1.0f;
+	mfBlue = 1.0f;
 }
 
 LayerOpenGL::~LayerOpenGL()
@@ -34,6 +39,8 @@ LayerOpenGL::~LayerOpenGL()
 
 void LayerOpenGL::unlock()
 {
+	mLocked = false;
+
 	if (mWorkingLayer != this)
 	{
 		if (mWorkingLayer != NULL)
@@ -43,19 +50,8 @@ void LayerOpenGL::unlock()
 
 		mWorkingLayer = this;
 
-		int width;
-		int height;
-
-		if (mRoot)
-		{
-			width = mWidth;
-			height = mHeight;
-		}
-		else
-		{
-			width = mTextureWidth;
-			height = mTextureHeight;
-		}
+		int width = mWidth;
+		int height = mHeight;
 
 		glViewport(0, 0, width, height);
 	
@@ -72,18 +68,29 @@ void LayerOpenGL::unlock()
 		}
 
 		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		glLoadIdentity();	
+	}
 
+	if ((mRoot && mClearOnUpdate) || ((!mRoot) && mFirstUnlock))
+	{
+		glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 	}
+	else if (mTexture != 0)
+	{
+		drawLayer(this, 0.0f, 0.0f);
+	}
 
-	mLocked = false;
+	if (mFirstUnlock)
+	{
+		mFirstUnlock = false;
+	}
 }
 
 void LayerOpenGL::lock()
 {
-	if (!mRoot)
+	if ((!mRoot) || (!mClearOnUpdate))
 	{
 		glBindTexture(GL_TEXTURE_2D, mTexture);
 		glCopyTexSubImage2D(GL_TEXTURE_2D,
@@ -125,11 +132,11 @@ void LayerOpenGL::setBackgroundColor(unsigned int red,
 		unlock();
 	}
 
-	float fRed = ((float)red) / 255.0f;
-	float fGreen = ((float)green) / 255.0f;
-	float fBlue = ((float)blue) / 255.0f;
+	mfRed = ((float)red) / 255.0f;
+	mfGreen = ((float)green) / 255.0f;
+	mfBlue = ((float)blue) / 255.0f;
 
-	glClearColor(fRed, fGreen, fBlue, 1.0f);
+	glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
 
 }
 
@@ -579,6 +586,8 @@ void LayerOpenGL::_loadPNG(std::string filePath)
 
 	delete imageData;
 	delete textureData;
+
+	mFirstUnlock = false;
 }
 
 }

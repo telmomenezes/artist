@@ -87,6 +87,7 @@ void WindowSDLOpenGL::init(int width,
 
 	mRootLayer = new LayerOpenGL();
 	mRootLayer->_setRoot(mWidth, mHeight);
+	((LayerOpenGL*)mRootLayer)->_setClearOnUpdate(mClearOnUpdate);
 }
 
 void WindowSDLOpenGL::update()
@@ -157,6 +158,11 @@ Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
 void WindowSDLOpenGL::setClearOnUpdate(bool clear)
 {
 	Window::setClearOnUpdate(clear);
+
+	if (mRootLayer != NULL)
+	{
+		((LayerOpenGL*)mRootLayer)->_setClearOnUpdate(clear);
+	}
 }
 
 }

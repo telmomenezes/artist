@@ -70,6 +70,7 @@ public:
 
 	virtual void _initEmpty(int width, int height);
 	virtual void _loadPNG(std::string filePath);
+	void _setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
 
 protected:
 	void lock();
@@ -83,6 +84,13 @@ protected:
 
 	int mTextureWidth;
 	int mTextureHeight;
+
+	bool mClearOnUpdate;
+	bool mFirstUnlock;
+
+	float mfRed;
+	float mfGreen;
+	float mfBlue;
 };
 
 }
