@@ -11,6 +11,11 @@ pycasso (0.2)
   * Color functions
   * PycassoException
   * Python Module by way of SIP
+  * startDrawing() and stopDrawing() removed
+  * Window::update()
+  * Layer::clear()
+  * Window::setClearOnUpdate()
+  * drawSquare(), drawCircle()
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

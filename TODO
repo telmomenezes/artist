@@ -1,11 +1,39 @@
-== TODO ==
+== Features ==
 
 * Font drawing
-* All drawing primitives
 * Draw pixel matrix
-* Python module
 * CMake install
 * Zooming
 * Mouse coordinates vs. layer coordinates
 * Time / fixed FPS system
+* setFill(layer)
+* Gradients
+* Window::setIcon()
 
+== Drawing Primitives ==
+
+* drawEllipse()
+* fillEllipse()
+* drawRectangle()
+* fillRectangle()
+* drawPolly()
+* fillPolly()
+
+== OpenGL ==
+
+* Layers with pbuffers when supported
+* Draw to non-root layer before update
+
+== Systems ==
+
+* Null
+* XOpenGL
+* OSXOpenGL
+* WinOpenGL
+* WinDirectX
+
+== Documents ==
+
+* API
+* Tutorials
+* Manual

@@ -224,6 +224,65 @@ void LayerOpenGL::drawTriangle(float x1,
 	glEnd();
 }
 
+void LayerOpenGL::drawSquare(float x,
+				float y,
+				float rad,
+				float rot)
+{
+	if (mLocked)
+	{
+		unlock();
+	}
+
+	float ang = rot + M_PI * 0.25;
+	float deltaAng = M_PI * 0.5;
+
+	glBegin(GL_LINE_STRIP);
+
+	for (unsigned int i = 0; i < 5; i++)
+	{
+		glVertex3f(x + (cosf(ang) * rad),
+			y + (sinf(ang) * rad),
+			0.0f);
+		ang += deltaAng;
+	}
+
+	glEnd();
+}
+
+void LayerOpenGL::drawCircle(float x,
+				float y,
+				float rad,
+				float beginAngle,
+				float endAngle)
+{
+	if (mLocked)
+	{
+		unlock();
+	}
+
+	float ang = beginAngle;
+	bool stop = false;
+
+	glBegin(GL_LINE_STRIP);
+
+	while (!stop)
+	{
+		if (ang >= endAngle)
+		{
+			ang = endAngle;
+			stop = true;
+		}
+
+		glVertex3f(x + (cosf(ang) * rad),
+			y + (sinf(ang) * rad),
+			0.0f);
+		ang += 0.1f;
+	}
+
+	glEnd();
+}
+
 void LayerOpenGL::fillTriangle(float x1,
 					float y1,
 					float x2,
@@ -253,7 +312,7 @@ void LayerOpenGL::fillSquare(float x,
 		unlock();
 	}
 
-	float ang = rot;
+	float ang = rot + M_PI * 0.25;
 	float deltaAng = M_PI * 0.5;
 
 	glBegin(GL_QUADS);

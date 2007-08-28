@@ -46,6 +46,15 @@ public:
 					float y2,
 					float x3,
 					float y3);
+	virtual void drawSquare(float x,
+					float y,
+					float rad,
+					float rot=0.0f);
+	virtual void drawCircle(float x,
+					float y,
+					float rad,
+					float beginAngle=0.0f,
+					float endAngle=(M_PI * 2));
 	virtual void fillTriangle(float x1,
 					float y1,
 					float x2,
