@@ -21,12 +21,12 @@ int main(int argc, char *argv[])
 
 	bool exit = false;
 
-	float xit = 0;
+	float length = 0;
 	while (!exit)
 	{
 		pngImage->setColor(0, 255, 0);
-		pngImage->drawLine(0, 0, xit, xit);
-		xit += 0.1;
+		pngImage->drawLine(0, 0, length, length);
+		length += 0.1;
 
 		root->setColor(255, 0, 0);
 		root->drawLayer(pngImage, 0.0f, 0.0f, 1000.0f, 1000.0f);

@@ -67,6 +67,14 @@ void LayerOpenGL::unlock()
 			glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
 		}
 
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glEnable(GL_LINE_SMOOTH);
+		glEnable(GL_POINT_SMOOTH);
+		glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+		glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();	
 	}
