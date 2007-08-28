@@ -17,19 +17,19 @@ public:
 				bool resizable=false,
 				bool windowDecorations=true);
 
-	virtual void update();
+	virtual void update()=0;
 
-	virtual void setTitle(std::string title);
+	virtual void setTitle(std::string title)=0;
 
 
 	int getWidth();
 	int getHeight();
 	Layer* getRootLayer();
 
-	virtual void showCursor(bool show);
+	virtual void showCursor(bool show)=0;
 
-	virtual Layer* createLayer(int width, int height);
-	virtual Layer* createPNGLayer(std::string filePath);
+	virtual Layer* createLayer(int width, int height)=0;
+	virtual Layer* createPNGLayer(std::string filePath)=0;
 	bool removeLayer(Layer* layer);
 
 	virtual void setClearOnUpdate(bool clear);
