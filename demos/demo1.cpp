@@ -27,9 +27,6 @@ int main(int argc, char *argv[])
 		root->setColor(255, 0, 0);
 		root->fillCircle(x, y, 50.0f);
 
-		root->setColor(0, 255, 0);
-		root->fillSquare(y, x, 50.0f, rot);
-
 		win->update();
 
 		x += deltaX;

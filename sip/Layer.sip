@@ -13,10 +13,6 @@ public:
 	int getWidth();
 	int getHeight();
 
-	virtual void startDrawing()=0;
-	virtual void stopDrawing()=0;
-
-	
 	virtual void setColor(unsigned int red,
 				unsigned int green,
 				unsigned int blue,
@@ -35,6 +31,8 @@ public:
 	virtual void setPointSize(float size)=0;
 	virtual void setLineWidth(float width)=0;
 
+	virtual void clear()=0;
+
 	virtual void drawPoint(float x, float y)=0;
 	virtual void drawLine(float x1, float y1, float x2, float y2)=0;
 	virtual void drawTriangle(float x1,
@@ -43,6 +41,15 @@ public:
 					float y2,
 					float x3,
 					float y3)=0;
+	virtual void drawSquare(float x,
+					float y,
+					float rad,
+					float rot=0)=0;
+	virtual void drawCircle(float x,
+					float y,
+					float rad,
+					float beginAngle=0,
+					float endAngle=6.28318531)=0;
 	virtual void fillTriangle(float x1,
 					float y1,
 					float x2,

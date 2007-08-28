@@ -40,6 +40,17 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 ADD_LIBRARY(pycasso SHARED ${SOURCE_FILES})
 TARGET_LINK_LIBRARIES(pycasso ${PYCASSO_LINK_LIBRARIES})
 
+INSTALL_TARGETS(/lib pycasso)
+
+INSTALL_FILES(/include/pycasso FILES
+				include/EventQ.h
+				include/Layer.h
+				include/Pycasso.h
+				include/PycassoException.h
+				include/Window.h
+				include/pyc.h
+				include/pyc_types.h)
+
 ADD_EXECUTABLE(demo1 demos/demo1.cpp)
 TARGET_LINK_LIBRARIES(demo1 pycasso)
 

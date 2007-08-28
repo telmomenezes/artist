@@ -87,8 +87,8 @@ public:
 
 	bool isRoot(){return mRoot;}
 
-	virtual void _initEmpty(int width, int height)=0;
-	virtual void _loadPNG(std::string filePath)=0;
+	virtual void _initEmpty(int width, int height){};
+	virtual void _loadPNG(std::string filePath){};
 	void _setRoot(int width, int height);
 
 protected:

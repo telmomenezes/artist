@@ -19,10 +19,10 @@ deltaX = 0.5
 deltaY = 0.5
 
 while not exit:
-    root.startDrawing()
     root.setColor(255, 0, 0)
     root.fillCircle(x, y, 50.0)
-    root.stopDrawing()
+
+    win.update()
 
     x += deltaX
     y += deltaY
