@@ -20,30 +20,30 @@ namespace pyc
 class Pycasso
 {
 public:
-	Pycasso();
-	virtual ~Pycasso();
+    Pycasso();
+    virtual ~Pycasso();
 
-	Window* createWindow(int width,
-				int height,
-				bool fullScreen=false,
-				int colorDepth=0,
-				bool resizable=false,
-				bool windowDecorations=true);
-	Window* getWindow();
+    Window* createWindow(int width,
+                int height,
+                bool fullScreen=false,
+                int colorDepth=0,
+                bool resizable=false,
+                bool windowDecorations=true);
+    Window* getWindow();
 
-	EventQ* createEventQ();
-	EventQ* getEventQ();
+    EventQ* createEventQ();
+    EventQ* getEventQ();
 
-	bool setPreferredSystem(System sys);
+    bool setPreferredSystem(System sys);
 
 private:
-	static System mDefaultSystem;
-	static System mPreferredSystem;
+    static System mDefaultSystem;
+    static System mPreferredSystem;
 
-	static bool mSystemSDLOpenGL;
+    static bool mSystemSDLOpenGL;
 
-	static Window* mWindow;
-	static EventQ* mEventQ;
+    static Window* mWindow;
+    static EventQ* mEventQ;
 };
 
 }

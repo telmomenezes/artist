@@ -19,18 +19,18 @@ namespace pyc
 class EventQSDL : public EventQ
 {
 public:
-	EventQSDL();
-	virtual ~EventQSDL();
+    EventQSDL();
+    virtual ~EventQSDL();
 
-	virtual bool init();
-	virtual bool next();
+    virtual bool init();
+    virtual bool next();
 
-	virtual void enableKeyChar(bool enable=true);
+    virtual void enableKeyChar(bool enable=true);
 
 protected:
-	KeyCode getKeyCode(int key);
-	void updateKeyModifiers(int modifiers);
-	MouseButton getMouseButton(int button);
+    KeyCode getKeyCode(int key);
+    void updateKeyModifiers(int modifiers);
+    MouseButton getMouseButton(int button);
 };
 
 }

@@ -19,20 +19,20 @@ namespace pyc
 class PycassoException
 {
 public:
-	PycassoException();
-	PycassoException(const PycassoException& exception);
-	PycassoException(ExceptionCode code);
-	PycassoException(ExceptionCode code, std::string extraText);
-	virtual ~PycassoException();
+    PycassoException();
+    PycassoException(const PycassoException& exception);
+    PycassoException(ExceptionCode code);
+    PycassoException(ExceptionCode code, std::string extraText);
+    virtual ~PycassoException();
 
-	ExceptionCode getCode(){return mCode;}
-	std::string getText();
+    ExceptionCode getCode(){return mCode;}
+    std::string getText();
 
 protected:
-	std::string getCodeText();
+    std::string getCodeText();
 
-	ExceptionCode mCode;
-	std::string mExtraText;
+    ExceptionCode mCode;
+    std::string mExtraText;
 };
 
 }

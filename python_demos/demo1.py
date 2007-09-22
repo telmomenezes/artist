@@ -38,7 +38,7 @@ while not exit:
 
     while event.next():
         if event.getType() == EVENT_QUIT:
-	    exit = True
+            exit = True
         elif event.getType() == EVENT_KEY_DOWN:
             if event.getKeyCode() == KEY_ESCAPE:
                 exit = True;

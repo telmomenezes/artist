@@ -19,26 +19,26 @@ namespace pyc
 class WindowSDLOpenGL : public Window
 {
 public:
-	WindowSDLOpenGL();
-	virtual ~WindowSDLOpenGL();
+    WindowSDLOpenGL();
+    virtual ~WindowSDLOpenGL();
 
-	virtual void init(int width,
-		int height,
-		bool fullScreen=false,
-		int colorDepth=0,
-		bool resizable=false,
-		bool windowDecorations=true);
+    virtual void init(int width,
+    int height,
+    bool fullScreen=false,
+    int colorDepth=0,
+    bool resizable=false,
+    bool windowDecorations=true);
 
-	virtual void update();
+    virtual void update();
 
-	virtual void setTitle(std::string title);
+    virtual void setTitle(std::string title);
 
-	virtual void showCursor(bool show);
+    virtual void showCursor(bool show);
 
-	virtual Layer* createLayer(int width, int height);
-	virtual Layer* createPNGLayer(std::string filePath);
+    virtual Layer* createLayer(int width, int height);
+    virtual Layer* createPNGLayer(std::string filePath);
 
-	virtual void setClearOnUpdate(bool clear);
+    virtual void setClearOnUpdate(bool clear);
 };
 
 }

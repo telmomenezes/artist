@@ -21,39 +21,39 @@ namespace pyc
 class Window
 {
 public:
-	Window();
-	virtual ~Window();
+    Window();
+    virtual ~Window();
 
-	virtual void init(int width,
-        		        int height,
-				bool fullScreen=false,
-		                int colorDepth=0,
-				bool resizable=false,
-				bool windowDecorations=true);
+    virtual void init(int width,
+                        int height,
+                        bool fullScreen=false,
+                        int colorDepth=0,
+                        bool resizable=false,
+                        bool windowDecorations=true);
 
-	virtual void update()=0;
+    virtual void update()=0;
 
-	virtual void setTitle(std::string title)=0;
+    virtual void setTitle(std::string title)=0;
 
 
-	int getWidth(){return mWidth;}
-	int getHeight(){return mHeight;}
-	Layer* getRootLayer();
+    int getWidth(){return mWidth;}
+    int getHeight(){return mHeight;}
+    Layer* getRootLayer();
 
-	virtual void showCursor(bool show)=0;
+    virtual void showCursor(bool show)=0;
 
-	virtual Layer* createLayer(int width, int height)=0;
-	virtual Layer* createPNGLayer(std::string filePath)=0;
-	bool removeLayer(Layer* layer);
+    virtual Layer* createLayer(int width, int height)=0;
+    virtual Layer* createPNGLayer(std::string filePath)=0;
+    bool removeLayer(Layer* layer);
 
-	virtual void setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
+    virtual void setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
 
 protected:
-	int mWidth;
-	int mHeight;
-	Layer* mRootLayer;
-	std::list<Layer*> mLayers;
-	bool mClearOnUpdate;
+    int mWidth;
+    int mHeight;
+    Layer* mRootLayer;
+    std::list<Layer*> mLayers;
+    bool mClearOnUpdate;
 };
 
 }

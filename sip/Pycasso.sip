@@ -7,20 +7,20 @@ using namespace pyc;
 %End
 
 public:
-	Pycasso();
-	virtual ~Pycasso();
+    Pycasso();
+    virtual ~Pycasso();
 
-	Window* createWindow(int width,
-				int height,
-				bool fullScreen=false,
-				int colorDepth=0,
-				bool resizable=false,
-				bool windowDecorations=true);
-	Window* getWindow();
+    Window* createWindow(int width,
+                int height,
+                bool fullScreen=false,
+                int colorDepth=0,
+                bool resizable=false,
+                bool windowDecorations=true);
+    Window* getWindow();
 
-	EventQ* createEventQ();
-	EventQ* getEventQ();
+    EventQ* createEventQ();
+    EventQ* getEventQ();
 
-	bool setPreferredSystem(System sys);
+    bool setPreferredSystem(System sys);
 };
 

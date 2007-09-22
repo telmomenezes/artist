@@ -20,641 +20,641 @@ LayerOpenGL* LayerOpenGL::mWorkingLayer = NULL;
 
 LayerOpenGL::LayerOpenGL()
 {
-	mLocked = true;
-        mTexture = 0;
-	mTextureWidth = 0;
-	mTextureHeight = 0;
-	mClearOnUpdate = true;
-	mFirstUnlock = true;
-	mfRed = 1.0f;
-	mfGreen = 1.0f;
-	mfBlue = 1.0f;
+    mLocked = true;
+    mTexture = 0;
+    mTextureWidth = 0;
+    mTextureHeight = 0;
+    mClearOnUpdate = true;
+    mFirstUnlock = true;
+    mfRed = 1.0f;
+    mfGreen = 1.0f;
+    mfBlue = 1.0f;
 }
 
 LayerOpenGL::~LayerOpenGL()
 {
-	GLuint textures[1] = {mTexture};
-	glDeleteTextures(1, textures);
+    GLuint textures[1] = {mTexture};
+    glDeleteTextures(1, textures);
 }
 
 void LayerOpenGL::unlock()
 {
-	mLocked = false;
+    mLocked = false;
 
-	if (mWorkingLayer != this)
-	{
-		if (mWorkingLayer != NULL)
-		{
-			mWorkingLayer->lock();
-		}
+    if (mWorkingLayer != this)
+    {
+        if (mWorkingLayer != NULL)
+        {
+            mWorkingLayer->lock();
+        }
 
-		mWorkingLayer = this;
+        mWorkingLayer = this;
 
-		int width = mWidth;
-		int height = mHeight;
+        int width = mWidth;
+        int height = mHeight;
 
-		glViewport(0, 0, width, height);
-	
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+        glViewport(0, 0, width, height);
+    
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
 
-		if (mRoot)
-		{
-			glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
-		}
-		else
-		{
-			glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
-		}
+        if (mRoot)
+        {
+            glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
+        }
+        else
+        {
+            glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
+        }
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glEnable(GL_LINE_SMOOTH);
-		glEnable(GL_POINT_SMOOTH);
-		glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-		glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
+        glEnable(GL_LINE_SMOOTH);
+        glEnable(GL_POINT_SMOOTH);
+        glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+        glHint(GL_POINT_SMOOTH_HINT, GL_DONT_CARE);
 
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();	
-	}
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();   
+    }
 
-	if ((mRoot && mClearOnUpdate) || ((!mRoot) && mFirstUnlock))
-	{
-		glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-	}
-	else if (mTexture != 0)
-	{
-		drawLayer(this, 0.0f, 0.0f);
-	}
+    if ((mRoot && mClearOnUpdate) || ((!mRoot) && mFirstUnlock))
+    {
+        glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+    }
+    else if (mTexture != 0)
+    {
+        drawLayer(this, 0.0f, 0.0f);
+    }
 
-	if (mFirstUnlock)
-	{
-		mFirstUnlock = false;
-	}
+    if (mFirstUnlock)
+    {
+        mFirstUnlock = false;
+    }
 }
 
 void LayerOpenGL::lock()
 {
-	if ((!mRoot) || (!mClearOnUpdate))
-	{
-		glBindTexture(GL_TEXTURE_2D, mTexture);
-		glCopyTexSubImage2D(GL_TEXTURE_2D,
-					0,
-					0,
-					0,
-					0,
-					0,
-					mWidth,
-					mHeight);
-	}
+    if ((!mRoot) || (!mClearOnUpdate))
+    {
+        glBindTexture(GL_TEXTURE_2D, mTexture);
+        glCopyTexSubImage2D(GL_TEXTURE_2D,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    mWidth,
+                    mHeight);
+    }
 
-	mLocked = true;
+    mLocked = true;
 }
 
 void LayerOpenGL::setColor(unsigned int red,
-				unsigned int green,
-				unsigned int blue,
-				unsigned int alpha)
+                unsigned int green,
+                unsigned int blue,
+                unsigned int alpha)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
-	
-	mRed = red;
-	mGreen = green;
-	mBlue = blue;
-	mAlpha = alpha;
-	glColor4ub(mRed, mGreen, mBlue, mAlpha);
+    if (mLocked)
+    {
+        unlock();
+    }
+    
+    mRed = red;
+    mGreen = green;
+    mBlue = blue;
+    mAlpha = alpha;
+    glColor4ub(mRed, mGreen, mBlue, mAlpha);
 }
 
 void LayerOpenGL::setBackgroundColor(unsigned int red,
-					unsigned int green,
-					unsigned int blue)
+                    unsigned int green,
+                    unsigned int blue)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	mfRed = ((float)red) / 255.0f;
-	mfGreen = ((float)green) / 255.0f;
-	mfBlue = ((float)blue) / 255.0f;
+    mfRed = ((float)red) / 255.0f;
+    mfGreen = ((float)green) / 255.0f;
+    mfBlue = ((float)blue) / 255.0f;
 
-	glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
+    glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
 
 }
 
 void LayerOpenGL::setPointSize(float size)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glPointSize(size);
+    glPointSize(size);
 }
 
 void LayerOpenGL::setLineWidth(float width)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glLineWidth(width);
+    glLineWidth(width);
 }
 
 void LayerOpenGL::clear()
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
 }
 
 void LayerOpenGL::drawPoint(float x, float y)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glBegin(GL_POINTS);
-		glVertex3f(x, y, 0.0f);
-	glEnd();
+    glBegin(GL_POINTS);
+    glVertex3f(x, y, 0.0f);
+    glEnd();
 }
 
 void LayerOpenGL::drawLine(float x1, float y1, float x2, float y2)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glBegin(GL_LINES);
-		glVertex3f(x1, y1, 0.0f);
-		glVertex3f(x2, y2, 0.0f);
-	glEnd();
+    glBegin(GL_LINES);
+        glVertex3f(x1, y1, 0.0f);
+        glVertex3f(x2, y2, 0.0f);
+    glEnd();
 }
 
 void LayerOpenGL::drawTriangle(float x1,
-					float y1,
-					float x2,
-					float y2,
-					float x3,
-					float y3)
+                    float y1,
+                    float x2,
+                    float y2,
+                    float x3,
+                    float y3)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glBegin(GL_LINE_STRIP);
-		glVertex3f(x1, y1, 0.0f);
-		glVertex3f(x2, y2, 0.0f);
-		glVertex3f(x3, y3, 0.0f);
-		glVertex3f(x1, y1, 0.0f);
-	glEnd();
+    glBegin(GL_LINE_STRIP);
+        glVertex3f(x1, y1, 0.0f);
+        glVertex3f(x2, y2, 0.0f);
+        glVertex3f(x3, y3, 0.0f);
+        glVertex3f(x1, y1, 0.0f);
+    glEnd();
 }
 
 void LayerOpenGL::drawSquare(float x,
-				float y,
-				float rad,
-				float rot)
+                float y,
+                float rad,
+                float rot)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	float ang = rot + M_PI * 0.25;
-	float deltaAng = M_PI * 0.5;
+    float ang = rot + M_PI * 0.25;
+    float deltaAng = M_PI * 0.5;
 
-	glBegin(GL_LINE_STRIP);
+    glBegin(GL_LINE_STRIP);
 
-	for (unsigned int i = 0; i < 5; i++)
-	{
-		glVertex3f(x + (cosf(ang) * rad),
-			y + (sinf(ang) * rad),
-			0.0f);
-		ang += deltaAng;
-	}
+    for (unsigned int i = 0; i < 5; i++)
+    {
+        glVertex3f(x + (cosf(ang) * rad),
+            y + (sinf(ang) * rad),
+            0.0f);
+        ang += deltaAng;
+    }
 
-	glEnd();
+    glEnd();
 }
 
 void LayerOpenGL::drawCircle(float x,
-				float y,
-				float rad,
-				float beginAngle,
-				float endAngle)
+                float y,
+                float rad,
+                float beginAngle,
+                float endAngle)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	float ang = beginAngle;
-	bool stop = false;
+    float ang = beginAngle;
+    bool stop = false;
 
-	glBegin(GL_LINE_STRIP);
+    glBegin(GL_LINE_STRIP);
 
-	while (!stop)
-	{
-		if (ang >= endAngle)
-		{
-			ang = endAngle;
-			stop = true;
-		}
+    while (!stop)
+    {
+        if (ang >= endAngle)
+        {
+            ang = endAngle;
+            stop = true;
+        }
 
-		glVertex3f(x + (cosf(ang) * rad),
-			y + (sinf(ang) * rad),
-			0.0f);
-		ang += 0.1f;
-	}
+        glVertex3f(x + (cosf(ang) * rad),
+            y + (sinf(ang) * rad),
+            0.0f);
+        ang += 0.1f;
+    }
 
-	glEnd();
+    glEnd();
 }
 
 void LayerOpenGL::fillTriangle(float x1,
-					float y1,
-					float x2,
-					float y2,
-					float x3,
-					float y3)
+                    float y1,
+                    float x2,
+                    float y2,
+                    float x3,
+                    float y3)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	glBegin(GL_TRIANGLES);
-		glVertex3f(x1, y1, 0.0f);
-		glVertex3f(x2, y2, 0.0f);
-		glVertex3f(x3, y3, 0.0f);
-	glEnd();
+    glBegin(GL_TRIANGLES);
+        glVertex3f(x1, y1, 0.0f);
+        glVertex3f(x2, y2, 0.0f);
+        glVertex3f(x3, y3, 0.0f);
+    glEnd();
 }
 
 void LayerOpenGL::fillSquare(float x,
-					float y,
-					float rad,
-					float rot)
+                    float y,
+                    float rad,
+                    float rot)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	float ang = rot + M_PI * 0.25;
-	float deltaAng = M_PI * 0.5;
+    float ang = rot + M_PI * 0.25;
+    float deltaAng = M_PI * 0.5;
 
-	glBegin(GL_QUADS);
+    glBegin(GL_QUADS);
 
-	for (unsigned int i = 0; i < 4; i++)
-	{
-		glVertex3f(x + (cosf(ang) * rad),
-			y + (sinf(ang) * rad),
-			0.0f);
-		ang += deltaAng;
-	}
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        glVertex3f(x + (cosf(ang) * rad),
+            y + (sinf(ang) * rad),
+            0.0f);
+        ang += deltaAng;
+    }
 
-	glEnd();
+    glEnd();
 }
 
 void LayerOpenGL::fillCircle(float x,
-					float y,
-					float rad,
-					float beginAngle,
-					float endAngle)
+                    float y,
+                    float rad,
+                    float beginAngle,
+                    float endAngle)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
-	float ang = beginAngle;
-	bool stop = false;
+    float ang = beginAngle;
+    bool stop = false;
 
-	glBegin(GL_POLYGON);
+    glBegin(GL_POLYGON);
 
-	glVertex3f(x, y, 0.0f);
+    glVertex3f(x, y, 0.0f);
 
-	while (!stop)
-	{
-		if (ang >= endAngle)
-		{
-			ang = endAngle;
-			stop = true;
-		}
+    while (!stop)
+    {
+        if (ang >= endAngle)
+        {
+            ang = endAngle;
+            stop = true;
+        }
 
-		glVertex3f(x + (cosf(ang) * rad),
-			y + (sinf(ang) * rad),
-			0.0f);
-		ang += 0.1f;
-	}
+        glVertex3f(x + (cosf(ang) * rad),
+            y + (sinf(ang) * rad),
+            0.0f);
+        ang += 0.1f;
+    }
 
-	glEnd();
+    glEnd();
 }
 
 void LayerOpenGL::drawLayer(Layer* layer,
-		float x,
-		float y,
-		float width,
-		float height)
+        float x,
+        float y,
+        float width,
+        float height)
 {
-	if (mLocked)
-	{
-		unlock();
-	}
+    if (mLocked)
+    {
+        unlock();
+    }
 
         LayerOpenGL* layGL = (LayerOpenGL*)layer;
 
-	float targetWidth;
-	float targetHeight;
+    float targetWidth;
+    float targetHeight;
 
-	if (width > 0.0f)
-	{
-		targetWidth = width;
-	}
-	else
-	{
-		targetWidth = (float)layGL->mWidth;
-	}
+    if (width > 0.0f)
+    {
+        targetWidth = width;
+    }
+    else
+    {
+        targetWidth = (float)layGL->mWidth;
+    }
 
-	if (height > 0.0f)
-	{
-		targetHeight = height;
-	}
-	else
-	{
-		targetHeight = (float)layGL->mHeight;
-	}
+    if (height > 0.0f)
+    {
+        targetHeight = height;
+    }
+    else
+    {
+        targetHeight = (float)layGL->mHeight;
+    }
 
-        float origX1 = 0.0f;
-	float origY1 = 0.0f;
-	float origX2 = ((float)layGL->mWidth) / ((float)layGL->mTextureWidth);
-	float origY2 = ((float)layGL->mHeight) / ((float)layGL->mTextureHeight);
+    float origX1 = 0.0f;
+    float origY1 = 0.0f;
+    float origX2 = ((float)layGL->mWidth) / ((float)layGL->mTextureWidth);
+    float origY2 = ((float)layGL->mHeight) / ((float)layGL->mTextureHeight);
 
-	float x2 = x + targetWidth;
-	float y2 = y + targetHeight;
+    float x2 = x + targetWidth;
+    float y2 = y + targetHeight;
 
-	glBindTexture(GL_TEXTURE_2D, layGL->mTexture);
-	glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, layGL->mTexture);
+    glEnable(GL_TEXTURE_2D);
 
-	glBegin(GL_QUADS);
+    glBegin(GL_QUADS);
 
-	glTexCoord2f(origX1, origY1);
-	glVertex3f(x, y, 0.0f);
+    glTexCoord2f(origX1, origY1);
+    glVertex3f(x, y, 0.0f);
 
-	glTexCoord2f(origX2, origY1);
-	glVertex3f(x2, y, 0.0f);
+    glTexCoord2f(origX2, origY1);
+    glVertex3f(x2, y, 0.0f);
 
-	glTexCoord2f(origX2, origY2);
-	glVertex3f(x2, y2, 0.0f);
+    glTexCoord2f(origX2, origY2);
+    glVertex3f(x2, y2, 0.0f);
 
-	glTexCoord2f(origX1, origY2);
-	glVertex3f(x, y2, 0.0f);
+    glTexCoord2f(origX1, origY2);
+    glVertex3f(x, y2, 0.0f);
 
-	glEnd();
+    glEnd();
 
-	glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 }
 
 void LayerOpenGL::_initEmpty(int width, int height)
 {
-	int texWidth = nextPowerOfTwo(width);
-	int texHeight = nextPowerOfTwo(height);
+    int texWidth = nextPowerOfTwo(width);
+    int texHeight = nextPowerOfTwo(height);
 
-	unsigned int* data;
-	unsigned int dataSize = texWidth * texHeight;
+    unsigned int* data;
+    unsigned int dataSize = texWidth * texHeight;
 
-	data = (unsigned int*)new GLuint[(dataSize * 4 * sizeof(unsigned int))];
+    data = (unsigned int*)new GLuint[(dataSize * 4 * sizeof(unsigned int))];
 
-	for (unsigned int i = 0; i < dataSize; i++)
-	{
-		data[i] = 0;
-	}
+    for (unsigned int i = 0; i < dataSize; i++)
+    {
+        data[i] = 0;
+    }
 
-	glGenTextures(1, &mTexture);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glTexImage2D(GL_TEXTURE_2D,
-			0,
-			4,
-			texWidth,
-			texHeight,
-			0,
-			GL_RGBA,
-			GL_UNSIGNED_BYTE,
-			data);
+    glGenTextures(1, &mTexture);
+    glBindTexture(GL_TEXTURE_2D, mTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glTexImage2D(GL_TEXTURE_2D,
+            0,
+            4,
+            texWidth,
+            texHeight,
+            0,
+            GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            data);
 
-	delete [] data;
+    delete [] data;
 
-	mTextureWidth = texWidth;
-	mTextureHeight = texHeight;
-	mWidth = width;
-	mHeight = height;
+    mTextureWidth = texWidth;
+    mTextureHeight = texHeight;
+    mWidth = width;
+    mHeight = height;
 }
 
 void LayerOpenGL::_loadPNG(std::string filePath)
 {
-        FILE *infile;
-	png_structp pngPtr;
-	png_infop infoPtr;
+    FILE *infile;
+    png_structp pngPtr;
+    png_infop infoPtr;
 
-	unsigned char *imageData;
-	char sig[8];
+    unsigned char *imageData;
+    char sig[8];
 
-	int bitDepth;
-	int colorType;
+    int bitDepth;
+    int colorType;
 
-	unsigned long width;
-	unsigned long height;
-	unsigned int rowbytes;
+    unsigned long width;
+    unsigned long height;
+    unsigned int rowbytes;
 
-	imageData = NULL;
-	int i;
-	png_bytepp rowPointers = NULL;
+    imageData = NULL;
+    int i;
+    png_bytepp rowPointers = NULL;
 
-	infile = fopen(filePath.c_str(), "rb");
-	if (!infile)
-	{
-		std::string text = "Loading PNG (" + filePath + "): failed to open file";
-		PycassoException exception(EXCEPTION_FILE, text);
-		throw exception;
-	}
+    infile = fopen(filePath.c_str(), "rb");
+    if (!infile)
+    {
+        std::string text = "Loading PNG (" + filePath + "): failed to open file";
+        PycassoException exception(EXCEPTION_FILE, text);
+        throw exception;
+    }
 
-	fread(sig, 1, 8, infile);
+    fread(sig, 1, 8, infile);
 
-	if (!png_check_sig((unsigned char*)sig, 8))
-	{
-		fclose(infile);
-		std::string text = "Loading PNG (" + filePath + "): wrong file format";
-		PycassoException exception(EXCEPTION_FILE, text);
-		throw exception;
-	}
+    if (!png_check_sig((unsigned char*)sig, 8))
+    {
+        fclose(infile);
+        std::string text = "Loading PNG (" + filePath + "): wrong file format";
+        PycassoException exception(EXCEPTION_FILE, text);
+        throw exception;
+    }
  
-	pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-	if (!pngPtr)
-	{
-		fclose(infile);
-		std::string text = "Loading PNG (" + filePath + "): out of memory";
-		PycassoException exception(EXCEPTION_MEMORY, text);
-		throw exception;
-	}
+    pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    if (!pngPtr)
+    {
+        fclose(infile);
+        std::string text = "Loading PNG (" + filePath + "): out of memory";
+        PycassoException exception(EXCEPTION_MEMORY, text);
+        throw exception;
+    }
  
-	infoPtr = png_create_info_struct(pngPtr);
-	if (!infoPtr)
-	{
-		png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
-		fclose(infile);
-		std::string text = "Loading PNG (" + filePath + "): out of memory";
-		PycassoException exception(EXCEPTION_MEMORY, text);
-		throw exception;
-	}
+    infoPtr = png_create_info_struct(pngPtr);
+    if (!infoPtr)
+    {
+        png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
+        fclose(infile);
+        std::string text = "Loading PNG (" + filePath + "): out of memory";
+        PycassoException exception(EXCEPTION_MEMORY, text);
+        throw exception;
+    }
    
   
-	if (setjmp(png_jmpbuf(pngPtr)))
-	{
-		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-		fclose(infile);
-		std::string text = "Loading PNG (" + filePath + ")";
-		PycassoException exception(EXCEPTION_MEMORY, text);
-		throw exception;
-	}
+    if (setjmp(png_jmpbuf(pngPtr)))
+    {
+        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
+        fclose(infile);
+        std::string text = "Loading PNG (" + filePath + ")";
+        PycassoException exception(EXCEPTION_MEMORY, text);
+        throw exception;
+    }
 
-	png_init_io(pngPtr, infile);
+    png_init_io(pngPtr, infile);
    
-   	png_set_sig_bytes(pngPtr, 8);
+    png_set_sig_bytes(pngPtr, 8);
 
-	png_read_info(pngPtr, infoPtr);
+    png_read_info(pngPtr, infoPtr);
 
-	png_get_IHDR(pngPtr,
-			infoPtr,
-			&width,
-			&height,
-			&bitDepth,
-			&colorType,
-			NULL,
-			NULL,
-			NULL);
+    png_get_IHDR(pngPtr,
+            infoPtr,
+            &width,
+            &height,
+            &bitDepth,
+            &colorType,
+            NULL,
+            NULL,
+            NULL);
 
-	mWidth = width;
-	mHeight = height;
+    mWidth = width;
+    mHeight = height;
 
-	mTextureWidth = nextPowerOfTwo(mWidth);
-	mTextureHeight = nextPowerOfTwo(mHeight);
+    mTextureWidth = nextPowerOfTwo(mWidth);
+    mTextureHeight = nextPowerOfTwo(mHeight);
    
-	if (bitDepth > 8)
-	{
-		png_set_strip_16(pngPtr);
-	}
-	if (colorType == PNG_COLOR_TYPE_GRAY
-		|| colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
-	{
-		png_set_gray_to_rgb(pngPtr);
-	}
-	if (colorType == PNG_COLOR_TYPE_PALETTE)
-	{
-		png_set_palette_to_rgb(pngPtr);
-	}
+    if (bitDepth > 8)
+    {
+        png_set_strip_16(pngPtr);
+    }
+    if (colorType == PNG_COLOR_TYPE_GRAY
+        || colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
+    {
+        png_set_gray_to_rgb(pngPtr);
+    }
+    if (colorType == PNG_COLOR_TYPE_PALETTE)
+    {
+        png_set_palette_to_rgb(pngPtr);
+    }
 
-   	png_read_update_info(pngPtr, infoPtr);
-	png_get_IHDR(pngPtr,
-			infoPtr,
-			&width,
-			&height,
-			&bitDepth,
-			&colorType,
-			NULL,
-			NULL,
-			NULL);
+    png_read_update_info(pngPtr, infoPtr);
+    png_get_IHDR(pngPtr,
+            infoPtr,
+            &width,
+            &height,
+            &bitDepth,
+            &colorType,
+            NULL,
+            NULL,
+            NULL);
 
-	unsigned int bpp = 3;
-	GLint internalTextureFormat = GL_RGB;
-	GLenum textureFormat = GL_RGB;
-	if (colorType == PNG_COLOR_TYPE_RGB_ALPHA)
-	{
-		bpp = 4;
-		internalTextureFormat = GL_RGBA;
-		textureFormat = GL_RGBA;
-	}
+    unsigned int bpp = 3;
+    GLint internalTextureFormat = GL_RGB;
+    GLenum textureFormat = GL_RGB;
+    if (colorType == PNG_COLOR_TYPE_RGB_ALPHA)
+    {
+        bpp = 4;
+        internalTextureFormat = GL_RGBA;
+        textureFormat = GL_RGBA;
+    }
 
-	rowbytes = png_get_rowbytes(pngPtr, infoPtr);
+    rowbytes = png_get_rowbytes(pngPtr, infoPtr);
 
-	if ((imageData = (unsigned char*)malloc(rowbytes * height)) == NULL)
-	{
-		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-		std::string text = "Loading PNG (" + filePath + ")";
-		PycassoException exception(EXCEPTION_MEMORY, text);
-		throw exception;
-	}
+    if ((imageData = (unsigned char*)malloc(rowbytes * height)) == NULL)
+    {
+        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
+        std::string text = "Loading PNG (" + filePath + ")";
+        PycassoException exception(EXCEPTION_MEMORY, text);
+        throw exception;
+    }
 
-	if ((rowPointers = (png_bytepp)malloc(height * sizeof(png_bytep))) == NULL)
-	{
-		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-		free(imageData);
-		imageData = NULL;
-		std::string text = "Loading PNG (" + filePath + ")";
-		PycassoException exception(EXCEPTION_MEMORY, text);
-		throw exception;
-	}
+    if ((rowPointers = (png_bytepp)malloc(height * sizeof(png_bytep))) == NULL)
+    {
+        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
+        free(imageData);
+        imageData = NULL;
+        std::string text = "Loading PNG (" + filePath + ")";
+        PycassoException exception(EXCEPTION_MEMORY, text);
+        throw exception;
+    }
 
-	for (i = 0;  i < height;  ++i)
-	{
-		rowPointers[i] = imageData + i * rowbytes;
-	}
+    for (i = 0;  i < height;  ++i)
+    {
+        rowPointers[i] = imageData + i * rowbytes;
+    }
 
-	png_read_image(pngPtr, rowPointers);
+    png_read_image(pngPtr, rowPointers);
 
-	free(rowPointers);
+    free(rowPointers);
 
-	png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-	fclose(infile);
+    png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
+    fclose(infile);
 
-	unsigned char* textureData = (unsigned char*)malloc(mTextureWidth * mTextureHeight * bpp);
+    unsigned char* textureData = (unsigned char*)malloc(mTextureWidth * mTextureHeight * bpp);
 
-	for (unsigned int y = 0; y < height; y++)
-	{
-		for (unsigned int x = 0; x < rowbytes; x++)
-		{
-			textureData[(mTextureWidth * bpp * y) + x] = imageData[(rowbytes * y) + x];
-		}
-	}
+    for (unsigned int y = 0; y < height; y++)
+    {
+        for (unsigned int x = 0; x < rowbytes; x++)
+        {
+            textureData[(mTextureWidth * bpp * y) + x] = imageData[(rowbytes * y) + x];
+        }
+    }
 
-	glGenTextures(1, &mTexture);
-	glBindTexture(GL_TEXTURE_2D, mTexture);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glTexImage2D(GL_TEXTURE_2D,
-			0,
-			internalTextureFormat,
-			mTextureWidth,
-			mTextureHeight,
-			0,
-			textureFormat,
-			GL_UNSIGNED_BYTE,
-			textureData);
+    glGenTextures(1, &mTexture);
+    glBindTexture(GL_TEXTURE_2D, mTexture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glTexImage2D(GL_TEXTURE_2D,
+            0,
+            internalTextureFormat,
+            mTextureWidth,
+            mTextureHeight,
+            0,
+            textureFormat,
+            GL_UNSIGNED_BYTE,
+            textureData);
 
-	delete imageData;
-	delete textureData;
+    delete imageData;
+    delete textureData;
 
-	mFirstUnlock = false;
+    mFirstUnlock = false;
 }
 
 }

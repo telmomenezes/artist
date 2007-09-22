@@ -101,38 +101,38 @@ Layer* WindowSDLOpenGL::createLayer(int width, int height)
 {
 	LayerOpenGL* layer = new LayerOpenGL();
 
-        try
-        {
-                layer->_initEmpty(width, height);
-        }
-        catch (PycassoException exception)
-        {
-                delete layer;
-                throw exception;
-        }
+    try
+    {
+        layer->_initEmpty(width, height);
+    }
+    catch (PycassoException exception)
+    {
+        delete layer;
+        throw exception;
+    }
 
-        mLayers.push_back(layer);
+    mLayers.push_back(layer);
 
-        return layer;
+    return layer;
 }
 
 Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
 {
-        LayerOpenGL* layer = new LayerOpenGL();
+    LayerOpenGL* layer = new LayerOpenGL();
 
-        try
-        {
-                layer->_loadPNG(filePath);
-        }
-        catch (PycassoException exception)
-        {
-                delete layer;
-                throw exception;
-        }
+    try
+    {
+        layer->_loadPNG(filePath);
+    }
+    catch (PycassoException exception)
+    {
+        delete layer;
+        throw exception;
+    }
 
-        mLayers.push_back(layer);
+    mLayers.push_back(layer);
 
-        return layer;
+    return layer;
 }
 
 void WindowSDLOpenGL::setClearOnUpdate(bool clear)
