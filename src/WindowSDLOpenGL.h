@@ -38,6 +38,8 @@ public:
     virtual Layer* createLayer(int width, int height);
     virtual Layer* createPNGLayer(std::string filePath);
 
+    virtual Font* loadFont(string fontName, unsigned int height);
+
     virtual void setClearOnUpdate(bool clear);
 };
 

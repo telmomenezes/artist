@@ -11,11 +11,15 @@
 #if !defined(__INCLUDE_PYCASSO_LAYER_H)
 #define __INCLUDE_PYCASSO_LAYER_H
 
+#include "Font.h"
+
 #include <math.h>
 #include <string>
 
 namespace pyc
 {
+
+using std::string;
 
 class Layer
 {
@@ -85,10 +89,14 @@ public:
                     float width=0.0f,
                     float height=0.0f)=0;
 
+    void setFont(Font* font){mCurrentFont = font;}
+
+    virtual void print(float x, float y, string text)=0;
+
     bool isRoot(){return mRoot;}
 
     virtual void _initEmpty(int width, int height){};
-    virtual void _loadPNG(std::string filePath){};
+    virtual void _loadPNG(string filePath){};
     void _setRoot(int width, int height);
 
 protected:
@@ -100,6 +108,8 @@ protected:
     unsigned int mGreen;
     unsigned int mBlue;
     unsigned int mAlpha;
+
+    Font* mCurrentFont;
 };
 
 }

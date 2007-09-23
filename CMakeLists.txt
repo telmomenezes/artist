@@ -15,6 +15,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/Pycasso.cpp
     src/Window.cpp
     src/Layer.cpp
+    src/Font.cpp
     src/EventQ.cpp
     src/PycassoException.cpp)
 
@@ -25,12 +26,16 @@ IF(SYSTEM_SDLOPENGL)
 
     SET(SOURCE_FILES ${SOURCE_FILES}
         src/LayerOpenGL.cpp
+        src/FontOpenGL.cpp
         src/WindowSDLOpenGL.cpp
         src/EventQSDL.cpp)
 
     SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
-    SET(INCLUDE_DIRS ${INCLUDE_DIRS} ${SDL_INCLUDE_DIR})
-    SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU png)
+
+    # TODO: Automate search for freetype2 stuff
+    SET(INCLUDE_DIRS ${INCLUDE_DIRS} ${SDL_INCLUDE_DIR} /usr/include/freetype2)
+
+    SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU png freetype)
 ENDIF(SYSTEM_SDLOPENGL)
 
 ADD_DEFINITIONS(${DEFINITIONS})
@@ -60,3 +65,5 @@ TARGET_LINK_LIBRARIES(demo2 pycasso)
 ADD_EXECUTABLE(demo3 demos/demo3.cpp)
 TARGET_LINK_LIBRARIES(demo3 pycasso)
 
+ADD_EXECUTABLE(demo4 demos/demo4.cpp)
+TARGET_LINK_LIBRARIES(demo4 pycasso)

@@ -9,6 +9,7 @@
 
 #include "WindowSDLOpenGL.h"
 #include "LayerOpenGL.h"
+#include "FontOpenGL.h"
 #include "PycassoException.h"
 
 #include "SDL.h"
@@ -133,6 +134,16 @@ Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
     mLayers.push_back(layer);
 
     return layer;
+}
+
+Font* WindowSDLOpenGL::loadFont(string fontName, unsigned int height)
+{
+    FontOpenGL* font = new FontOpenGL();
+    font->init(fontName, height);
+
+    mFonts.push_back(font);
+
+    return font;
 }
 
 void WindowSDLOpenGL::setClearOnUpdate(bool clear)

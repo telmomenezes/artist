@@ -8,6 +8,7 @@
  */
 
 #include "LayerOpenGL.h"
+#include "FontOpenGL.h"
 #include "PycassoException.h"
 #include "functions.cpp"
 
@@ -374,7 +375,7 @@ void LayerOpenGL::drawLayer(Layer* layer,
         unlock();
     }
 
-        LayerOpenGL* layGL = (LayerOpenGL*)layer;
+    LayerOpenGL* layGL = (LayerOpenGL*)layer;
 
     float targetWidth;
     float targetHeight;
@@ -467,7 +468,7 @@ void LayerOpenGL::_initEmpty(int width, int height)
     mHeight = height;
 }
 
-void LayerOpenGL::_loadPNG(std::string filePath)
+void LayerOpenGL::_loadPNG(string filePath)
 {
     FILE *infile;
     png_structp pngPtr;
@@ -490,7 +491,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     infile = fopen(filePath.c_str(), "rb");
     if (!infile)
     {
-        std::string text = "Loading PNG (" + filePath + "): failed to open file";
+        string text = "Loading PNG (" + filePath + "): failed to open file";
         PycassoException exception(EXCEPTION_FILE, text);
         throw exception;
     }
@@ -500,7 +501,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     if (!png_check_sig((unsigned char*)sig, 8))
     {
         fclose(infile);
-        std::string text = "Loading PNG (" + filePath + "): wrong file format";
+        string text = "Loading PNG (" + filePath + "): wrong file format";
         PycassoException exception(EXCEPTION_FILE, text);
         throw exception;
     }
@@ -509,7 +510,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     if (!pngPtr)
     {
         fclose(infile);
-        std::string text = "Loading PNG (" + filePath + "): out of memory";
+        string text = "Loading PNG (" + filePath + "): out of memory";
         PycassoException exception(EXCEPTION_MEMORY, text);
         throw exception;
     }
@@ -519,7 +520,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     {
         png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
         fclose(infile);
-        std::string text = "Loading PNG (" + filePath + "): out of memory";
+        string text = "Loading PNG (" + filePath + "): out of memory";
         PycassoException exception(EXCEPTION_MEMORY, text);
         throw exception;
     }
@@ -529,7 +530,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     {
         png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
         fclose(infile);
-        std::string text = "Loading PNG (" + filePath + ")";
+        string text = "Loading PNG (" + filePath + ")";
         PycassoException exception(EXCEPTION_MEMORY, text);
         throw exception;
     }
@@ -596,7 +597,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     if ((imageData = (unsigned char*)malloc(rowbytes * height)) == NULL)
     {
         png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-        std::string text = "Loading PNG (" + filePath + ")";
+        string text = "Loading PNG (" + filePath + ")";
         PycassoException exception(EXCEPTION_MEMORY, text);
         throw exception;
     }
@@ -606,7 +607,7 @@ void LayerOpenGL::_loadPNG(std::string filePath)
         png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
         free(imageData);
         imageData = NULL;
-        std::string text = "Loading PNG (" + filePath + ")";
+        string text = "Loading PNG (" + filePath + ")";
         PycassoException exception(EXCEPTION_MEMORY, text);
         throw exception;
     }
@@ -655,6 +656,71 @@ void LayerOpenGL::_loadPNG(std::string filePath)
     delete textureData;
 
     mFirstUnlock = false;
+}
+
+void LayerOpenGL::moveRasterX(int x)
+{
+    glBitmap(0, 0, 0, 0, x, 0, NULL);
+}
+
+void LayerOpenGL::moveRasterY(int y)
+{
+    glBitmap(0, 0, 0, 0, 0, y, NULL);
+}
+
+void LayerOpenGL::print(float x, float y, string text)
+{
+    if (mCurrentFont == NULL)
+    {
+        // TODO: throw exception
+    }
+
+    if (mLocked)
+    {
+        unlock();
+    }
+
+    const char* cText = text.c_str();
+
+    glPushAttrib(GL_CURRENT_BIT | GL_PIXEL_MODE_BIT | GL_ENABLE_BIT);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+
+    GLint oldUnpack;
+    glGetIntegerv(GL_UNPACK_ALIGNMENT,&oldUnpack); 
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    float color[4];
+    glGetFloatv(GL_CURRENT_COLOR, color);
+
+    glPixelTransferf(GL_RED_SCALE, color[0]);
+    glPixelTransferf(GL_GREEN_SCALE, color[1]);
+    glPixelTransferf(GL_BLUE_SCALE, color[2]);
+    glPixelTransferf(GL_ALPHA_SCALE, color[3]);
+
+    moveRasterX((int)x);
+    moveRasterY((int)(mHeight - y));
+
+    FontOpenGL* font = (FontOpenGL*)mCurrentFont;
+
+    for (int i = 0; cText[i]; i++)
+    {
+        CharacterOpenGL* cData = font->mChars[text[i]];
+
+        moveRasterX(cData->mLeft);
+        moveRasterY(cData->mMoveUp);
+
+        glDrawPixels(cData->mWidth, cData->mHeight, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, cData->mData);
+
+        moveRasterY(-cData->mMoveUp);
+        moveRasterX(cData->mAdvance - cData->mLeft);
+    }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, oldUnpack);
+    glPopAttrib();
 }
 
 }

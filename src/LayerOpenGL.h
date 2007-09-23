@@ -15,9 +15,12 @@
 
 #include <math.h>
 #include <GL/gl.h>
+#include <string>
 
 namespace pyc
 {
+
+using std::string;
 
 class LayerOpenGL : public Layer
 {
@@ -77,13 +80,18 @@ public:
                 float width=0.0f,
                 float height=0.0f);
 
+    virtual void print(float x, float y, string text);
+
     virtual void _initEmpty(int width, int height);
-    virtual void _loadPNG(std::string filePath);
+    virtual void _loadPNG(string filePath);
     void _setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
 
 protected:
     void lock();
     void unlock();
+
+    void moveRasterX(int x);
+    void moveRasterY(int y);
 
     bool mLocked;
 

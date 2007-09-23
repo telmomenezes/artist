@@ -11,6 +11,7 @@
 #include "Pycasso.h"
 #include "Window.h"
 #include "Layer.h"
+#include "Font.h"
 #include "EventQ.h"
 #include "PycassoException.h"
 

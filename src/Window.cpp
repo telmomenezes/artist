@@ -27,12 +27,19 @@ Window::~Window()
 		mRootLayer = NULL;
 	}
         
-        for (std::list<Layer*>::iterator iterLayer = mLayers.begin();
-                iterLayer != mLayers.end();
-                iterLayer++)
-        {
-                delete (*iterLayer);
-        }
+    for (list<Layer*>::iterator iterLayer = mLayers.begin();
+            iterLayer != mLayers.end();
+            iterLayer++)
+    {
+        delete (*iterLayer);
+    }
+
+    for (list<Font*>::iterator iterFont = mFonts.begin();
+            iterFont != mFonts.end();
+            iterFont++)
+    {
+        delete (*iterFont);
+    }
 }
 
 void Window::init(int width,
@@ -59,12 +66,26 @@ Layer* Window::getRootLayer()
 
 bool Window::removeLayer(Layer* layer)
 {
-        for (std::list<Layer*>::iterator iterLayer = mLayers.begin();
+        for (list<Layer*>::iterator iterLayer = mLayers.begin();
                 iterLayer != mLayers.end();
                 iterLayer++)
         {
                 mLayers.erase(iterLayer);
                 delete (*iterLayer);
+                return true;
+        }
+
+        return false;
+}
+
+bool Window::removeFont(Font* font)
+{
+        for (list<Font*>::iterator iterFont = mFonts.begin();
+                iterFont != mFonts.end();
+                iterFont++)
+        {
+                mFonts.erase(iterFont);
+                delete (*iterFont);
                 return true;
         }
 
