@@ -5,18 +5,18 @@ int main(int argc, char *argv[])
 {
     pyc::Pycasso pycasso;
     pyc::Window* win = NULL;
-    pyc::Layer* root = NULL;
+    pyc::Layer2D* root = NULL;
     pyc::EventQ* event = NULL;
 
     win = pycasso.createWindow(800, 600);
     event = pycasso.createEventQ();
-    root = win->getRootLayer();
+    root = win->getRootLayer2D();
 
     win->setTitle("Pycasso Demo #3");
 
     root->setBackgroundColor(255, 255, 255);
 
-    pyc::Layer* subLayer = win->createLayer(200, 200);
+    pyc::Layer2D* subLayer = win->createLayer2D(200, 200);
 
     subLayer->setColor(255, 0, 0);
     subLayer->fillCircle(250.0f, 250.0f, 250.0f);

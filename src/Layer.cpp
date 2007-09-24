@@ -21,8 +21,6 @@ Layer::Layer()
     mGreen = 255;
     mBlue = 255;
     mAlpha = 255;
-
-    mCurrentFont = NULL;
 }
 
 Layer::~Layer()

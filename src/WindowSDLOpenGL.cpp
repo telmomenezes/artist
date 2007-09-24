@@ -8,7 +8,7 @@
  */
 
 #include "WindowSDLOpenGL.h"
-#include "LayerOpenGL.h"
+#include "Layer2DOpenGL.h"
 #include "FontOpenGL.h"
 
 #include "SDL.h"
@@ -65,9 +65,9 @@ void WindowSDLOpenGL::init(int width,
         throw std::runtime_error(SDL_GetError());
     }
 
-    mRootLayer = new LayerOpenGL();
+    mRootLayer = new Layer2DOpenGL();
     mRootLayer->_setRoot(mWidth, mHeight);
-    ((LayerOpenGL*)mRootLayer)->_setClearOnUpdate(mClearOnUpdate);
+    ((Layer2DOpenGL*)mRootLayer)->_setClearOnUpdate(mClearOnUpdate);
 }
 
 void WindowSDLOpenGL::update()
@@ -97,9 +97,9 @@ void WindowSDLOpenGL::showCursor(bool show)
     }
 }
 
-Layer* WindowSDLOpenGL::createLayer(int width, int height)
+Layer2D* WindowSDLOpenGL::createLayer2D(int width, int height)
 {
-    LayerOpenGL* layer = new LayerOpenGL();
+    Layer2DOpenGL* layer = new Layer2DOpenGL();
 
     try
     {
@@ -116,9 +116,9 @@ Layer* WindowSDLOpenGL::createLayer(int width, int height)
     return layer;
 }
 
-Layer* WindowSDLOpenGL::createPNGLayer(std::string filePath)
+Layer2D* WindowSDLOpenGL::createPNGLayer(std::string filePath)
 {
-    LayerOpenGL* layer = new LayerOpenGL();
+    Layer2DOpenGL* layer = new Layer2DOpenGL();
 
     try
     {
@@ -151,7 +151,8 @@ void WindowSDLOpenGL::setClearOnUpdate(bool clear)
 
     if (mRootLayer != NULL)
     {
-        ((LayerOpenGL*)mRootLayer)->_setClearOnUpdate(clear);
+        // TODO: this needs to be changed when 3D layers get introduced
+        ((Layer2DOpenGL*)mRootLayer)->_setClearOnUpdate(clear);
     }
 }
 

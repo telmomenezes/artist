@@ -7,7 +7,7 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "LayerOpenGL.h"
+#include "Layer2DOpenGL.h"
 #include "FontOpenGL.h"
 #include "functions.cpp"
 
@@ -18,9 +18,9 @@
 namespace pyc
 {
 
-LayerOpenGL* LayerOpenGL::mWorkingLayer = NULL;
+Layer2DOpenGL* Layer2DOpenGL::mWorkingLayer = NULL;
 
-LayerOpenGL::LayerOpenGL()
+Layer2DOpenGL::Layer2DOpenGL()
 {
     mLocked = true;
     mTexture = 0;
@@ -33,13 +33,13 @@ LayerOpenGL::LayerOpenGL()
     mfBlue = 1.0f;
 }
 
-LayerOpenGL::~LayerOpenGL()
+Layer2DOpenGL::~Layer2DOpenGL()
 {
     GLuint textures[1] = {mTexture};
     glDeleteTextures(1, textures);
 }
 
-void LayerOpenGL::unlock()
+void Layer2DOpenGL::unlock()
 {
     mLocked = false;
 
@@ -98,7 +98,7 @@ void LayerOpenGL::unlock()
     }
 }
 
-void LayerOpenGL::lock()
+void Layer2DOpenGL::lock()
 {
     if ((!mRoot) || (!mClearOnUpdate))
     {
@@ -116,7 +116,7 @@ void LayerOpenGL::lock()
     mLocked = true;
 }
 
-void LayerOpenGL::setColor(unsigned int red,
+void Layer2DOpenGL::setColor(unsigned int red,
                 unsigned int green,
                 unsigned int blue,
                 unsigned int alpha)
@@ -133,7 +133,7 @@ void LayerOpenGL::setColor(unsigned int red,
     glColor4ub(mRed, mGreen, mBlue, mAlpha);
 }
 
-void LayerOpenGL::setBackgroundColor(unsigned int red,
+void Layer2DOpenGL::setBackgroundColor(unsigned int red,
                     unsigned int green,
                     unsigned int blue)
 {
@@ -150,7 +150,7 @@ void LayerOpenGL::setBackgroundColor(unsigned int red,
 
 }
 
-void LayerOpenGL::setPointSize(float size)
+void Layer2DOpenGL::setPointSize(float size)
 {
     if (mLocked)
     {
@@ -160,7 +160,7 @@ void LayerOpenGL::setPointSize(float size)
     glPointSize(size);
 }
 
-void LayerOpenGL::setLineWidth(float width)
+void Layer2DOpenGL::setLineWidth(float width)
 {
     if (mLocked)
     {
@@ -170,7 +170,7 @@ void LayerOpenGL::setLineWidth(float width)
     glLineWidth(width);
 }
 
-void LayerOpenGL::clear()
+void Layer2DOpenGL::clear()
 {
     if (mLocked)
     {
@@ -181,7 +181,7 @@ void LayerOpenGL::clear()
     glLoadIdentity();
 }
 
-void LayerOpenGL::drawPoint(float x, float y)
+void Layer2DOpenGL::drawPoint(float x, float y)
 {
     if (mLocked)
     {
@@ -193,7 +193,7 @@ void LayerOpenGL::drawPoint(float x, float y)
     glEnd();
 }
 
-void LayerOpenGL::drawLine(float x1, float y1, float x2, float y2)
+void Layer2DOpenGL::drawLine(float x1, float y1, float x2, float y2)
 {
     if (mLocked)
     {
@@ -206,7 +206,7 @@ void LayerOpenGL::drawLine(float x1, float y1, float x2, float y2)
     glEnd();
 }
 
-void LayerOpenGL::drawTriangle(float x1,
+void Layer2DOpenGL::drawTriangle(float x1,
                     float y1,
                     float x2,
                     float y2,
@@ -226,7 +226,7 @@ void LayerOpenGL::drawTriangle(float x1,
     glEnd();
 }
 
-void LayerOpenGL::drawSquare(float x,
+void Layer2DOpenGL::drawSquare(float x,
                 float y,
                 float rad,
                 float rot)
@@ -252,7 +252,7 @@ void LayerOpenGL::drawSquare(float x,
     glEnd();
 }
 
-void LayerOpenGL::drawCircle(float x,
+void Layer2DOpenGL::drawCircle(float x,
                 float y,
                 float rad,
                 float beginAngle,
@@ -285,7 +285,7 @@ void LayerOpenGL::drawCircle(float x,
     glEnd();
 }
 
-void LayerOpenGL::fillTriangle(float x1,
+void Layer2DOpenGL::fillTriangle(float x1,
                     float y1,
                     float x2,
                     float y2,
@@ -304,7 +304,7 @@ void LayerOpenGL::fillTriangle(float x1,
     glEnd();
 }
 
-void LayerOpenGL::fillSquare(float x,
+void Layer2DOpenGL::fillSquare(float x,
                     float y,
                     float rad,
                     float rot)
@@ -330,7 +330,7 @@ void LayerOpenGL::fillSquare(float x,
     glEnd();
 }
 
-void LayerOpenGL::fillCircle(float x,
+void Layer2DOpenGL::fillCircle(float x,
                     float y,
                     float rad,
                     float beginAngle,
@@ -365,7 +365,7 @@ void LayerOpenGL::fillCircle(float x,
     glEnd();
 }
 
-void LayerOpenGL::drawLayer(Layer* layer,
+void Layer2DOpenGL::drawLayer(Layer* layer,
         float x,
         float y,
         float width,
@@ -376,7 +376,7 @@ void LayerOpenGL::drawLayer(Layer* layer,
         unlock();
     }
 
-    LayerOpenGL* layGL = (LayerOpenGL*)layer;
+    Layer2DOpenGL* layGL = (Layer2DOpenGL*)layer;
 
     float targetWidth;
     float targetHeight;
@@ -429,7 +429,7 @@ void LayerOpenGL::drawLayer(Layer* layer,
     glDisable(GL_TEXTURE_2D);
 }
 
-void LayerOpenGL::_initEmpty(int width, int height)
+void Layer2DOpenGL::_initEmpty(int width, int height)
 {
     int texWidth = nextPowerOfTwo(width);
     int texHeight = nextPowerOfTwo(height);
@@ -469,7 +469,7 @@ void LayerOpenGL::_initEmpty(int width, int height)
     mHeight = height;
 }
 
-void LayerOpenGL::_loadPNG(string filePath)
+void Layer2DOpenGL::_loadPNG(string filePath)
 {
     FILE *infile;
     png_structp pngPtr;
@@ -652,17 +652,17 @@ void LayerOpenGL::_loadPNG(string filePath)
     mFirstUnlock = false;
 }
 
-void LayerOpenGL::moveRasterX(int x)
+void Layer2DOpenGL::moveRasterX(int x)
 {
     glBitmap(0, 0, 0, 0, x, 0, NULL);
 }
 
-void LayerOpenGL::moveRasterY(int y)
+void Layer2DOpenGL::moveRasterY(int y)
 {
     glBitmap(0, 0, 0, 0, 0, y, NULL);
 }
 
-void LayerOpenGL::drawText(float x, float y, string text)
+void Layer2DOpenGL::drawText(float x, float y, string text)
 {
     if (mCurrentFont == NULL)
     {

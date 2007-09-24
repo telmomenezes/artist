@@ -6,7 +6,7 @@ pycasso = Pycasso()
 
 win = pycasso.createWindow(800, 600)
 event = pycasso.createEventQ()
-root = win.getRootLayer()
+root = win.getRootLayer2D()
 
 win.setTitle("Pycasso Demo #1")
 

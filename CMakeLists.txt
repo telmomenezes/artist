@@ -15,6 +15,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/Pycasso.cpp
     src/Window.cpp
     src/Layer.cpp
+    src/Layer2D.cpp
     src/Font.cpp
     src/EventQ.cpp)
 
@@ -24,7 +25,7 @@ IF(SYSTEM_SDLOPENGL)
     INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
 
     SET(SOURCE_FILES ${SOURCE_FILES}
-        src/LayerOpenGL.cpp
+        src/Layer2DOpenGL.cpp
         src/FontOpenGL.cpp
         src/WindowSDLOpenGL.cpp
         src/EventQSDL.cpp)
@@ -49,6 +50,7 @@ INSTALL_TARGETS(/lib pycasso)
 INSTALL_FILES(/include/pycasso FILES
                 include/EventQ.h
                 include/Layer.h
+                include/Layer2D.h
                 include/Pycasso.h
                 include/Window.h
                 include/pyc.h

@@ -6,4 +6,5 @@
 %Include EventQ.sip
 %Include pyc_types.sip
 %Include Layer.sip
+%Include Layer2D.sip
 %Include Font.sip

@@ -54,14 +54,15 @@ void Window::init(int width,
 	mHeight = height;
 }
 
-Layer* Window::getRootLayer()
+Layer2D* Window::getRootLayer2D()
 {
 	if (mRootLayer == NULL)
 	{
 		throw std::runtime_error("Window not initialized");
 	}
 
-	return mRootLayer;
+    // TODO: This needs to be changed when 3D layers get introduced
+	return (Layer2D*)mRootLayer;
 }
 
 bool Window::removeLayer(Layer* layer)

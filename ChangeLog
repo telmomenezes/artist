@@ -4,7 +4,8 @@ pycasso (0.2)
   * SDL event system implemented
   * Basic class: Window
   * Canvas becomes Layer
-  * Image removed, replaced by Layer
+  * Layer2D created, leaving space for future Layer3D
+  * Image removed, replaced by Layer2D
   * createPNGLayer() and drawLayer()
   * demo2
   * demo3
@@ -16,12 +17,13 @@ pycasso (0.2)
   * Window::update()
   * Layer::clear()
   * Window::setClearOnUpdate()
-  * drawSquare(), drawCircle()
+  * Layer2D::drawSquare()
+  * Layer2D::drawCircle()
   * Font class
   * Window::loadFont()
   * Window::removeFont()
-  * Layer::setFont()
-  * Layer::drawText()
+  * Layer2D::setFont()
+  * Layer2D::drawText()
 
 
 pycasso (0.1) unstable developer release

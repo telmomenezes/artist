@@ -8,10 +8,10 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_LAYER_OPENGL_H)
-#define __INCLUDE_PYCASSO_LAYER_OPENGL_H
+#if !defined(__INCLUDE_PYCASSO_LAYER_2D_OPENGL_H)
+#define __INCLUDE_PYCASSO_LAYER_2D_OPENGL_H
 
-#include "Layer.h"
+#include "Layer2D.h"
 
 #include <math.h>
 #include <GL/gl.h>
@@ -22,11 +22,11 @@ namespace pyc
 
 using std::string;
 
-class LayerOpenGL : public Layer
+class Layer2DOpenGL : public Layer2D
 {
 public:
-    LayerOpenGL();
-    virtual ~LayerOpenGL();
+    Layer2DOpenGL();
+    virtual ~Layer2DOpenGL();
 
     virtual void setColor(unsigned int red,
                 unsigned int green,
@@ -95,7 +95,7 @@ protected:
 
     bool mLocked;
 
-    static LayerOpenGL* mWorkingLayer;
+    static Layer2DOpenGL* mWorkingLayer;
 
     GLuint mTexture;
 

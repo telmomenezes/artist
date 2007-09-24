@@ -7,11 +7,19 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "pyc_types.h"
-#include "Pycasso.h"
-#include "Window.h"
-#include "Layer.h"
 #include "Layer2D.h"
-#include "Font.h"
-#include "EventQ.h"
+
+namespace pyc
+{
+
+Layer2D::Layer2D()
+{
+    mCurrentFont = NULL;
+}
+
+Layer2D::~Layer2D()
+{
+}
+
+}
 

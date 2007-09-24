@@ -21,15 +21,14 @@ public:
 
     virtual void setTitle(std::string title)=0;
 
-
     int getWidth();
     int getHeight();
-    Layer* getRootLayer();
+    Layer2D* getRootLayer2D();
 
     virtual void showCursor(bool show)=0;
 
-    virtual Layer* createLayer(int width, int height)=0;
-    virtual Layer* createPNGLayer(std::string filePath)=0;
+    virtual Layer2D* createLayer2D(int width, int height)=0;
+    virtual Layer2D* createPNGLayer(std::string filePath)=0;
     bool removeLayer(Layer* layer);
 
     virtual Font* loadFont(std::string fontName, unsigned int height)=0;

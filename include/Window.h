@@ -12,6 +12,7 @@
 #define __INCLUDE_PYCASSO_WINDOW_H
 
 #include "Layer.h"
+#include "Layer2D.h"
 #include "Font.h"
 
 #include <string>
@@ -40,15 +41,15 @@ public:
 
     virtual void setTitle(string title)=0;
 
-
     int getWidth(){return mWidth;}
     int getHeight(){return mHeight;}
-    Layer* getRootLayer();
+
+    Layer2D* getRootLayer2D();
 
     virtual void showCursor(bool show)=0;
 
-    virtual Layer* createLayer(int width, int height)=0;
-    virtual Layer* createPNGLayer(string filePath)=0;
+    virtual Layer2D* createLayer2D(int width, int height)=0;
+    virtual Layer2D* createPNGLayer(string filePath)=0;
     bool removeLayer(Layer* layer);
 
     virtual Font* loadFont(string fontName, unsigned int height)=0;

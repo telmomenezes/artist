@@ -9,6 +9,7 @@
 * setFill(layer)
 * Gradients
 * Window::setIcon()
+* Layer3D...
 
 == Drawing Primitives ==
 
