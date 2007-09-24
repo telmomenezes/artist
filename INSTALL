@@ -1,7 +1,46 @@
-Pycasso Installation Instructions
-*********************************
+*************************************
+* PYCASSO INSTALLATION INSTRUCTIONS *
+*************************************
 
-Installation from source
-========================
 
-TBD
+
+Installation from source - C++ Library
+======================================
+
+To compile Pycasso you must first generate the Makefile
+with CMake. CMake is available for download at:
+
+http://cmake.org
+
+Pycasso should compile on any modern operating system,
+possibly with small adjustments. For now these instructions
+are *NIX centric.
+
+Compilation and installation procedure:
+
+* Uncompress distribution file
+* Change to Pycasso source directory
+* To generate Makefile run: cmake .
+* To build Pycasso run: make
+* To install run as super user: make install
+
+
+
+Installation from source - Python Module
+========================================
+
+To generate the Python bindings, Pycasso uses SIP. You
+must obtain and install SIP before going any further. SIP
+may be downloaded at:
+
+http://www.riverbankcomputing.co.uk/sip/
+
+Compilation and installation procedure:
+
+* Uncompress distribution file
+* Change to Pycasso source directory
+* Run: setup.py build
+* As super user run: setup.py install
+
+After successful compilation and installation you can try the demos
+in the python_demos directory.
