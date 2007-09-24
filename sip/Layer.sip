@@ -72,5 +72,9 @@ public:
                     float width=0,
                     float height=0)=0;
 
+    void setFont(Font* font);
+
+    virtual void drawText(float x, float y, std::string text)=0;
+
     bool isRoot();
 };

@@ -9,8 +9,9 @@
 
 #include "LayerOpenGL.h"
 #include "FontOpenGL.h"
-#include "PycassoException.h"
 #include "functions.cpp"
+
+#include <stdexcept>
 
 #include <png.h>
 
@@ -492,8 +493,7 @@ void LayerOpenGL::_loadPNG(string filePath)
     if (!infile)
     {
         string text = "Loading PNG (" + filePath + "): failed to open file";
-        PycassoException exception(EXCEPTION_FILE, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
 
     fread(sig, 1, 8, infile);
@@ -502,8 +502,7 @@ void LayerOpenGL::_loadPNG(string filePath)
     {
         fclose(infile);
         string text = "Loading PNG (" + filePath + "): wrong file format";
-        PycassoException exception(EXCEPTION_FILE, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
  
     pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
@@ -511,8 +510,7 @@ void LayerOpenGL::_loadPNG(string filePath)
     {
         fclose(infile);
         string text = "Loading PNG (" + filePath + "): out of memory";
-        PycassoException exception(EXCEPTION_MEMORY, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
  
     infoPtr = png_create_info_struct(pngPtr);
@@ -521,8 +519,7 @@ void LayerOpenGL::_loadPNG(string filePath)
         png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
         fclose(infile);
         string text = "Loading PNG (" + filePath + "): out of memory";
-        PycassoException exception(EXCEPTION_MEMORY, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
    
   
@@ -531,8 +528,7 @@ void LayerOpenGL::_loadPNG(string filePath)
         png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
         fclose(infile);
         string text = "Loading PNG (" + filePath + ")";
-        PycassoException exception(EXCEPTION_MEMORY, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
 
     png_init_io(pngPtr, infile);
@@ -598,8 +594,7 @@ void LayerOpenGL::_loadPNG(string filePath)
     {
         png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
         string text = "Loading PNG (" + filePath + ")";
-        PycassoException exception(EXCEPTION_MEMORY, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
 
     if ((rowPointers = (png_bytepp)malloc(height * sizeof(png_bytep))) == NULL)
@@ -608,8 +603,7 @@ void LayerOpenGL::_loadPNG(string filePath)
         free(imageData);
         imageData = NULL;
         string text = "Loading PNG (" + filePath + ")";
-        PycassoException exception(EXCEPTION_MEMORY, text);
-        throw exception;
+        throw std::runtime_error(text);
     }
 
     for (i = 0;  i < height;  ++i)
@@ -668,11 +662,11 @@ void LayerOpenGL::moveRasterY(int y)
     glBitmap(0, 0, 0, 0, 0, y, NULL);
 }
 
-void LayerOpenGL::print(float x, float y, string text)
+void LayerOpenGL::drawText(float x, float y, string text)
 {
     if (mCurrentFont == NULL)
     {
-        // TODO: throw exception
+        throw std::runtime_error("Attempting to print text without setting a font first");
     }
 
     if (mLocked)

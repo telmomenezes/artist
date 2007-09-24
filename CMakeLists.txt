@@ -16,8 +16,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/Window.cpp
     src/Layer.cpp
     src/Font.cpp
-    src/EventQ.cpp
-    src/PycassoException.cpp)
+    src/EventQ.cpp)
 
 SET(INCLUDE_DIRS include)
 
@@ -51,7 +50,6 @@ INSTALL_FILES(/include/pycasso FILES
                 include/EventQ.h
                 include/Layer.h
                 include/Pycasso.h
-                include/PycassoException.h
                 include/Window.h
                 include/pyc.h
                 include/pyc_types.h)

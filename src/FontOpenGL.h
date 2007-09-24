@@ -18,10 +18,7 @@
 #include <freetype/ftoutln.h>
 #include <freetype/fttrigon.h>
 
-#include <vector>
 #include <string>
-
-#include <stdexcept>
 
 namespace pyc
 {
@@ -48,7 +45,7 @@ public:
     FontOpenGL();
     virtual ~FontOpenGL();
 
-    void init(string fontName, unsigned int height);
+    void init(string fontFile, unsigned int height);
 
     CharacterOpenGL* mChars[128];
 

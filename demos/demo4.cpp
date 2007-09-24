@@ -19,12 +19,12 @@ int main(int argc, char *argv[])
     bool exit = false;
 
     root->setColor(0, 150, 0);
-    pyc::Font* font = win->loadFont("test.TTF", 9);
+    pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
     root->setFont(font);
 
     while (!exit)
     {
-        root->print(100, 100, "Hello Pycasso World!");
+        root->drawText(100, 100, "Hello Pycasso World!");
 
         win->update();
 

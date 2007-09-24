@@ -179,16 +179,6 @@ enum MouseButton
     BUTTON_RIGHT
 };
 
-enum ExceptionCode
-{
-    EXCEPTION_UNDEFINED = 0,
-    EXCEPTION_INITIALIZATION = 1,
-    EXCEPTION_MISSING_OBJECT = 2,
-    EXCEPTION_OBJECT_EXISTS = 3,
-    EXCEPTION_MEMORY = 4,
-    EXCEPTION_FILE = 5
-};
-
 }
 
 #endif

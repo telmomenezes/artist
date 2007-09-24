@@ -80,7 +80,7 @@ public:
                 float width=0.0f,
                 float height=0.0f);
 
-    virtual void print(float x, float y, string text);
+    virtual void drawText(float x, float y, string text);
 
     virtual void _initEmpty(int width, int height);
     virtual void _loadPNG(string filePath);

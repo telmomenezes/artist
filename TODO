@@ -1,6 +1,6 @@
 == Features ==
 
-* Font drawing
+* Get text sizes
 * Draw pixel matrix
 * CMake install
 * Zooming

@@ -8,9 +8,9 @@
  */
 
 #include "Pycasso.h"
-#include "PycassoException.h"
 #include <stdio.h>
 #include <string>
+#include <stdexcept>
 
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 #include "WindowSDLOpenGL.h"
@@ -65,8 +65,7 @@ Window* Pycasso::createWindow(int width,
 {
 	if (mWindow)
 	{
-		PycassoException exception(EXCEPTION_INITIALIZATION, "Window already created");
-		throw exception;
+		throw std::runtime_error("Window already created");
 	}
 
 	switch (mPreferredSystem)
@@ -91,7 +90,7 @@ Window* Pycasso::createWindow(int width,
 					resizable,
 					windowDecorations);
 		}
-		catch (PycassoException exception)
+		catch (std::runtime_error exception)
 		{
 			delete mWindow;
 			mWindow = NULL;
@@ -106,8 +105,7 @@ Window* Pycasso::getWindow()
 {
 	if (!mWindow)
 	{
-		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Window not created");
-		throw exception;
+		throw std::runtime_error("Window not created");
 	}
 
 	return mWindow;
@@ -117,8 +115,7 @@ EventQ* Pycasso::createEventQ()
 {
 	if (mEventQ)
 	{
-		PycassoException exception(EXCEPTION_OBJECT_EXISTS, "Event queue already created");
-		throw exception;
+		throw std::runtime_error("Event queue already created");
 	}
 
 	switch (mPreferredSystem)
@@ -153,8 +150,7 @@ EventQ* Pycasso::getEventQ()
 {
 	if (!mEventQ)
 	{
-		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Event queue not created");
-		throw exception;
+		throw std::runtime_error("Event queue not created");
 	}
 
 	return mEventQ;

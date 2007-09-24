@@ -32,5 +32,8 @@ public:
     virtual Layer* createPNGLayer(std::string filePath)=0;
     bool removeLayer(Layer* layer);
 
+    virtual Font* loadFont(std::string fontName, unsigned int height)=0;
+    bool removeFont(Font* font);
+
     virtual void setClearOnUpdate(bool clear);
 };

@@ -13,5 +13,4 @@
 #include "Layer.h"
 #include "Font.h"
 #include "EventQ.h"
-#include "PycassoException.h"
 

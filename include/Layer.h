@@ -91,7 +91,7 @@ public:
 
     void setFont(Font* font){mCurrentFont = font;}
 
-    virtual void print(float x, float y, string text)=0;
+    virtual void drawText(float x, float y, string text)=0;
 
     bool isRoot(){return mRoot;}
 

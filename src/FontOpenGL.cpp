@@ -9,6 +9,8 @@
 
 #include "FontOpenGL.h"
 
+#include <stdexcept>
+
 namespace pyc
 {
 
@@ -24,7 +26,7 @@ FontOpenGL::~FontOpenGL()
     }
 }
 
-void FontOpenGL::init(string fontName, unsigned int height)
+void FontOpenGL::init(string fontFile, unsigned int height)
 {
     mHeight = height;
 
@@ -32,13 +34,13 @@ void FontOpenGL::init(string fontName, unsigned int height)
 
     if (FT_Init_FreeType(&library))
     {
-        throw std::runtime_error("FT_Init_FreeType failed");
+        throw std::runtime_error("Failed to initialize the FreeType library");
     }
 
     FT_Face face;
-    if (FT_New_Face(library, fontName.c_str(), 0, &face)) 
+    if (FT_New_Face(library, fontFile.c_str(), 0, &face)) 
     {
-        throw std::runtime_error("FT_New_Face failed (there is probably a problem with your font file)");
+        throw std::runtime_error("Failed to load font file: " + fontFile);
     }
 
     unsigned int freeTypeHeight = mHeight * 64;

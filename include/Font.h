@@ -23,7 +23,7 @@ public:
     Font();
     virtual ~Font();
 
-    void init(string fontName, unsigned int height);
+    void init(string fontFile, unsigned int height);
 
 protected:
     unsigned int mHeight;

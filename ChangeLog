@@ -8,14 +8,21 @@ pycasso (0.2)
   * createPNGLayer() and drawLayer()
   * demo2
   * demo3
+  * demo4
   * Color functions
-  * PycassoException
+  * Exceptions thrown
   * Python Module by way of SIP
   * startDrawing() and stopDrawing() removed
   * Window::update()
   * Layer::clear()
   * Window::setClearOnUpdate()
   * drawSquare(), drawCircle()
+  * Font class
+  * Window::loadFont()
+  * Window::removeFont()
+  * Layer::setFont()
+  * Layer::drawText()
+
 
 pycasso (0.1) unstable developer release
 13-Aug-2007

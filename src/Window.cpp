@@ -8,7 +8,8 @@
  */
 
 #include "Window.h"
-#include "PycassoException.h"
+
+#include <stdexcept>
 
 namespace pyc
 {
@@ -57,8 +58,7 @@ Layer* Window::getRootLayer()
 {
 	if (mRootLayer == NULL)
 	{
-		PycassoException exception(EXCEPTION_MISSING_OBJECT, "Window not initialized");
-		throw exception;
+		throw std::runtime_error("Window not initialized");
 	}
 
 	return mRootLayer;
