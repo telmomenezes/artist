@@ -15,6 +15,9 @@
 
 #include <png.h>
 
+#define CHECK_LOCK() if(mLocked) unlock();
+#define APPLY_TRANSFORMS(X, Y) glLoadIdentity(); if (mRotate){float aX = X - mRotX; float aY = Y - mRotY; glTranslatef(mRotX, mRotY, 0.0f); glRotatef(mRotAngle, 0.0f, 0.0f, 1.0f); glTranslatef(aX, aY, 0.0f);}else{glTranslatef(X, Y, 0.0f);}
+
 namespace pyc
 {
 
@@ -31,6 +34,10 @@ Layer2DOpenGL::Layer2DOpenGL()
     mfRed = 1.0f;
     mfGreen = 1.0f;
     mfBlue = 1.0f;
+    mRotate = false;
+    mRotX = 0;
+    mRotY = 0;
+    mRotAngle = 0;
 }
 
 Layer2DOpenGL::~Layer2DOpenGL()
@@ -116,16 +123,26 @@ void Layer2DOpenGL::lock()
     mLocked = true;
 }
 
+void Layer2DOpenGL::setRotation(float x, float y, float angle)
+{
+    mRotate = true;
+    mRotAngle = angle;
+    mRotX = x;
+    mRotY = y;
+}
+
+void Layer2DOpenGL::clearRotation()
+{
+    mRotate = false;
+}
+
 void Layer2DOpenGL::setColor(unsigned int red,
                 unsigned int green,
                 unsigned int blue,
                 unsigned int alpha)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
-    
+    CHECK_LOCK()
+
     mRed = red;
     mGreen = green;
     mBlue = blue;
@@ -137,10 +154,7 @@ void Layer2DOpenGL::setBackgroundColor(unsigned int red,
                     unsigned int green,
                     unsigned int blue)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
     mfRed = ((float)red) / 255.0f;
     mfGreen = ((float)green) / 255.0f;
@@ -152,30 +166,21 @@ void Layer2DOpenGL::setBackgroundColor(unsigned int red,
 
 void Layer2DOpenGL::setPointSize(float size)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
     glPointSize(size);
 }
 
 void Layer2DOpenGL::setLineWidth(float width)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
     glLineWidth(width);
 }
 
 void Layer2DOpenGL::clear()
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -183,26 +188,27 @@ void Layer2DOpenGL::clear()
 
 void Layer2DOpenGL::drawPoint(float x, float y)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
 
     glBegin(GL_POINTS);
-    glVertex3f(x, y, 0.0f);
+    glVertex3f(0, 0, 0.0f);
     glEnd();
 }
 
 void Layer2DOpenGL::drawLine(float x1, float y1, float x2, float y2)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    float deltaX = x2 - x1;
+    float deltaY = y2 - y1;
+
+    APPLY_TRANSFORMS(x1, y1)
 
     glBegin(GL_LINES);
-        glVertex3f(x1, y1, 0.0f);
-        glVertex3f(x2, y2, 0.0f);
+        glVertex3f(0.0f, 0.0f, 0.0f);
+        glVertex3f(deltaX, deltaY, 0.0f);
     glEnd();
 }
 
@@ -213,42 +219,39 @@ void Layer2DOpenGL::drawTriangle(float x1,
                     float x3,
                     float y3)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x1, y1)
+
+    float xa = x2 - x1;
+    float ya = y2 - y1;
+    float xb = x3 - x1;
+    float yb = y3 - y1;
 
     glBegin(GL_LINE_STRIP);
-        glVertex3f(x1, y1, 0.0f);
-        glVertex3f(x2, y2, 0.0f);
-        glVertex3f(x3, y3, 0.0f);
-        glVertex3f(x1, y1, 0.0f);
+        glVertex3f(0.0f, 0.0f, 0.0f);
+        glVertex3f(xb, yb, 0.0f);
+        glVertex3f(xa, ya, 0.0f);
+        glVertex3f(0.0f, 0.0f, 0.0f);
     glEnd();
 }
 
 void Layer2DOpenGL::drawSquare(float x,
                 float y,
-                float rad,
-                float rot)
+                float side)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
-    float ang = rot + M_PI * 0.25;
-    float deltaAng = M_PI * 0.5;
+    APPLY_TRANSFORMS(x, y)
+
+    float halfSide = side / 2.0f;
 
     glBegin(GL_LINE_STRIP);
-
-    for (unsigned int i = 0; i < 5; i++)
-    {
-        glVertex3f(x + (cosf(ang) * rad),
-            y + (sinf(ang) * rad),
-            0.0f);
-        ang += deltaAng;
-    }
-
+        glVertex3f(halfSide, halfSide, 0.0f);
+        glVertex3f(-halfSide, halfSide, 0.0f);
+        glVertex3f(-halfSide, -halfSide, 0.0f);
+        glVertex3f(halfSide, -halfSide, 0.0f);
+        glVertex3f(halfSide, halfSide, 0.0f);
     glEnd();
 }
 
@@ -258,10 +261,9 @@ void Layer2DOpenGL::drawCircle(float x,
                 float beginAngle,
                 float endAngle)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
     bool stop = false;
@@ -276,8 +278,8 @@ void Layer2DOpenGL::drawCircle(float x,
             stop = true;
         }
 
-        glVertex3f(x + (cosf(ang) * rad),
-            y + (sinf(ang) * rad),
+        glVertex3f(cosf(ang) * rad,
+            sinf(ang) * rad,
             0.0f);
         ang += 0.1f;
     }
@@ -292,41 +294,37 @@ void Layer2DOpenGL::fillTriangle(float x1,
                     float x3,
                     float y3)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x1, y1)
+
+    float xa = x2 - x1;
+    float ya = y2 - y1;
+    float xb = x3 - x1;
+    float yb = y3 - y1;
 
     glBegin(GL_TRIANGLES);
-        glVertex3f(x1, y1, 0.0f);
-        glVertex3f(x2, y2, 0.0f);
-        glVertex3f(x3, y3, 0.0f);
+        glVertex3f(0.0f, 0.0f, 0.0f);
+        glVertex3f(xb, yb, 0.0f);
+        glVertex3f(xa, ya, 0.0f);
     glEnd();
 }
 
 void Layer2DOpenGL::fillSquare(float x,
                     float y,
-                    float rad,
-                    float rot)
+                    float side)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
-    float ang = rot + M_PI * 0.25;
-    float deltaAng = M_PI * 0.5;
+    APPLY_TRANSFORMS(x, y)
+
+    float halfSide = side / 2.0f;
 
     glBegin(GL_QUADS);
-
-    for (unsigned int i = 0; i < 4; i++)
-    {
-        glVertex3f(x + (cosf(ang) * rad),
-            y + (sinf(ang) * rad),
-            0.0f);
-        ang += deltaAng;
-    }
-
+        glVertex3f(halfSide, halfSide, 0.0f);
+        glVertex3f(-halfSide, halfSide, 0.0f);
+        glVertex3f(-halfSide, -halfSide, 0.0f);
+        glVertex3f(halfSide, -halfSide, 0.0f);
     glEnd();
 }
 
@@ -336,17 +334,16 @@ void Layer2DOpenGL::fillCircle(float x,
                     float beginAngle,
                     float endAngle)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
     bool stop = false;
 
     glBegin(GL_POLYGON);
 
-    glVertex3f(x, y, 0.0f);
+    glVertex3f(0.0f, 0.0f, 0.0f);
 
     while (!stop)
     {
@@ -356,8 +353,8 @@ void Layer2DOpenGL::fillCircle(float x,
             stop = true;
         }
 
-        glVertex3f(x + (cosf(ang) * rad),
-            y + (sinf(ang) * rad),
+        glVertex3f(cosf(ang) * rad,
+            sinf(ang) * rad,
             0.0f);
         ang += 0.1f;
     }
@@ -371,10 +368,9 @@ void Layer2DOpenGL::drawLayer(Layer* layer,
         float width,
         float height)
 {
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
 
     Layer2DOpenGL* layGL = (Layer2DOpenGL*)layer;
 
@@ -404,25 +400,22 @@ void Layer2DOpenGL::drawLayer(Layer* layer,
     float origX2 = ((float)layGL->mWidth) / ((float)layGL->mTextureWidth);
     float origY2 = ((float)layGL->mHeight) / ((float)layGL->mTextureHeight);
 
-    float x2 = x + targetWidth;
-    float y2 = y + targetHeight;
-
     glBindTexture(GL_TEXTURE_2D, layGL->mTexture);
     glEnable(GL_TEXTURE_2D);
 
     glBegin(GL_QUADS);
 
     glTexCoord2f(origX1, origY1);
-    glVertex3f(x, y, 0.0f);
+    glVertex3f(0.0f, 0.0f, 0.0f);
 
     glTexCoord2f(origX2, origY1);
-    glVertex3f(x2, y, 0.0f);
+    glVertex3f(targetWidth, 0.0f, 0.0f);
 
     glTexCoord2f(origX2, origY2);
-    glVertex3f(x2, y2, 0.0f);
+    glVertex3f(targetWidth, targetHeight, 0.0f);
 
     glTexCoord2f(origX1, origY2);
-    glVertex3f(x, y2, 0.0f);
+    glVertex3f(0.0f, targetHeight, 0.0f);
 
     glEnd();
 
@@ -662,17 +655,14 @@ void Layer2DOpenGL::moveRasterY(int y)
     glBitmap(0, 0, 0, 0, 0, y, NULL);
 }
 
-void Layer2DOpenGL::drawText(float x, float y, string text)
+void Layer2DOpenGL::printText(float x, float y, string text)
 {
     if (mCurrentFont == NULL)
     {
         throw std::runtime_error("Attempting to print text without setting a font first");
     }
 
-    if (mLocked)
-    {
-        unlock();
-    }
+    CHECK_LOCK()
 
     const char* cText = text.c_str();
 

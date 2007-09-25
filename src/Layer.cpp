@@ -31,7 +31,7 @@ void Layer::setColor(unsigned int red,
                 unsigned int green,
                 unsigned int blue)
 {
-    setColor(red, green, blue, mAlpha);
+    setColor(red, green, blue, 255);
 }
 
 void Layer::setAlpha(unsigned int alpha)
@@ -54,6 +54,7 @@ void Layer::setColorRGB(unsigned int color)
     unsigned int red = color & 0xFF0000;
     unsigned int green = (color & 0x00FF00) << 8;
     unsigned int blue = (color & 0x0000FF) << 16;
+    unsigned int alpha = 255;
     
     setColor(red, green, blue, mAlpha);
 }

@@ -28,21 +28,28 @@ public:
     Layer2DOpenGL();
     virtual ~Layer2DOpenGL();
 
+    virtual void setRotation(float x, float y, float angle);
+    virtual void clearRotation();
+
     virtual void setColor(unsigned int red,
                 unsigned int green,
                 unsigned int blue,
                 unsigned int alpha);
+
     virtual void setBackgroundColor(unsigned int red,
                     unsigned int green,
                     unsigned int blue);
 
     virtual void setPointSize(float size);
+
     virtual void setLineWidth(float width);
 
     virtual void clear();
 
     virtual void drawPoint(float x, float y);
+
     virtual void drawLine(float x1, float y1, float x2, float y2);
+
     virtual void drawTriangle(float x1,
                     float y1,
                     float x2,
@@ -51,23 +58,25 @@ public:
                     float y3);
     virtual void drawSquare(float x,
                     float y,
-                    float rad,
-                    float rot=0.0f);
+                    float side);
+
     virtual void drawCircle(float x,
                     float y,
                     float rad,
                     float beginAngle=0.0f,
                     float endAngle=(M_PI * 2));
+
     virtual void fillTriangle(float x1,
                     float y1,
                     float x2,
                     float y2,
                     float x3,
                     float y3);
+
     virtual void fillSquare(float x,
                     float y,
-                    float rad,
-                    float rot=0.0f);
+                    float side);
+
     virtual void fillCircle(float x,
                     float y,
                     float rad,
@@ -80,7 +89,7 @@ public:
                 float width=0.0f,
                 float height=0.0f);
 
-    virtual void drawText(float x, float y, string text);
+    virtual void printText(float x, float y, string text);
 
     virtual void _initEmpty(int width, int height);
     virtual void _loadPNG(string filePath);
@@ -92,6 +101,8 @@ protected:
 
     void moveRasterX(int x);
     void moveRasterY(int y);
+
+    void applyTransforms(float x, float y);
 
     bool mLocked;
 
@@ -108,6 +119,11 @@ protected:
     float mfRed;
     float mfGreen;
     float mfBlue;
+
+    bool mRotate;
+    float mRotX;
+    float mRotY;
+    float mRotAngle;
 };
 
 }

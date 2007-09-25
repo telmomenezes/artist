@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 import sipdistutils
 
 setup(name='pycasso',
-      version='0.2',
+      version='0.3',
       description='Cross-platform graphics library with hardware acceleration support',
       author='Telmo Menezes',
       author_email='telmo@telmomenezes.com',

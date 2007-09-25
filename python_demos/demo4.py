@@ -19,7 +19,7 @@ font = win.loadFont("../media/vera/Vera.ttf", 9)
 root.setFont(font)
 
 while not exit:
-    root.drawText(100, 100, "Hello Pycasso World!")
+    root.printText(100, 100, "Hello Pycasso World!")
     win.update()
 
     while event.next():

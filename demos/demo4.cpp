@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     while (!exit)
     {
-        root->drawText(100, 100, "Hello Pycasso World!");
+        root->printText(100, 100, "Hello Pycasso World!");
 
         win->update();
 
