@@ -30,6 +30,15 @@ public:
     virtual void setRotation(float x, float y, float angle)=0;
     virtual void clearRotation()=0;
 
+    virtual void setScale(float scaleX, float scaleY)=0;
+    virtual void clearScale()=0;
+
+    virtual void setTranslation(float transX, float transY)=0;
+    virtual void clearTranslation()=0;
+
+    virtual void setScreenTranslation(float transX, float transY)=0;
+    virtual void clearScreenTranslation()=0;
+
     virtual void drawPoint(float x, float y)=0;
 
     virtual void drawLine(float x1, float y1, float x2, float y2)=0;

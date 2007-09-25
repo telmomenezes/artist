@@ -1,6 +1,16 @@
 #include "pyc.h"
 #include <string>
 
+void updateScale(pyc::Layer2D* layer, float scale)
+{
+    layer->setScale(scale, scale);
+
+    float newCenterX = 400.0f * scale;
+    float newCenterY = 300.0f * scale;
+
+    layer->setScreenTranslation(400.0f - newCenterX, 300.0f - newCenterY);
+}
+
 int main(int argc, char *argv[])
 {
     pyc::Pycasso pycasso;
@@ -21,6 +31,8 @@ int main(int argc, char *argv[])
     bool exit = false;
 
     float rot = 0.0f;
+
+    float scale = 1.0f;
 
     while (!exit)
     {
@@ -70,6 +82,19 @@ int main(int argc, char *argv[])
                 if (event->getKeyCode() == pyc::KEY_ESCAPE)
                 {
                     exit = true;
+                }
+            }
+            else if (event->getType() == pyc::EVENT_MOUSE_WHEEL_UP)
+            {
+                scale += 0.05f;
+                updateScale(root, scale);
+            }
+            else if (event->getType() == pyc::EVENT_MOUSE_WHEEL_DOWN)
+            {
+                if (scale >= 0.05f)
+                {
+                    scale -= 0.05f;
+                    updateScale(root, scale);
                 }
             }
         }

@@ -4,7 +4,6 @@
 * Draw pixel matrix
 * CMake install
 * Zooming
-* Mouse coordinates vs. layer coordinates
 * Time / fixed FPS system
 * setFill(layer)
 * Gradients

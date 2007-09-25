@@ -31,6 +31,15 @@ public:
     virtual void setRotation(float x, float y, float angle);
     virtual void clearRotation();
 
+    virtual void setScale(float scaleX, float scaleY);
+    virtual void clearScale();
+
+    virtual void setTranslation(float transX, float transY);
+    virtual void clearTranslation();
+
+    virtual void setScreenTranslation(float transX, float transY);
+    virtual void clearScreenTranslation();
+
     virtual void setColor(unsigned int red,
                 unsigned int green,
                 unsigned int blue,
@@ -102,8 +111,6 @@ protected:
     void moveRasterX(int x);
     void moveRasterY(int y);
 
-    void applyTransforms(float x, float y);
-
     bool mLocked;
 
     static Layer2DOpenGL* mWorkingLayer;
@@ -124,6 +131,18 @@ protected:
     float mRotX;
     float mRotY;
     float mRotAngle;
+
+    bool mScale;
+    float mScaleX;
+    float mScaleY;
+
+    bool mTranslate;
+    float mTransX;
+    float mTransY;
+
+    bool mScreenTranslate;
+    float mScreenTransX;
+    float mScreenTransY;
 };
 
 }

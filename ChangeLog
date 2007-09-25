@@ -2,9 +2,12 @@ pycasso (0.3)
 
   * Layer2D::drawText() changed to Layer2D::printText()
   * Layer2D::setRotation() and Layer2D::clearRotation()
+  * Layer2D::setScale() and Layer2D::clearScale()
+  * Layer2D::setTranslation() and Layer2D::clearTranslation()
+  * Layer2D::setScreenTranslation() and Layer2D::clearScreenTranslation()
   * Rotation parameter removed from drawSquare() and fillSquare()
   * drawSquare() and fillSquare() now use side length instead of radius
-  * demo5 and demo6
+  * demo5, demo6, demo7
   * ...
 
 pycasso (0.2) alpha release

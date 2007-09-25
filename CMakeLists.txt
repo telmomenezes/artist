@@ -73,3 +73,6 @@ TARGET_LINK_LIBRARIES(demo5 pycasso)
 
 ADD_EXECUTABLE(demo6 demos/demo6.cpp)
 TARGET_LINK_LIBRARIES(demo6 pycasso)
+
+ADD_EXECUTABLE(demo7 demos/demo7.cpp)
+TARGET_LINK_LIBRARIES(demo7 pycasso)

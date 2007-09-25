@@ -16,7 +16,7 @@
 #include <png.h>
 
 #define CHECK_LOCK() if(mLocked) unlock();
-#define APPLY_TRANSFORMS(X, Y) glLoadIdentity(); if (mRotate){float aX = X - mRotX; float aY = Y - mRotY; glTranslatef(mRotX, mRotY, 0.0f); glRotatef(mRotAngle, 0.0f, 0.0f, 1.0f); glTranslatef(aX, aY, 0.0f);}else{glTranslatef(X, Y, 0.0f);}
+#define APPLY_TRANSFORMS(X, Y) glLoadIdentity(); if(mScreenTranslate) glTranslatef(mScreenTransX, mScreenTransY, 0.0f); if(mScale) glScalef(mScaleX, mScaleY, 0.0f); if(mTranslate) glTranslatef(mTransX, mTransY, 0.0f); if (mRotate){float aX = X - mRotX; float aY = Y - mRotY; glTranslatef(mRotX, mRotY, 0.0f); glRotatef(mRotAngle, 0.0f, 0.0f, 1.0f); glTranslatef(aX, aY, 0.0f);}else{glTranslatef(X, Y, 0.0f);}
 
 namespace pyc
 {
@@ -38,6 +38,15 @@ Layer2DOpenGL::Layer2DOpenGL()
     mRotX = 0;
     mRotY = 0;
     mRotAngle = 0;
+    mScale = false;
+    mScaleX = 1.0f;
+    mScaleY = 1.0f;
+    mTranslate = false;
+    mTransX = 0;
+    mTransY = 0;
+    mScreenTranslate = false;
+    mScreenTransX = 0;
+    mScreenTransY = 0;
 }
 
 Layer2DOpenGL::~Layer2DOpenGL()
@@ -59,21 +68,18 @@ void Layer2DOpenGL::unlock()
 
         mWorkingLayer = this;
 
-        int width = mWidth;
-        int height = mHeight;
-
-        glViewport(0, 0, width, height);
+        glViewport(0, 0, mWidth, mHeight);
     
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 
         if (mRoot)
         {
-            glOrtho(0.0f, width, height, 0.0f, -1.0f, 1.0f);
+            glOrtho(0.0f, mWidth, mHeight, 0.0f, -1.0f, 1.0f);
         }
         else
         {
-            glOrtho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
+            glOrtho(0.0f, mWidth, 0.0f, mHeight, -1.0f, 1.0f);
         }
 
         glEnable(GL_BLEND);
@@ -134,6 +140,42 @@ void Layer2DOpenGL::setRotation(float x, float y, float angle)
 void Layer2DOpenGL::clearRotation()
 {
     mRotate = false;
+}
+
+void Layer2DOpenGL::setScale(float scaleX, float scaleY)
+{
+    mScale = true;
+    mScaleX = scaleX;
+    mScaleY = scaleY;
+}
+
+void Layer2DOpenGL::clearScale()
+{
+    mScale = false;
+}
+
+void Layer2DOpenGL::setTranslation(float transX, float transY)
+{
+    mTranslate = true;
+    mTransX = transX;
+    mTransY = transY;
+}
+
+void Layer2DOpenGL::clearTranslation()
+{
+    mTranslate = false;
+}
+
+void Layer2DOpenGL::setScreenTranslation(float transX, float transY)
+{
+    mScreenTranslate = true;
+    mScreenTransX = transX;
+    mScreenTransY = transY;
+}
+
+void Layer2DOpenGL::clearScreenTranslation()
+{
+    mScreenTranslate = false;
 }
 
 void Layer2DOpenGL::setColor(unsigned int red,
