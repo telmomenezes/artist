@@ -27,6 +27,9 @@ int main(int argc, char *argv[])
     root->setBackgroundColor(255, 255, 255);
 
     pyc::Layer2D* pngImage = win->createPNGLayer("media/avignon.png");
+    
+    pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
+    root->setFont(font);
 
     bool exit = false;
 
@@ -37,6 +40,9 @@ int main(int argc, char *argv[])
     while (!exit)
     {
         root->setRotation(400, 300, rot);
+
+        root->setColor(50, 50, 50);
+        root->drawText(500, 200, "Hello World!");
 
         root->setColor(0, 150, 0);
         root->fillSquare(300, 200, 50);
@@ -63,7 +69,7 @@ int main(int argc, char *argv[])
         root->setColor(134, 219, 43);
         root->drawTriangle(10, 12, 23, 45, 100, 43);
 
-        rot += 0.1f;
+        rot += 0.005f;
 
         root->setColor(0, 0, 150);
         root->clearRotation();

@@ -12,21 +12,31 @@ int main(int argc, char *argv[])
     event = pycasso.createEventQ();
     root = win->getRootLayer2D();
 
-    win->setTitle("Pycasso Demo #4");
+    win->setTitle("Pycasso Demo #7");
 
     root->setBackgroundColor(255, 255, 255);
 
     bool exit = false;
 
-    pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
-    root->setFont(font);
-
     while (!exit)
     {
-        root->setColor(250, 0, 0);
-        root->drawLine(100, 100, 200, 100);
-        root->setColor(0, 150, 0);
-        root->drawText(100, 100, "Hello Pycasso World!");
+        root->clearTranslation();
+        for (unsigned int i = 1; i < 5; i++)
+        {
+            root->clearScale();
+            root->setColor(255, 0, 0, 100);
+            root->fillCircle(100.0f, 100.0f, 50.0f);
+
+            root->setScale(0.5f, 0.5f);
+            root->setColor(0, 255, 0, 150);
+            root->fillCircle(100.0f, 100.0f, 50.0f);
+
+            root->setScale(1.5f, 1.5f);
+            root->setColor(0, 0, 255, 100);
+            root->fillCircle(100.0f, 100.0f, 50.0f);
+
+            root->setTranslation(i * 100.0f, i * 100.0f);
+        }
 
         win->update();
 

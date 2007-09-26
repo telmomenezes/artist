@@ -132,7 +132,7 @@ void Layer2DOpenGL::lock()
 void Layer2DOpenGL::setRotation(float x, float y, float angle)
 {
     mRotate = true;
-    mRotAngle = angle;
+    mRotAngle = 57.2957795f * angle;
     mRotX = x;
     mRotY = y;
 }
@@ -687,17 +687,7 @@ void Layer2DOpenGL::_loadPNG(string filePath)
     mFirstUnlock = false;
 }
 
-void Layer2DOpenGL::moveRasterX(int x)
-{
-    glBitmap(0, 0, 0, 0, x, 0, NULL);
-}
-
-void Layer2DOpenGL::moveRasterY(int y)
-{
-    glBitmap(0, 0, 0, 0, 0, y, NULL);
-}
-
-void Layer2DOpenGL::printText(float x, float y, string text)
+void Layer2DOpenGL::drawText(float x, float y, string text)
 {
     if (mCurrentFont == NULL)
     {
@@ -706,47 +696,27 @@ void Layer2DOpenGL::printText(float x, float y, string text)
 
     CHECK_LOCK()
 
-    const char* cText = text.c_str();
+    APPLY_TRANSFORMS(x, y)
 
-    glPushAttrib(GL_CURRENT_BIT | GL_PIXEL_MODE_BIT | GL_ENABLE_BIT);
+    FontOpenGL* fontGL = (FontOpenGL*)mCurrentFont;
+
+    GLuint font = fontGL->mListBase;
+
+    glEnable(GL_TEXTURE_2D);
+
+    glListBase(font);
+
+    //  The commented out raster position stuff can be useful if you need to
+    //  know the length of the text that you are creating.
+    //  If you decide to use it make sure to also uncomment the glBitmap command
+    //  in make_dlist().
+    //  glRasterPos2f(0,0);
+    glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
+    //  float rpos[4];
+    //  glGetFloatv(GL_CURRENT_RASTER_POSITION ,rpos);
+    //  float len=x-rpos[0];
+
     glDisable(GL_TEXTURE_2D);
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glDisable(GL_LIGHTING);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
-
-    GLint oldUnpack;
-    glGetIntegerv(GL_UNPACK_ALIGNMENT,&oldUnpack); 
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    float color[4];
-    glGetFloatv(GL_CURRENT_COLOR, color);
-
-    glPixelTransferf(GL_RED_SCALE, color[0]);
-    glPixelTransferf(GL_GREEN_SCALE, color[1]);
-    glPixelTransferf(GL_BLUE_SCALE, color[2]);
-    glPixelTransferf(GL_ALPHA_SCALE, color[3]);
-
-    moveRasterX((int)x);
-    moveRasterY((int)(mHeight - y));
-
-    FontOpenGL* font = (FontOpenGL*)mCurrentFont;
-
-    for (int i = 0; cText[i]; i++)
-    {
-        CharacterOpenGL* cData = font->mChars[text[i]];
-
-        moveRasterX(cData->mLeft);
-        moveRasterY(cData->mMoveUp);
-
-        glDrawPixels(cData->mWidth, cData->mHeight, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, cData->mData);
-
-        moveRasterY(-cData->mMoveUp);
-        moveRasterX(cData->mAdvance - cData->mLeft);
-    }
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, oldUnpack);
-    glPopAttrib();
 }
 
 }

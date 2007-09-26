@@ -7,6 +7,12 @@
  * license. The license text is available in the file COPYING.
  */
 
+/*
+ * ACKNOWLEDGMENT: This code is based on an exemple by
+ * Sven Olsen know as Lesson #43 of the NeHe tutorials.
+ * http://nehe.gamedev.net/data/lessons/lesson.asp?lesson=43
+ */
+
 #if !defined(__INCLUDE_PYCASSO_FONT_OPENGL_H)
 #define __INCLUDE_PYCASSO_FONT_OPENGL_H
 
@@ -18,26 +24,14 @@
 #include <freetype/ftoutln.h>
 #include <freetype/fttrigon.h>
 
+#include <GL/gl.h>
+
 #include <string>
 
 namespace pyc
 {
 
 using std::string;
-
-class CharacterOpenGL
-{
-public:
-    int mWidth;
-    int mHeight;
-    int mAdvance;
-    int mLeft;
-    int mMoveUp;
-    unsigned char* mData;
-
-    CharacterOpenGL(){} 
-    virtual ~CharacterOpenGL(){delete [] mData;}
-};
 
 class FontOpenGL : public Font
 {
@@ -47,10 +41,11 @@ public:
 
     void init(string fontFile, unsigned int height);
 
-    CharacterOpenGL* mChars[128];
+    GLuint* mTextures;
+    GLuint mListBase;
 
 protected:
-    CharacterOpenGL* loadChar(char ch, FT_Face& face);
+    void makedlist(FT_Face& face, char ch);
 };
 
 }

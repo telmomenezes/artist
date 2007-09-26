@@ -61,5 +61,5 @@ public:
 
     void setFont(Font* font);
 
-    virtual void printText(float x, float y, std::string text)=0;
+    virtual void drawText(float x, float y, std::string text)=0;
 };

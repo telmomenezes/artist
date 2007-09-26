@@ -14,7 +14,7 @@ namespace pyc
 
 int nextPowerOfTwo(int value)
 {
-    int result = 1;
+    int result = 2;
 
     while (result < value)
     {

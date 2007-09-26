@@ -24,6 +24,7 @@ public:
     virtual ~Font();
 
     void init(string fontFile, unsigned int height);
+    unsigned int getHeight(){return mHeight;}
 
 protected:
     unsigned int mHeight;

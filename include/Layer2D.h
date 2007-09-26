@@ -85,7 +85,7 @@ public:
 
     void setFont(Font* font){mCurrentFont = font;}
 
-    virtual void printText(float x, float y, string text)=0;
+    virtual void drawText(float x, float y, string text)=0;
 
     virtual void _loadPNG(string filePath){};
 

@@ -2,8 +2,6 @@
 
 * Get text sizes
 * Draw pixel matrix
-* CMake install
-* Zooming
 * Time / fixed FPS system
 * setFill(layer)
 * Gradients
