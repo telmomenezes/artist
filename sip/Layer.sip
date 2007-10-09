@@ -31,6 +31,8 @@ public:
     virtual void setPointSize(float size)=0;
     virtual void setLineWidth(float width)=0;
 
+    void setCurveAngleStep(float angle);
+
     virtual void clear()=0;
 
     bool isRoot();

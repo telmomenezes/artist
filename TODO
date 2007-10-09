@@ -1,21 +1,17 @@
 == Features ==
 
-* Get text sizes
 * Draw pixel matrix
 * Time / fixed FPS system
 * setFill(layer)
 * Gradients
 * Window::setIcon()
+* Tidy up demos
 * Layer3D...
 
 == Drawing Primitives ==
 
-* drawEllipse()
-* fillEllipse()
-* drawRectangle()
-* fillRectangle()
-* drawPolly()
-* fillPolly()
+* drawPolly() (?)
+* fillPolly() (?)
 
 == OpenGL ==
 

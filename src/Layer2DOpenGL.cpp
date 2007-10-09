@@ -297,6 +297,24 @@ void Layer2DOpenGL::drawSquare(float x,
     glEnd();
 }
 
+void Layer2DOpenGL::drawRectangle(float x,
+                float y,
+                float width,
+                float height)
+{
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
+
+    glBegin(GL_LINE_STRIP);
+        glVertex3f(width, height, 0.0f);
+        glVertex3f(0, height, 0.0f);
+        glVertex3f(0, 0, 0.0f);
+        glVertex3f(width, 0, 0.0f);
+        glVertex3f(width, height, 0.0f);
+    glEnd();
+}
+
 void Layer2DOpenGL::drawCircle(float x,
                 float y,
                 float rad,
@@ -323,7 +341,40 @@ void Layer2DOpenGL::drawCircle(float x,
         glVertex3f(cosf(ang) * rad,
             sinf(ang) * rad,
             0.0f);
-        ang += 0.1f;
+        ang += mCurveAngleStep;
+    }
+
+    glEnd();
+}
+
+void Layer2DOpenGL::drawEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
+                    float beginAngle,
+                    float endAngle)
+{
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
+
+    float ang = beginAngle;
+    bool stop = false;
+
+    glBegin(GL_LINE_STRIP);
+
+    while (!stop)
+    {
+        if (ang >= endAngle)
+        {
+            ang = endAngle;
+            stop = true;
+        }
+
+        glVertex3f(cosf(ang) * radX,
+            sinf(ang) * radY,
+            0.0f);
+        ang += mCurveAngleStep;
     }
 
     glEnd();
@@ -370,6 +421,23 @@ void Layer2DOpenGL::fillSquare(float x,
     glEnd();
 }
 
+void Layer2DOpenGL::fillRectangle(float x,
+                float y,
+                float width,
+                float height)
+{
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
+
+    glBegin(GL_QUADS);
+        glVertex3f(width, height, 0.0f);
+        glVertex3f(0, height, 0.0f);
+        glVertex3f(0, 0, 0.0f);
+        glVertex3f(width, 0, 0.0f);
+    glEnd();
+}
+
 void Layer2DOpenGL::fillCircle(float x,
                     float y,
                     float rad,
@@ -398,7 +466,42 @@ void Layer2DOpenGL::fillCircle(float x,
         glVertex3f(cosf(ang) * rad,
             sinf(ang) * rad,
             0.0f);
-        ang += 0.1f;
+        ang += mCurveAngleStep;
+    }
+
+    glEnd();
+}
+
+void Layer2DOpenGL::fillEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
+                    float beginAngle,
+                    float endAngle)
+{
+    CHECK_LOCK()
+
+    APPLY_TRANSFORMS(x, y)
+
+    float ang = beginAngle;
+    bool stop = false;
+
+    glBegin(GL_POLYGON);
+
+    glVertex3f(0.0f, 0.0f, 0.0f);
+
+    while (!stop)
+    {
+        if (ang >= endAngle)
+        {
+            ang = endAngle;
+            stop = true;
+        }
+
+        glVertex3f(cosf(ang) * radX,
+            sinf(ang) * radY,
+            0.0f);
+        ang += mCurveAngleStep;
     }
 
     glEnd();

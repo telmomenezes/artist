@@ -20,13 +20,16 @@ int main(int argc, char *argv[])
 
     pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
     root->setFont(font);
+    
+    std::string text = "Hello Pycasso World :)";
+    float textWidth = font->getTextWidth(text);
 
     while (!exit)
     {
         root->setColor(250, 0, 0);
-        root->drawLine(100, 100, 200, 100);
+        root->drawLine(100, 100, 100 + textWidth, 100);
         root->setColor(0, 150, 0);
-        root->drawText(100, 100, "Hello Pycasso World!");
+        root->drawText(100, 100, text);
 
         win->update();
 

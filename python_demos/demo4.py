@@ -14,12 +14,17 @@ root.setBackgroundColor(255, 255, 255)
 
 exit = False
 
-root.setColor(0, 150, 0)
 font = win.loadFont("../media/vera/Vera.ttf", 9)
 root.setFont(font)
+text = "Hello Pycasso World ;)"
+textWidth = font.getTextWidth(text)
 
 while not exit:
-    root.drawText(100, 100, "Hello Pycasso World!")
+    root.setColor(150, 0, 0)
+    root.drawLine(100, 100, 100 + textWidth, 100)
+    root.setColor(0, 150, 0)
+    root.drawText(100, 100, text)
+
     win.update()
 
     while event.next():

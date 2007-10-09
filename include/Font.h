@@ -25,6 +25,7 @@ public:
 
     void init(string fontFile, unsigned int height);
     unsigned int getHeight(){return mHeight;}
+    virtual float getTextWidth(string text)=0;
 
 protected:
     unsigned int mHeight;

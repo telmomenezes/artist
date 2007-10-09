@@ -40,9 +40,11 @@ public:
     virtual ~FontOpenGL();
 
     void init(string fontFile, unsigned int height);
+    virtual float getTextWidth(string text);
 
     GLuint* mTextures;
     GLuint mListBase;
+    float* mWidths;
 
 protected:
     void makedlist(FT_Face& face, char ch);

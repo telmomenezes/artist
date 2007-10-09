@@ -21,6 +21,7 @@ Layer::Layer()
     mGreen = 255;
     mBlue = 255;
     mAlpha = 255;
+    mCurveAngleStep = 0.1f;
 }
 
 Layer::~Layer()

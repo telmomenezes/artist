@@ -9,4 +9,7 @@ using namespace pyc;
 public:
     Font();
     virtual ~Font();
+
+    unsigned int getHeight();
+    virtual float getTextWidth(std::string text)=0;
 };

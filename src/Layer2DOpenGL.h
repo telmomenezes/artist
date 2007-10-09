@@ -65,13 +65,26 @@ public:
                     float y2,
                     float x3,
                     float y3);
+
     virtual void drawSquare(float x,
                     float y,
                     float side);
 
+    virtual void drawRectangle(float x,
+                    float y,
+                    float width,
+                    float height);
+
     virtual void drawCircle(float x,
                     float y,
                     float rad,
+                    float beginAngle=0.0f,
+                    float endAngle=(M_PI * 2));
+
+    virtual void drawEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
                     float beginAngle=0.0f,
                     float endAngle=(M_PI * 2));
 
@@ -86,9 +99,21 @@ public:
                     float y,
                     float side);
 
+    virtual void fillRectangle(float x,
+                    float y,
+                    float width,
+                    float height);
+
     virtual void fillCircle(float x,
                     float y,
                     float rad,
+                    float beginAngle=0.0f,
+                    float endAngle=(M_PI * 2));
+
+    virtual void fillEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
                     float beginAngle=0.0f,
                     float endAngle=(M_PI * 2));
 

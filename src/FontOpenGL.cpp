@@ -23,13 +23,26 @@ namespace pyc
 
 FontOpenGL::FontOpenGL()
 {
+    mTextures = NULL;
+    mWidths = NULL;
 }
 
 FontOpenGL::~FontOpenGL()
 {
     glDeleteLists(mListBase, 128);
-    glDeleteTextures(128, mTextures);
-    delete [] mTextures;
+
+    if (mTextures)
+    {
+        glDeleteTextures(128, mTextures);
+        delete [] mTextures;
+        mTextures = NULL;
+    }
+
+    if (mWidths)
+    {
+        free(mWidths);
+        mWidths = NULL;
+    }
 }
 
 void FontOpenGL::makedlist(FT_Face& face, char ch)
@@ -109,13 +122,15 @@ void FontOpenGL::makedlist(FT_Face& face, char ch)
     glTranslatef(advance, 0.0f, 0.0f);
 
     glEndList();
+
+    mWidths[ch] = bitmapGlyph->left + advance;
 }
-
-
 
 void FontOpenGL::init(string fontFile, unsigned int height)
 {
     mTextures = new GLuint[128];
+
+    mWidths = (float*)(malloc(128 * sizeof(float)));
     
     mHeight = height;
     
@@ -144,6 +159,20 @@ void FontOpenGL::init(string fontFile, unsigned int height)
     FT_Done_Face(face);
 
     FT_Done_FreeType(library);
+}
+
+float FontOpenGL::getTextWidth(string text)
+{
+    unsigned int length = text.length();
+    const char* textBuf = text.c_str();
+    float width = 0;
+
+    for (unsigned int i = 0; i < length; i++)
+    {
+        width += mWidths[textBuf[i]];
+    }
+
+    return width;
 }
 
 }

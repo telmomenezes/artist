@@ -54,9 +54,21 @@ public:
                     float y,
                     float side)=0;
 
+    virtual void drawRectangle(float x,
+                    float y,
+                    float width,
+                    float height)=0;
+
     virtual void drawCircle(float x,
                     float y,
                     float rad,
+                    float beginAngle=0.0f,
+                    float endAngle=(M_PI * 2))=0;
+
+    virtual void drawEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
                     float beginAngle=0.0f,
                     float endAngle=(M_PI * 2))=0;
 
@@ -71,9 +83,21 @@ public:
                     float y,
                     float side)=0;
 
+    virtual void fillRectangle(float x,
+                    float y,
+                    float width,
+                    float height)=0;
+
     virtual void fillCircle(float x,
                     float y,
                     float rad,
+                    float beginAngle=0.0f,
+                    float endAngle=(M_PI * 2))=0;
+
+    virtual void fillEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY,
                     float beginAngle=0.0f,
                     float endAngle=(M_PI * 2))=0;
 
@@ -86,8 +110,6 @@ public:
     void setFont(Font* font){mCurrentFont = font;}
 
     virtual void drawText(float x, float y, string text)=0;
-
-    virtual void _loadPNG(string filePath){};
 
 protected:
     Font* mCurrentFont;

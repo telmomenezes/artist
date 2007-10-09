@@ -7,8 +7,12 @@ pycasso (0.3)
   * Layer2D::drawText() changed to texture system, text can be scaled and
   rotated like anything else
   * Rotation parameter removed from drawSquare() and fillSquare()
-  * drawSquare() and fillSquare() now use side length instead of radius
+  * Layer2D::drawSquare() and Layer2D::fillSquare() now use side length instead of radius
   * demo5, demo6, demo7
+  * Layer2D::drawRectangle() and Layer2D:fillRectangle()
+  * Layer2D::drawEllipse() and Layer2D::fillEllipse()
+  * Layer::setCurveAngleStep()
+  * Font::getTextSize()
   * ...
 
 pycasso (0.2) alpha release
