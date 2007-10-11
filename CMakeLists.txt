@@ -9,8 +9,6 @@ ELSE(DEBUG)
     SET(CMAKE_CXX_FLAGS "-Wno-deprecated -O3")
 ENDIF(DEBUG)
 
-ADD_SUBDIRECTORY(src)
-
 SET(SOURCE_FILES ${SOURCE_FILES}
     src/Pycasso.cpp
     src/Window.cpp
