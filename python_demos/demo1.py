@@ -15,8 +15,8 @@ root.setBackgroundColor(255, 255, 255)
 exit = False
 x = 400.0
 y = 300.0
-deltaX = 0.5
-deltaY = 0.5
+deltaX = 3.0
+deltaY = 3.0
 
 while not exit:
     root.setColor(255, 0, 0)
