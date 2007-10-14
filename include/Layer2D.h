@@ -16,7 +16,7 @@
 #include <math.h>
 #include <string>
 
-#if defined(__PYCASSO_OS_WIN32)
+#if defined(__PYCASSO_COMPILER_CL)
 #define M_PI 3.14159265f
 #endif
 
