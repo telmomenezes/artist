@@ -16,25 +16,28 @@ macros = [('__PYCASSO_SYSTEM_SDLOPENGL', None)]
 
 libs = []
 includeDirs = []
+dataFiles = []
 
 if os.name == 'nt':
     libs = ['SDL', 'opengl32', 'glu32', 'png', 'freetype']
     includeDirs =['include', 'src']
+    dataFiles = [('Lib/site-packages', ['win32/sip/sip.pyd'])]
 else:
     libs = ['SDL', 'GL', 'GLU', 'png', 'freetype']
     includeDirs =['include', 'src', '/usr/include/SDL', '/usr/include/freetype2']
 
 
 setup(name=moduleName,
-      version=moduleVersion,
-      description=moduleDescription,
-      author=moduleAuthor,
-      author_email=moduleAuthorEmail,
-      url=moduleURL,
-      ext_modules=[Extension(modulePythonName, sourceFiles,
+        version=moduleVersion,
+        description=moduleDescription,
+        author=moduleAuthor,
+        author_email=moduleAuthorEmail,
+        url=moduleURL,
+        ext_modules=[Extension(modulePythonName, sourceFiles,
                       include_dirs=includeDirs,
                       libraries=libs,
 		      define_macros=macros
-      )],
-      cmdclass = {'build_ext': sipdistutils.build_ext}
+        )],
+        data_files=dataFiles,
+        cmdclass = {'build_ext': sipdistutils.build_ext}
 )
