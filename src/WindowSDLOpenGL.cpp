@@ -7,6 +7,10 @@
  * license. The license text is available in the file COPYING.
  */
 
+#if defined(__PYCASSO_OS_WIN32)
+#include <windows.h>
+#endif
+
 #include "WindowSDLOpenGL.h"
 #include "Layer2DOpenGL.h"
 #include "FontOpenGL.h"

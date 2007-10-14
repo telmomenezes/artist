@@ -14,7 +14,13 @@
 #include "Layer2D.h"
 
 #include <math.h>
+
+#if defined(__PYCASSO_OS_WIN32)
+#include <windows.h>
+#endif
+
 #include <GL/gl.h>
+
 #include <string>
 
 namespace pyc

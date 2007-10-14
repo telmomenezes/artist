@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     bool exit = false;
     float x = 400.0f;
     float y = 300.0f;
-    float deltaX = 0.5f;
-    float deltaY = 0.5f;
+    float deltaX = 3.0f;
+    float deltaY = 3.0f;
 
     while (!exit)
     {

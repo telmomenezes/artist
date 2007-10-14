@@ -18,11 +18,17 @@
 
 #include "Font.h"
 
+#if defined(__PYCASSO_OS_WIN32)
+#include <windows.h>
+#endif
+
+extern "C" {
 #include <ft2build.h>
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <freetype/ftoutln.h>
 #include <freetype/fttrigon.h>
+}
 
 #include <GL/gl.h>
 

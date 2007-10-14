@@ -16,6 +16,10 @@
 #include <math.h>
 #include <string>
 
+#if defined(__PYCASSO_OS_WIN32)
+#define M_PI 3.14159265f
+#endif
+
 namespace pyc
 {
 
