@@ -12,7 +12,6 @@ moduleAuthorEmail = 'telmo@telmomenezes.com'
 moduleURL = 'http://www.telmomenezes.com/pycasso'
 modulePythonName = 'pyc'
 sourceFiles = ['sip/pyc.sip', 'src/Pycasso.cpp', 'src/Window.cpp', 'src/Layer.cpp', 'src/Layer2D.cpp', 'src/Font.cpp', 'src/EventQ.cpp', 'src/Layer2DOpenGL.cpp', 'src/WindowSDLOpenGL.cpp', 'src/EventQSDL.cpp', 'src/FontOpenGL.cpp', 'src/stb_image.c']
-macros = [('__PYCASSO_SYSTEM_SDLOPENGL', None)] 
 
 libs = []
 includeDirs = []
@@ -22,9 +21,11 @@ if os.name == 'nt':
     libs = ['SDL', 'opengl32', 'glu32', 'freetype']
     includeDirs =['include', 'src']
     dataFiles = [('Lib/site-packages', ['win32/sip/sip.pyd'])]
+    macros = [('__PYCASSO_SYSTEM_SDLOPENGL', None)] 
 else:
     libs = ['SDL', 'GL', 'GLU', 'freetype']
     includeDirs =['include', 'src', '/usr/include/SDL', '/usr/include/freetype2']
+    macros = [('__PYCASSO_SYSTEM_SDLOPENGL', None), ('__PYCASSO_COMPILER_GCC', None)] 
 
 setup(name=moduleName,
         version=moduleVersion,

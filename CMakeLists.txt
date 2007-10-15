@@ -29,7 +29,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/EventQ.cpp)
 
 SET(INCLUDE_DIRS include)
-SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
+#SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
 
 IF(SYSTEM_SDLOPENGL)
     INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
