@@ -13,7 +13,7 @@
 
 #include <stdexcept>
 
-#include "stb_image.c"
+#include "stb_image.h"
 
 #define CHECK_LOCK() if(mLocked) unlock();
 #define APPLY_TRANSFORMS(X, Y) glLoadIdentity(); if(mScreenTranslate) glTranslatef(mScreenTransX, mScreenTransY, 0.0f); if(mScale) glScalef(mScaleX, mScaleY, 0.0f); if(mTranslate) glTranslatef(mTransX, mTransY, 0.0f); if (mRotate){float aX = X - mRotX; float aY = Y - mRotY; glTranslatef(mRotX, mRotY, 0.0f); glRotatef(mRotAngle, 0.0f, 0.0f, 1.0f); glTranslatef(aX, aY, 0.0f);}else{glTranslatef(X, Y, 0.0f);}

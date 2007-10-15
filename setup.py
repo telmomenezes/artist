@@ -26,7 +26,6 @@ else:
     libs = ['SDL', 'GL', 'GLU', 'freetype']
     includeDirs =['include', 'src', '/usr/include/SDL', '/usr/include/freetype2']
 
-
 setup(name=moduleName,
         version=moduleVersion,
         description=moduleDescription,
