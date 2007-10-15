@@ -17,8 +17,13 @@
 #include "EventQSDL.h"
 #endif
 
-#if !defined(__PYCASSO_OS_WIN32)
+#if defined(__PYCASSO_COMPILER_GCC)
 #include <sys/time.h>
+#endif
+
+#if defined(__PYCASSO_COMPILER_CL)
+#include <windows.h>
+#define EPOCHFILETIME (116444736000000000i64)
 #endif
 
 namespace pyc
@@ -182,7 +187,7 @@ bool Pycasso::setPreferredSystem(pyc::System sys)
 	}
 }
 
-#if defined(__PYCASSO_OS_WIN32)
+#if !defined(__PYCASSO_COMPILER_GCC)
 double Pycasso::getTime()
 {
     FILETIME ft;

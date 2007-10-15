@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 
     while (!exit)
     {
+	printf("%f ... ", pycasso.getTime());fflush(stdout);
         root->setColor(255, 0, 0);
         root->fillCircle(x, y, 50.0f);
 

@@ -11,7 +11,7 @@ moduleAuthor = 'Telmo Menezes'
 moduleAuthorEmail = 'telmo@telmomenezes.com'
 moduleURL = 'http://www.telmomenezes.com/pycasso'
 modulePythonName = 'pyc'
-sourceFiles = ['sip/pyc.sip', 'src/Pycasso.cpp', 'src/Window.cpp', 'src/Layer.cpp', 'src/Layer2D.cpp', 'src/Font.cpp', 'src/EventQ.cpp', 'src/Layer2DOpenGL.cpp', 'src/WindowSDLOpenGL.cpp', 'src/EventQSDL.cpp', 'src/FontOpenGL.cpp']
+sourceFiles = ['sip/pyc.sip', 'src/Pycasso.cpp', 'src/Window.cpp', 'src/Layer.cpp', 'src/Layer2D.cpp', 'src/Font.cpp', 'src/EventQ.cpp', 'src/Layer2DOpenGL.cpp', 'src/WindowSDLOpenGL.cpp', 'src/EventQSDL.cpp', 'src/FontOpenGL.cpp', 'src/stb_image.c']
 macros = [('__PYCASSO_SYSTEM_SDLOPENGL', None)] 
 
 libs = []
@@ -19,7 +19,7 @@ includeDirs = []
 dataFiles = []
 
 if os.name == 'nt':
-    libs = ['SDL', 'opengl32', 'glu32', 'msvcrt', 'freetype']
+    libs = ['SDL', 'opengl32', 'glu32', 'freetype']
     includeDirs =['include', 'src']
     dataFiles = [('Lib/site-packages', ['win32/sip/sip.pyd'])]
 else:
