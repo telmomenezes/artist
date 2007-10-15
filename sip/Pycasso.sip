@@ -22,5 +22,7 @@ public:
     EventQ* getEventQ();
 
     bool setPreferredSystem(System sys);
+
+    double getTime();
 };
 

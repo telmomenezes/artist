@@ -132,7 +132,7 @@ public:
     virtual void drawText(float x, float y, string text);
 
     virtual void _initEmpty(int width, int height);
-    virtual void _loadPNG(string filePath);
+    virtual void _loadImage(string filePath);
     void _setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
 
 protected:

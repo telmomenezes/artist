@@ -19,6 +19,7 @@ deltaX = 3.0
 deltaY = 3.0
 
 while not exit:
+    print pycasso.getTime()
     root.setColor(255, 0, 0)
     root.fillCircle(x, y, 50.0)
 

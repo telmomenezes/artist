@@ -29,7 +29,7 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/EventQ.cpp)
 
 SET(INCLUDE_DIRS include)
-SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
+#SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
 
 IF(SYSTEM_SDLOPENGL)
     INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
@@ -38,7 +38,8 @@ IF(SYSTEM_SDLOPENGL)
         src/Layer2DOpenGL.cpp
         src/FontOpenGL.cpp
         src/WindowSDLOpenGL.cpp
-        src/EventQSDL.cpp)
+        src/EventQSDL.cpp
+        src/stb_image.c)
 
     SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
 
@@ -46,9 +47,9 @@ IF(SYSTEM_SDLOPENGL)
     SET(INCLUDE_DIRS ${INCLUDE_DIRS} ${SDL_INCLUDE_DIR} /usr/include/freetype2)
 
     IF (WIN32)
-        SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} freetype SDL opengl32 glu32 msvcrt libpng)
+        SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} freetype SDL opengl32 glu32 msvcrt)
     ELSE(WIN32)
-        SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU png freetype)
+        SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU freetype)
     ENDIF(WIN32)
 ENDIF(SYSTEM_SDLOPENGL)
 

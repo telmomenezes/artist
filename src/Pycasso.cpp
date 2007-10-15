@@ -17,6 +17,10 @@
 #include "EventQSDL.h"
 #endif
 
+#if !defined(__PYCASSO_OS_WIN32)
+#include <sys/time.h>
+#endif
+
 namespace pyc
 {
 
@@ -177,6 +181,34 @@ bool Pycasso::setPreferredSystem(pyc::System sys)
 			return false;
 	}
 }
+
+#if defined(__PYCASSO_OS_WIN32)
+double Pycasso::getTime()
+{
+    FILETIME ft;
+    LARGE_INTEGER li;
+    __int64 t;
+    static int tzflag;
+
+    GetSystemTimeAsFileTime(&ft);
+    li.LowPart  = ft.dwLowDateTime;
+    li.HighPart = ft.dwHighDateTime;
+    t  = li.QuadPart;
+    t -= EPOCHFILETIME;
+    t /= 10;
+    return ((double)t) / 1000000.0f;
+}
+#else
+double Pycasso::getTime()
+{
+    timeval time;
+    gettimeofday(&time, NULL);
+
+    double seconds = (double)time.tv_sec;
+    seconds += ((double)time.tv_usec) / 1000000.0f;
+    return seconds;
+}
+#endif
 
 }
 

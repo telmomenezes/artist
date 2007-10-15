@@ -120,13 +120,13 @@ Layer2D* WindowSDLOpenGL::createLayer2D(int width, int height)
     return layer;
 }
 
-Layer2D* WindowSDLOpenGL::createPNGLayer(std::string filePath)
+Layer2D* WindowSDLOpenGL::loadImage(std::string filePath)
 {
     Layer2DOpenGL* layer = new Layer2DOpenGL();
 
     try
     {
-        layer->_loadPNG(filePath);
+        layer->_loadImage(filePath);
     }
     catch (std::runtime_error exception)
     {

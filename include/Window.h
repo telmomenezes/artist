@@ -49,7 +49,7 @@ public:
     virtual void showCursor(bool show)=0;
 
     virtual Layer2D* createLayer2D(int width, int height)=0;
-    virtual Layer2D* createPNGLayer(string filePath)=0;
+    virtual Layer2D* loadImage(string filePath)=0;
     bool removeLayer(Layer* layer);
 
     virtual Font* loadFont(string fontName, unsigned int height)=0;

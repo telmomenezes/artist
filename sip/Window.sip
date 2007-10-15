@@ -28,7 +28,7 @@ public:
     virtual void showCursor(bool show)=0;
 
     virtual Layer2D* createLayer2D(int width, int height)=0;
-    virtual Layer2D* createPNGLayer(std::string filePath)=0;
+    virtual Layer2D* loadImage(std::string filePath)=0;
     bool removeLayer(Layer* layer);
 
     virtual Font* loadFont(std::string fontName, unsigned int height)=0;

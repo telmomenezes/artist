@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     root->setBackgroundColor(255, 255, 255);
 
-    pyc::Layer2D* pngImage = win->createPNGLayer("media/avignon.png");
+    pyc::Layer2D* pngImage = win->loadImage("media/avignon.png");
     
     pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
     root->setFont(font);

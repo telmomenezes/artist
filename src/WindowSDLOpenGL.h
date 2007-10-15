@@ -36,7 +36,7 @@ public:
     virtual void showCursor(bool show);
 
     virtual Layer2D* createLayer2D(int width, int height);
-    virtual Layer2D* createPNGLayer(std::string filePath);
+    virtual Layer2D* loadImage(std::string filePath);
 
     virtual Font* loadFont(string fontName, unsigned int height);
 

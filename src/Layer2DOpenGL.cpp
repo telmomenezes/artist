@@ -13,7 +13,7 @@
 
 #include <stdexcept>
 
-#include <png.h>
+#include "stb_image.c"
 
 #define CHECK_LOCK() if(mLocked) unlock();
 #define APPLY_TRANSFORMS(X, Y) glLoadIdentity(); if(mScreenTranslate) glTranslatef(mScreenTransX, mScreenTransY, 0.0f); if(mScale) glScalef(mScaleX, mScaleY, 0.0f); if(mTranslate) glTranslatef(mTransX, mTransY, 0.0f); if (mRotate){float aX = X - mRotX; float aY = Y - mRotY; glTranslatef(mRotX, mRotY, 0.0f); glRotatef(mRotAngle, 0.0f, 0.0f, 1.0f); glTranslatef(aX, aY, 0.0f);}else{glTranslatef(X, Y, 0.0f);}
@@ -608,162 +608,50 @@ void Layer2DOpenGL::_initEmpty(int width, int height)
     mHeight = height;
 }
 
-void Layer2DOpenGL::_loadPNG(string filePath)
+void Layer2DOpenGL::_loadImage(string filePath)
 {
-    FILE *infile;
-    png_structp pngPtr;
-    png_infop infoPtr;
-
-    unsigned char *imageData;
-    char sig[8];
-
-    int bitDepth;
-    int colorType;
-
-    unsigned long width;
-    unsigned long height;
-    unsigned int rowbytes;
-
-    imageData = NULL;
-    int i;
-    png_bytepp rowPointers = NULL;
-
-    infile = fopen(filePath.c_str(), "rb");
-    if (!infile)
+    int width;
+    int height;
+    int bpp;
+    unsigned char *data = stbi_load((char *)filePath.c_str(), &width, &height, &bpp, 0);
+    
+    if (data == NULL)
     {
-        string text = "Loading PNG (" + filePath + "): failed to open file";
+        string text = "Error loading image (" + filePath + "): " + stbi_failure_reason();
         throw std::runtime_error(text);
     }
-
-    fread(sig, 1, 8, infile);
-
-    if (!png_check_sig((unsigned char*)sig, 8))
-    {
-        fclose(infile);
-        string text = "Loading PNG (" + filePath + "): wrong file format";
-        throw std::runtime_error(text);
-    }
- 
-    pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    if (!pngPtr)
-    {
-        fclose(infile);
-        string text = "Loading PNG (" + filePath + "): out of memory";
-        throw std::runtime_error(text);
-    }
- 
-    infoPtr = png_create_info_struct(pngPtr);
-    if (!infoPtr)
-    {
-        png_destroy_read_struct(&pngPtr, (png_infopp)NULL, (png_infopp)NULL);
-        fclose(infile);
-        string text = "Loading PNG (" + filePath + "): out of memory";
-        throw std::runtime_error(text);
-    }
-   
-  
-    if (setjmp(png_jmpbuf(pngPtr)))
-    {
-        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-        fclose(infile);
-        string text = "Loading PNG (" + filePath + ")";
-        throw std::runtime_error(text);
-    }
-
-    png_init_io(pngPtr, infile);
-   
-    png_set_sig_bytes(pngPtr, 8);
-
-    png_read_info(pngPtr, infoPtr);
-
-    png_get_IHDR(pngPtr,
-            infoPtr,
-            &width,
-            &height,
-            &bitDepth,
-            &colorType,
-            NULL,
-            NULL,
-            NULL);
-
+    
     mWidth = width;
     mHeight = height;
 
     mTextureWidth = nextPowerOfTwo(mWidth);
     mTextureHeight = nextPowerOfTwo(mHeight);
    
-    if (bitDepth > 8)
-    {
-        png_set_strip_16(pngPtr);
-    }
-    if (colorType == PNG_COLOR_TYPE_GRAY
-        || colorType == PNG_COLOR_TYPE_GRAY_ALPHA)
-    {
-        png_set_gray_to_rgb(pngPtr);
-    }
-    if (colorType == PNG_COLOR_TYPE_PALETTE)
-    {
-        png_set_palette_to_rgb(pngPtr);
-    }
-
-    png_read_update_info(pngPtr, infoPtr);
-    png_get_IHDR(pngPtr,
-            infoPtr,
-            &width,
-            &height,
-            &bitDepth,
-            &colorType,
-            NULL,
-            NULL,
-            NULL);
-
-    unsigned int bpp = 3;
     GLint internalTextureFormat = GL_RGB;
-    GLenum textureFormat = GL_RGB;
-    if (colorType == PNG_COLOR_TYPE_RGB_ALPHA)
+    GLenum textureFormat = GL_RGB; 
+
+    if (bpp == 4)
     {
-        bpp = 4;
         internalTextureFormat = GL_RGBA;
         textureFormat = GL_RGBA;
     }
-
-    rowbytes = png_get_rowbytes(pngPtr, infoPtr);
-
-    if ((imageData = (unsigned char*)malloc(rowbytes * height)) == NULL)
+    // TODO: check for bpp < 3 situations
+    else
     {
-        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-        string text = "Loading PNG (" + filePath + ")";
-        throw std::runtime_error(text);
+        internalTextureFormat = GL_RGB;
+        textureFormat = GL_RGB;
     }
-
-    if ((rowPointers = (png_bytepp)malloc(height * sizeof(png_bytep))) == NULL)
-    {
-        png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-        free(imageData);
-        imageData = NULL;
-        string text = "Loading PNG (" + filePath + ")";
-        throw std::runtime_error(text);
-    }
-
-    for (i = 0;  i < height;  ++i)
-    {
-        rowPointers[i] = imageData + i * rowbytes;
-    }
-
-    png_read_image(pngPtr, rowPointers);
-
-    free(rowPointers);
-
-    png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
-    fclose(infile);
 
     unsigned char* textureData = (unsigned char*)malloc(mTextureWidth * mTextureHeight * bpp);
 
+    unsigned int dataRowBytes = width * bpp;
+    unsigned int textureDataRowBytes = mTextureWidth * bpp;
+
     for (unsigned int y = 0; y < height; y++)
     {
-        for (unsigned int x = 0; x < rowbytes; x++)
+        for (unsigned int x = 0; x < dataRowBytes; x++)
         {
-            textureData[(mTextureWidth * bpp * y) + x] = imageData[(rowbytes * y) + x];
+            textureData[(textureDataRowBytes * y) + x] = data[(dataRowBytes * y) + x];
         }
     }
 
@@ -785,8 +673,8 @@ void Layer2DOpenGL::_loadPNG(string filePath)
             GL_UNSIGNED_BYTE,
             textureData);
 
-    delete imageData;
-    delete textureData;
+    free(textureData);
+    stbi_image_free(data);
 
     mFirstUnlock = false;
 }

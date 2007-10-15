@@ -19,11 +19,11 @@ includeDirs = []
 dataFiles = []
 
 if os.name == 'nt':
-    libs = ['SDL', 'opengl32', 'glu32', 'png', 'msvcrt', 'freetype']
+    libs = ['SDL', 'opengl32', 'glu32', 'msvcrt', 'freetype']
     includeDirs =['include', 'src']
     dataFiles = [('Lib/site-packages', ['win32/sip/sip.pyd'])]
 else:
-    libs = ['SDL', 'GL', 'GLU', 'png', 'freetype']
+    libs = ['SDL', 'GL', 'GLU', 'freetype']
     includeDirs =['include', 'src', '/usr/include/SDL', '/usr/include/freetype2']
 
 

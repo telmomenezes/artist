@@ -36,6 +36,8 @@ public:
 
     bool setPreferredSystem(System sys);
 
+    double getTime();
+
 private:
     static System mDefaultSystem;
     static System mPreferredSystem;
