@@ -12,6 +12,9 @@
 #include <string>
 #include <stdexcept>
 
+#include "WindowNull.h"
+#include "EventQNull.h"
+
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 #include "WindowSDLOpenGL.h"
 #include "EventQSDL.h"
@@ -79,6 +82,9 @@ Window* Pycasso::createWindow(int width,
 
 	switch (mPreferredSystem)
 	{
+    case SYSTEM_NULL:
+        mWindow = new WindowNull();
+        break;
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 	case SYSTEM_SDL_OPENGL:
 		mWindow = new WindowSDLOpenGL();
@@ -129,6 +135,9 @@ EventQ* Pycasso::createEventQ()
 
 	switch (mPreferredSystem)
 	{
+    case SYSTEM_NULL:
+        mEventQ = new EventQNull();
+        break;
 #if defined(__PYCASSO_SYSTEM_SDLOPENGL)
 	case SYSTEM_SDL_OPENGL:
 		mEventQ = new EventQSDL();

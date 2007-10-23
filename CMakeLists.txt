@@ -28,6 +28,13 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/Font.cpp
     src/EventQ.cpp)
 
+# SYSTEM_NULL source files
+SET(SOURCE_FILES ${SOURCE_FILES}
+    src/WindowNull.cpp
+    src/Layer2DNull.cpp
+    src/FontNull.cpp
+    src/EventQNull.cpp)
+
 SET(INCLUDE_DIRS include)
 #SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
 
