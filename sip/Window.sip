@@ -35,4 +35,6 @@ public:
     bool removeFont(Font* font);
 
     virtual void setClearOnUpdate(bool clear);
+
+    virtual bool isReal()=0;
 };

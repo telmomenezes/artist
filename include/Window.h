@@ -57,6 +57,8 @@ public:
 
     virtual void setClearOnUpdate(bool clear){mClearOnUpdate = clear;}
 
+    virtual bool isReal()=0;
+
 protected:
     int mWidth;
     int mHeight;

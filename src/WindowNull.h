@@ -41,6 +41,8 @@ public:
     virtual Font* loadFont(string fontName, unsigned int height);
 
     virtual void setClearOnUpdate(bool clear){}
+
+    virtual bool isReal(){return false;}
 };
 
 }
