@@ -30,7 +30,11 @@ extern "C" {
 #include <freetype/fttrigon.h>
 }
 
+#if defined(__PYCASSO_OS_OSX)
+#include <OpenGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
 
 #include <string>
 

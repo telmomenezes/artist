@@ -19,6 +19,9 @@ ENDIF(CMAKE_C_COMPILER MATCHES cl)
 IF(WIN32)
     SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_OS_WIN32)
 ENDIF(WIN32)
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_OS_OSX)
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 SET(SOURCE_FILES ${SOURCE_FILES}
     src/Pycasso.cpp
@@ -40,13 +43,15 @@ SET(INCLUDE_DIRS include)
 
 IF(SYSTEM_SDLOPENGL)
     INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
+    SET(SDL_INCLUDE_DIR /usr/local/include/SDL)
 
     SET(SOURCE_FILES ${SOURCE_FILES}
         src/Layer2DOpenGL.cpp
         src/FontOpenGL.cpp
         src/WindowSDLOpenGL.cpp
         src/EventQSDL.cpp
-        src/stb_image.c)
+        src/stb_image.c
+        )
 
     SET(DEFINITIONS ${DEFINITIONS} -D__PYCASSO_SYSTEM_SDLOPENGL)
 
@@ -56,7 +61,11 @@ IF(SYSTEM_SDLOPENGL)
     IF (WIN32)
         SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL opengl32 glu32 freetype)
     ELSE(WIN32)
-        SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU freetype)
+        IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+            SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} freetype)
+        ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+            SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU freetype)
+        ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     ENDIF(WIN32)
 ENDIF(SYSTEM_SDLOPENGL)
 
@@ -64,7 +73,7 @@ ADD_DEFINITIONS(${DEFINITIONS})
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 
-ADD_LIBRARY(pycasso SHARED ${SOURCE_FILES})
+ADD_LIBRARY(pycasso STATIC ${SOURCE_FILES})
 TARGET_LINK_LIBRARIES(pycasso ${PYCASSO_LINK_LIBRARIES})
 
 INSTALL_TARGETS(/lib pycasso)
@@ -75,6 +84,7 @@ INSTALL_FILES(/include/pycasso FILES
                 include/Layer2D.h
                 include/Pycasso.h
                 include/Window.h
+                include/Font.h
                 include/pyc.h
                 include/pyc_types.h)
 
@@ -98,3 +108,7 @@ TARGET_LINK_LIBRARIES(demo6 pycasso)
 
 ADD_EXECUTABLE(demo7 demos/demo7.cpp)
 TARGET_LINK_LIBRARIES(demo7 pycasso)
+
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET_TARGET_PROPERTIES(demo1 demo2 demo3 demo4 demo5 demo6 demo7 PROPERTIES LINK_FLAGS "-L/usr/local/lib /usr/local/lib/libSDLmain.a /usr/local/lib/libSDL.a -Wl,-framework,OpenGL -Wl,-framework,Cocoa -Wl,-framework,QuickTime -Wl,-framework,ApplicationServices -Wl,-framework,Carbon -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,IOKit") 
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

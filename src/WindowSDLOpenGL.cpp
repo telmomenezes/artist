@@ -11,6 +11,10 @@
 #include <windows.h>
 #endif
 
+#if defined (__PYCASSO_OS_OSX)
+#include <OpenGL/OpenGL.h>
+#endif
+
 #include "WindowSDLOpenGL.h"
 #include "Layer2DOpenGL.h"
 #include "FontOpenGL.h"
@@ -72,6 +76,13 @@ void WindowSDLOpenGL::init(int width,
     mRootLayer = new Layer2DOpenGL();
     mRootLayer->_setRoot(mWidth, mHeight);
     ((Layer2DOpenGL*)mRootLayer)->_setClearOnUpdate(mClearOnUpdate);
+
+    // Activate vertical refresh synch on macs
+    // TODO: turn this on/off ??
+    #if defined (__PYCASSO_OS_OSX)
+    long VBL = 1;
+    CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
+    #endif
 }
 
 void WindowSDLOpenGL::update()
