@@ -1,5 +1,7 @@
 PROJECT(pycasso)
 
+SET(CMAKE_VERBOSE_MAKEFILE ON)
+
 OPTION(SYSTEM_SDLOPENGL "SDLOpenGL Support" ON)
 OPTION(DEBUG "Debug settings" OFF)
 
@@ -62,7 +64,12 @@ IF(SYSTEM_SDLOPENGL)
         SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL opengl32 glu32 freetype)
     ELSE(WIN32)
         IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-            SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} freetype)
+            SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} freetype SDL SDLmain)
+            FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+            FIND_LIBRARY(OPENGL_LIBRARY OpenGL)
+            MARK_AS_ADVANCED(COCOA_LIBRARY)
+            MARK_AS_ADVANCED(OPENGL_LIBRARY)
+            SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OPENGL_LIBRARY})
         ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             SET(PYCASSO_LINK_LIBRARIES ${PYCASSO_LINK_LIBRARIES} SDL GL GLU freetype)
         ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -73,8 +80,8 @@ ADD_DEFINITIONS(${DEFINITIONS})
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 
-ADD_LIBRARY(pycasso STATIC ${SOURCE_FILES})
-TARGET_LINK_LIBRARIES(pycasso ${PYCASSO_LINK_LIBRARIES})
+ADD_LIBRARY(pycasso SHARED ${SOURCE_FILES})
+TARGET_LINK_LIBRARIES(pycasso ${PYCASSO_LINK_LIBRARIES} ${EXTRA_LIBS})
 
 INSTALL_TARGETS(/lib pycasso)
 
@@ -83,8 +90,7 @@ INSTALL_FILES(/include/pycasso FILES
                 include/Layer.h
                 include/Layer2D.h
                 include/Pycasso.h
-                include/Window.h
-                include/Font.h
+                include/Window.h include/Font.h
                 include/pyc.h
                 include/pyc_types.h)
 
@@ -108,7 +114,3 @@ TARGET_LINK_LIBRARIES(demo6 pycasso)
 
 ADD_EXECUTABLE(demo7 demos/demo7.cpp)
 TARGET_LINK_LIBRARIES(demo7 pycasso)
-
-IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET_TARGET_PROPERTIES(demo1 demo2 demo3 demo4 demo5 demo6 demo7 PROPERTIES LINK_FLAGS "-L/usr/local/lib /usr/local/lib/libSDLmain.a /usr/local/lib/libSDL.a -Wl,-framework,OpenGL -Wl,-framework,Cocoa -Wl,-framework,QuickTime -Wl,-framework,ApplicationServices -Wl,-framework,Carbon -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,IOKit") 
-ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

@@ -61,7 +61,7 @@ void stbi_image_free(unsigned char *retval_from_stbi_load)
 }
 
 #define MAX_LOADERS  32
-stbi_loader *loaders[MAX_LOADERS];
+stbi_loader *loaders[MAX_LOADERS] = {};
 static int max_loaders = 0;
 
 int stbi_register_loader(stbi_loader *loader)
@@ -333,7 +333,7 @@ static unsigned char *convert_format(unsigned char *data, int img_n, int req_com
 //          IJG 1998:   0.98 seconds (MSVC6, makefile provided by IJG)
 //          IJG 1998:   0.95 seconds (MSVC6, makefile + proc=PPro)
 
-int stbi_jpeg_dc_only;
+int stbi_jpeg_dc_only = 0;
 
 // huffman decoding acceleration
 #define FAST_BITS   9  // larger handles more cases; smaller stomps less cache
