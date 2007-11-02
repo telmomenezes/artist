@@ -96,7 +96,7 @@ void Layer2DOpenGL::unlock()
 
     if ((mRoot && mClearOnUpdate) || ((!mRoot) && mFirstUnlock))
     {
-        glClearColor(mfRed, mfGreen, mfBlue, 1.0f);
+        glClearColor(mfRed, mfGreen, mfBlue, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
     }
