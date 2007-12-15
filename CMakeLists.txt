@@ -1,4 +1,4 @@
-PROJECT(pycasso)
+PROJECT(artist)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
