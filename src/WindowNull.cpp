@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,7 +7,7 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if defined(__PYCASSO_OS_WIN32)
+#if defined(__ARTIST_OS_WIN32)
 #include <windows.h>
 #endif
 
@@ -15,7 +15,7 @@
 #include "Layer2DNull.h"
 #include "FontNull.h"
 
-namespace pyc
+namespace art
 {
 
 WindowNull::WindowNull()

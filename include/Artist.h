@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,21 +7,21 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_H)
-#define __INCLUDE_PYCASSO_H
+#if !defined(__INCLUDE_ARTIST_H)
+#define __INCLUDE_ARTIST_H
 
 #include "Window.h"
 #include "EventQ.h"
-#include "pyc_types.h"
+#include "artist_types.h"
 
-namespace pyc
+namespace art
 {
 
-class Pycasso
+class Artist
 {
 public:
-    Pycasso();
-    virtual ~Pycasso();
+    Artist();
+    virtual ~Artist();
 
     Window* createWindow(int width,
                 int height,

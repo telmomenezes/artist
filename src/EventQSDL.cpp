@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -10,7 +10,7 @@
 #include "EventQSDL.h"
 #include "SDL.h"
 
-namespace pyc
+namespace art
 {
 
 EventQSDL::EventQSDL()

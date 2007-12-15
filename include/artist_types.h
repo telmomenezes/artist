@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,10 +7,10 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_TYPES_H)
-#define __INCLUDE_PYCASSO_TYPES_H
+#if !defined(__INCLUDE_ARTIST_TYPES_H)
+#define __INCLUDE_ARTIST_TYPES_H
 
-namespace pyc
+namespace art
 {
 
 enum System

@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -13,12 +13,12 @@
  * http://nehe.gamedev.net/data/lessons/lesson.asp?lesson=43
  */
 
-#if !defined(__INCLUDE_PYCASSO_FONT_OPENGL_H)
-#define __INCLUDE_PYCASSO_FONT_OPENGL_H
+#if !defined(__INCLUDE_ARTIST_FONT_OPENGL_H)
+#define __INCLUDE_ARTIST_FONT_OPENGL_H
 
 #include "Font.h"
 
-#if defined(__PYCASSO_OS_WIN32)
+#if defined(__ARTIST_OS_WIN32)
 #include <windows.h>
 #endif
 
@@ -30,7 +30,7 @@ extern "C" {
 #include <freetype/fttrigon.h>
 }
 
-#if defined(__PYCASSO_OS_OSX)
+#if defined(__ARTIST_OS_OSX)
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
@@ -38,7 +38,7 @@ extern "C" {
 
 #include <string>
 
-namespace pyc
+namespace art
 {
 
 using std::string;

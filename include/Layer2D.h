@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,8 +7,8 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_LAYER_2D_H)
-#define __INCLUDE_PYCASSO_LAYER_2D_H
+#if !defined(__INCLUDE_ARTIST_LAYER_2D_H)
+#define __INCLUDE_ARTIST_LAYER_2D_H
 
 #include "Layer.h"
 #include "Font.h"
@@ -16,11 +16,11 @@
 #include <math.h>
 #include <string>
 
-#if defined(__PYCASSO_COMPILER_CL)
+#if defined(__ARTIST_COMPILER_CL)
 #define M_PI 3.14159265f
 #endif
 
-namespace pyc
+namespace art
 {
 
 using std::string;

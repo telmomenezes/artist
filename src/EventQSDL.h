@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,13 +7,13 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_EVENT_Q_SDL_H)
-#define __INCLUDE_PYCASSO_EVENT_Q_SDL_H
+#if !defined(__INCLUDE_ARTIST_EVENT_Q_SDL_H)
+#define __INCLUDE_ARTIST_EVENT_Q_SDL_H
 
 #include "EventQ.h"
-#include "pyc_types.h"
+#include "artist_types.h"
 
-namespace pyc
+namespace art
 {
 
 class EventQSDL : public EventQ

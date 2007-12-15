@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,12 +7,12 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_FONT_H)
-#define __INCLUDE_PYCASSO_FONT_H
+#if !defined(__INCLUDE_ARTIST_FONT_H)
+#define __INCLUDE_ARTIST_FONT_H
 
 #include <string>
 
-namespace pyc
+namespace art
 {
 
 using std::string;

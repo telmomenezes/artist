@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,7 +7,7 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "Pycasso.h"
+#include "Artist.h"
 #include <stdio.h>
 #include <string>
 #include <stdexcept>
@@ -15,33 +15,33 @@
 #include "WindowNull.h"
 #include "EventQNull.h"
 
-#if defined(__PYCASSO_SYSTEM_SDLOPENGL)
+#if defined(__ARTIST_SYSTEM_SDLOPENGL)
 #include "WindowSDLOpenGL.h"
 #include "EventQSDL.h"
 #endif
 
-#if defined(__PYCASSO_COMPILER_GCC)
+#if defined(__ARTIST_COMPILER_GCC)
 #include <sys/time.h>
 #endif
 
-#if defined(__PYCASSO_COMPILER_CL)
+#if defined(__ARTIST_COMPILER_CL)
 #include <windows.h>
 #define EPOCHFILETIME (116444736000000000i64)
 #endif
 
-namespace pyc
+namespace art
 {
 
-System Pycasso::mDefaultSystem = SYSTEM_NULL;
-System Pycasso::mPreferredSystem = SYSTEM_NULL;
-bool Pycasso::mSystemSDLOpenGL = false;
-Window* Pycasso::mWindow = NULL;
-EventQ* Pycasso::mEventQ = NULL;
+System Artist::mDefaultSystem = SYSTEM_NULL;
+System Artist::mPreferredSystem = SYSTEM_NULL;
+bool Artist::mSystemSDLOpenGL = false;
+Window* Artist::mWindow = NULL;
+EventQ* Artist::mEventQ = NULL;
 
-Pycasso::Pycasso()
+Artist::Artist()
 {
 	mDefaultSystem = SYSTEM_NULL;
-#if defined(__PYCASSO_SYSTEM_SDLOPENGL)
+#if defined(__ARTIST_SYSTEM_SDLOPENGL)
 	mSystemSDLOpenGL = true;
 	mDefaultSystem = SYSTEM_SDL_OPENGL;
 #else
@@ -53,7 +53,7 @@ Pycasso::Pycasso()
 	mWindow = NULL;
 }
 
-Pycasso::~Pycasso()
+Artist::~Artist()
 {
 	if (mWindow)
 	{
@@ -68,7 +68,7 @@ Pycasso::~Pycasso()
 	}
 }
 
-Window* Pycasso::createWindow(int width,
+Window* Artist::createWindow(int width,
 					int height,
 					bool fullScreen,
 					int colorDepth,
@@ -85,7 +85,7 @@ Window* Pycasso::createWindow(int width,
     case SYSTEM_NULL:
         mWindow = new WindowNull();
         break;
-#if defined(__PYCASSO_SYSTEM_SDLOPENGL)
+#if defined(__ARTIST_SYSTEM_SDLOPENGL)
 	case SYSTEM_SDL_OPENGL:
 		mWindow = new WindowSDLOpenGL();
 		break;
@@ -116,7 +116,7 @@ Window* Pycasso::createWindow(int width,
 	return mWindow;
 }
 
-Window* Pycasso::getWindow()
+Window* Artist::getWindow()
 {
 	if (!mWindow)
 	{
@@ -126,7 +126,7 @@ Window* Pycasso::getWindow()
 	return mWindow;
 }
 
-EventQ* Pycasso::createEventQ()
+EventQ* Artist::createEventQ()
 {
 	if (mEventQ)
 	{
@@ -138,7 +138,7 @@ EventQ* Pycasso::createEventQ()
     case SYSTEM_NULL:
         mEventQ = new EventQNull();
         break;
-#if defined(__PYCASSO_SYSTEM_SDLOPENGL)
+#if defined(__ARTIST_SYSTEM_SDLOPENGL)
 	case SYSTEM_SDL_OPENGL:
 		mEventQ = new EventQSDL();
 		break;
@@ -164,7 +164,7 @@ EventQ* Pycasso::createEventQ()
 	return mEventQ;
 }
 
-EventQ* Pycasso::getEventQ()
+EventQ* Artist::getEventQ()
 {
 	if (!mEventQ)
 	{
@@ -174,7 +174,7 @@ EventQ* Pycasso::getEventQ()
 	return mEventQ;
 }
 
-bool Pycasso::setPreferredSystem(pyc::System sys)
+bool Artist::setPreferredSystem(art::System sys)
 {
 	switch (sys)
 	{
@@ -196,8 +196,8 @@ bool Pycasso::setPreferredSystem(pyc::System sys)
 	}
 }
 
-#if !defined(__PYCASSO_COMPILER_GCC)
-double Pycasso::getTime()
+#if !defined(__ARTIST_COMPILER_GCC)
+double Artist::getTime()
 {
     FILETIME ft;
     LARGE_INTEGER li;
@@ -213,7 +213,7 @@ double Pycasso::getTime()
     return ((double)t) / 1000000.0f;
 }
 #else
-double Pycasso::getTime()
+double Artist::getTime()
 {
     timeval time;
     gettimeofday(&time, NULL);

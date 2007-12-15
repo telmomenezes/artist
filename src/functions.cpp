@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -9,7 +9,7 @@
 
 #include "functions.h"
 
-namespace pyc
+namespace art
 {
 
 int nextPowerOfTwo(int value)

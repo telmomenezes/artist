@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -8,18 +8,18 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_LAYER_2D_OPENGL_H)
-#define __INCLUDE_PYCASSO_LAYER_2D_OPENGL_H
+#if !defined(__INCLUDE_ARTIST_LAYER_2D_OPENGL_H)
+#define __INCLUDE_ARTIST_LAYER_2D_OPENGL_H
 
 #include "Layer2D.h"
 
 #include <math.h>
 
-#if defined(__PYCASSO_OS_WIN32)
+#if defined(__ARTIST_OS_WIN32)
 #include <windows.h>
 #endif
 
-#if defined(__PYCASSO_OS_OSX)
+#if defined(__ARTIST_OS_OSX)
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
@@ -27,7 +27,7 @@
 
 #include <string>
 
-namespace pyc
+namespace art
 {
 
 using std::string;

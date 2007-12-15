@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,13 +7,13 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if !defined(__INCLUDE_PYCASSO_WINDOW_SDL_OPENGL_H)
-#define __INCLUDE_PYCASSO_WINDOW_SDL_OPENGL_H
+#if !defined(__INCLUDE_ARTIST_WINDOW_SDL_OPENGL_H)
+#define __INCLUDE_ARTIST_WINDOW_SDL_OPENGL_H
 
 #include "Window.h"
 #include <string>
 
-namespace pyc
+namespace art
 {
 
 class WindowSDLOpenGL : public Window

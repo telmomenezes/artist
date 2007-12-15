@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -9,7 +9,7 @@
 
 #include "Layer2DNull.h"
 
-namespace pyc
+namespace art
 {
 
 Layer2DNull::Layer2DNull()

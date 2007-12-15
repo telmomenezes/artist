@@ -1,7 +1,7 @@
-#include "pyc.h"
+#include "art.h"
 #include <string>
 
-void updateScale(pyc::Layer2D* layer, float scale)
+void updateScale(art::Layer2D* layer, float scale)
 {
     layer->setScale(scale, scale);
 
@@ -13,22 +13,22 @@ void updateScale(pyc::Layer2D* layer, float scale)
 
 int main(int argc, char *argv[])
 {
-    pyc::Pycasso pycasso;
-    pyc::Window* win = NULL;
-    pyc::Layer2D* root = NULL;
-    pyc::EventQ* event = NULL;
+    art::Artist artist;
+    art::Window* win = NULL;
+    art::Layer2D* root = NULL;
+    art::EventQ* event = NULL;
 
-    win = pycasso.createWindow(800, 600);
-    event = pycasso.createEventQ();
+    win = artist.createWindow(800, 600);
+    event = artist.createEventQ();
     root = win->getRootLayer2D();
 
-    win->setTitle("Pycasso Demo #5");
+    win->setTitle("Artist Demo #5");
 
     root->setBackgroundColor(255, 255, 255);
 
-    pyc::Layer2D* pngImage = win->loadImage("media/avignon.png");
+    art::Layer2D* pngImage = win->loadImage("media/avignon.png");
     
-    pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
+    art::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
     root->setFont(font);
 
     bool exit = false;
@@ -79,23 +79,23 @@ int main(int argc, char *argv[])
 
         while (event->next())
         {
-            if (event->getType() == pyc::EVENT_QUIT)
+            if (event->getType() == art::EVENT_QUIT)
             {
                 exit = true;
             }
-            else if (event->getType() == pyc::EVENT_KEY_DOWN)
+            else if (event->getType() == art::EVENT_KEY_DOWN)
             {
-                if (event->getKeyCode() == pyc::KEY_ESCAPE)
+                if (event->getKeyCode() == art::KEY_ESCAPE)
                 {
                     exit = true;
                 }
             }
-            else if (event->getType() == pyc::EVENT_MOUSE_WHEEL_UP)
+            else if (event->getType() == art::EVENT_MOUSE_WHEEL_UP)
             {
                 scale += 0.05f;
                 updateScale(root, scale);
             }
-            else if (event->getType() == pyc::EVENT_MOUSE_WHEEL_DOWN)
+            else if (event->getType() == art::EVENT_MOUSE_WHEEL_DOWN)
             {
                 if (scale >= 0.05f)
                 {

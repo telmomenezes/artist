@@ -1,27 +1,27 @@
-#include "pyc.h"
+#include "art.h"
 #include <string>
 
 int main(int argc, char *argv[])
 {
-    pyc::Pycasso pycasso;
-    pyc::Window* win = NULL;
-    pyc::Layer2D* root = NULL;
-    pyc::EventQ* event = NULL;
+    art::Artist artist;
+    art::Window* win = NULL;
+    art::Layer2D* root = NULL;
+    art::EventQ* event = NULL;
 
-    win = pycasso.createWindow(800, 600);
-    event = pycasso.createEventQ();
+    win = artist.createWindow(800, 600);
+    event = artist.createEventQ();
     root = win->getRootLayer2D();
 
-    win->setTitle("Pycasso Demo #4");
+    win->setTitle("Artist Demo #4");
 
     root->setBackgroundColor(255, 255, 255);
 
     bool exit = false;
 
-    pyc::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
+    art::Font* font = win->loadFont("media/vera/Vera.ttf", 9);
     root->setFont(font);
     
-    std::string text = "Hello Pycasso World :)";
+    std::string text = "Hello Artist World :)";
     float textWidth = font->getTextWidth(text);
 
     while (!exit)
@@ -35,13 +35,13 @@ int main(int argc, char *argv[])
 
         while (event->next())
         {
-            if (event->getType() == pyc::EVENT_QUIT)
+            if (event->getType() == art::EVENT_QUIT)
             {
                 exit = true;
             }
-            else if (event->getType() == pyc::EVENT_KEY_DOWN)
+            else if (event->getType() == art::EVENT_KEY_DOWN)
             {
-                if (event->getKeyCode() == pyc::KEY_ESCAPE)
+                if (event->getKeyCode() == art::KEY_ESCAPE)
                 {
                     exit = true;
                 }

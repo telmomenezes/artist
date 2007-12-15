@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,8 +7,8 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "pyc_types.h"
-#include "Pycasso.h"
+#include "artist_types.h"
+#include "Artist.h"
 #include "Window.h"
 #include "Layer.h"
 #include "Layer2D.h"

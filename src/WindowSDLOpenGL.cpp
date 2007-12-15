@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -7,11 +7,11 @@
  * license. The license text is available in the file COPYING.
  */
 
-#if defined(__PYCASSO_OS_WIN32)
+#if defined(__ARTIST_OS_WIN32)
 #include <windows.h>
 #endif
 
-#if defined (__PYCASSO_OS_OSX)
+#if defined (__ARTIST_OS_OSX)
 #include <OpenGL/OpenGL.h>
 #endif
 
@@ -24,7 +24,7 @@
 
 #include <stdexcept>
 
-namespace pyc
+namespace art
 {
 
 WindowSDLOpenGL::WindowSDLOpenGL()
@@ -79,7 +79,7 @@ void WindowSDLOpenGL::init(int width,
 
     // Activate vertical refresh synch on macs
     // TODO: turn this on/off ??
-    #if defined (__PYCASSO_OS_OSX)
+    #if defined (__ARTIST_OS_OSX)
     long VBL = 1;
     CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
     #endif

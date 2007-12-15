@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -8,13 +8,13 @@
  */
 
 
-#if !defined(__INCLUDE_PYCASSO_LAYER_2D_NULL_H)
-#define __INCLUDE_PYCASSO_LAYER_2D_NULL_H
+#if !defined(__INCLUDE_ARTIST_LAYER_2D_NULL_H)
+#define __INCLUDE_ARTIST_LAYER_2D_NULL_H
 
 #include "Layer2D.h"
 #include <string>
 
-namespace pyc
+namespace art
 {
 
 using std::string;

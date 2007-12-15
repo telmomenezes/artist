@@ -1,5 +1,5 @@
 /*
- * Pycasso
+ * Artist
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -9,7 +9,7 @@
 
 #include "FontNull.h"
 
-namespace pyc
+namespace art
 {
 
 FontNull::FontNull()
