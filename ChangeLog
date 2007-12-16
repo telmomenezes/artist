@@ -1,0 +1,57 @@
+0.3 alpha release
+16-Dec-2007
+
+      * Project changes name to Artist
+      * Layer2D::setRotation() and Layer2D::clearRotation()
+      * Layer2D::setScale() and Layer2D::clearScale()
+      * Layer2D::setTranslation() and Layer2D::clearTranslation()
+      * Layer2D::setScreenTranslation() and Layer2D::clearScreenTranslation()
+      * Layer2D::drawText() changed to texture system, text can be scaled and rotated like anything else
+      * Rotation parameter removed from drawSquare() and fillSquare()
+      * Layer2D::drawSquare() and Layer2D::fillSquare() now use side length instead of radius
+      * Layer2D::drawRectangle() and Layer2D:fillRectangle()
+      * Layer2D::drawEllipse() and Layer2D::fillEllipse()
+      * Layer::setCurveAngleStep()
+      * Font::getTextSize()
+      * Artist::getTime()
+      * createPNGLayer() replaced with more general loadImage()
+      * pnglib no longer used
+      * Low level image loading handled by stbi-1.00 - public domain JPEG/PNG reader
+      * SystemNull
+
+0.2 alpha release
+24-Set-2007
+
+    * Complete event system defined
+    * SDL event system implemented
+    * Basic class: Window
+    * Canvas becomes Layer
+    * Layer2D created, leaving space for future Layer3D
+    * Image removed, replaced by Layer2D
+    * createPNGLayer() and drawLayer()
+    * Color functions
+    * Exceptions thrown
+    * startDrawing() and stopDrawing() removed
+    * Window::update()
+    * Layer::clear()
+    * Window::setClearOnUpdate()
+    * Layer2D::drawSquare()
+    * Layer2D::drawCircle()
+    * Font class
+    * Window::loadFont()
+    * Window::removeFont()
+    * Layer2D::setFont()
+    * Layer2D::drawText() 
+
+
+0.1 - unstable developer release
+13-Aug-2007
+
+    * First pycasso file release! :)
+    * Basic classes: Pycasso, Canvas, Image and EventQ
+    * Some drawing primitives: drawPoint(), drawLine(), drawTriangle(), drawFilledTriangle(), drawFilledSquare(), drawFilledCircle()
+    * Set line width and point size
+    * Set background and foreground colors for drawing
+    * Load and draw png images
+    * Skeleton event system with the QUIT event supported
+    * SDL_OPENGL system only for now 

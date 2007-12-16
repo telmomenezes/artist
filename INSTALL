@@ -12,7 +12,7 @@ with CMake. CMake is available for download at:
 
 http://cmake.org
 
-Pycasso should compile on any modern operating system,
+Artist should compile on any modern operating system,
 possibly with small adjustments. For now these instructions
 are *NIX centric.
 

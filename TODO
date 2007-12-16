@@ -1,0 +1,32 @@
+== Features ==
+
+* Draw pixel matrix
+* setFill(layer)
+* Gradients
+* Window::setIcon()
+* Tidy up demos
+* Layer3D...
+
+== Drawing Primitives ==
+
+* drawPolly() (?)
+* fillPolly() (?)
+
+== OpenGL ==
+
+* Layers with pbuffers when supported
+* Draw to non-root layer before update
+
+== Systems ==
+
+* XOpenGL
+* OSXOpenGL
+* WinOpenGL
+* WinDirectX
+
+== Documents ==
+
+* API
+* Tutorials
+* Manual
+
