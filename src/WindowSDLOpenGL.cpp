@@ -80,7 +80,7 @@ void WindowSDLOpenGL::init(int width,
     // Activate vertical refresh synch on macs
     // TODO: turn this on/off ??
     #if defined (__ARTIST_OS_OSX)
-    long VBL = 1;
+    const GLint VBL = 1;
     CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
     #endif
 }
