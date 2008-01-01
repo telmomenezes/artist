@@ -41,11 +41,9 @@ SET(SOURCE_FILES ${SOURCE_FILES}
     src/EventQNull.cpp)
 
 SET(INCLUDE_DIRS include)
-#SET(SDL_INCLUDE_DIR C:/projects/SDL-1.2.12/include)
 
 IF(SYSTEM_SDLOPENGL)
     INCLUDE(${CMAKE_ROOT}/Modules/FindSDL.cmake)
-    SET(SDL_INCLUDE_DIR /usr/local/include/SDL)
 
     SET(SOURCE_FILES ${SOURCE_FILES}
         src/Layer2DOpenGL.cpp
@@ -66,7 +64,7 @@ IF(SYSTEM_SDLOPENGL)
         SET(ARTIST_LINK_LIBRARIES ${ARTIST_LINK_LIBRARIES} SDL opengl32 glu32)
     ELSE(WIN32)
         IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-            SET(ARTIST_LINK_LIBRARIES ${ARTIST_LINK_LIBRARIES} ${SDL_LIBRARY} SDL)
+            SET(ARTIST_LINK_LIBRARIES ${ARTIST_LINK_LIBRARIES} ${SDL_LIBRARY})
             FIND_LIBRARY(OPENGL_LIBRARY OpenGL)
             MARK_AS_ADVANCED(OPENGL_LIBRARY)
             SET(EXTRA_LIBS ${OPENGL_LIBRARY})
@@ -94,25 +92,29 @@ INSTALL_FILES(/include/artist FILES
                 include/art.h
                 include/artist_types.h)
 
-ADD_EXECUTABLE(demo1 demos/demo1.cpp)
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    SET(EXTRA_SRC_FILES ${EXTRA_SRC_FILES} src/MacOSXSDL/SDLMain.m)
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+ADD_EXECUTABLE(demo1 demos/demo1.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo1 artist)
 
-ADD_EXECUTABLE(demo2 demos/demo2.cpp)
+ADD_EXECUTABLE(demo2 demos/demo2.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo2 artist)
 
-ADD_EXECUTABLE(demo3 demos/demo3.cpp)
+ADD_EXECUTABLE(demo3 demos/demo3.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo3 artist)
 
-ADD_EXECUTABLE(demo4 demos/demo4.cpp)
+ADD_EXECUTABLE(demo4 demos/demo4.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo4 artist)
 
-ADD_EXECUTABLE(demo5 demos/demo5.cpp)
+ADD_EXECUTABLE(demo5 demos/demo5.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo5 artist)
 
-ADD_EXECUTABLE(demo6 demos/demo6.cpp)
+ADD_EXECUTABLE(demo6 demos/demo6.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo6 artist)
 
-ADD_EXECUTABLE(demo7 demos/demo7.cpp)
+ADD_EXECUTABLE(demo7 demos/demo7.cpp ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo7 artist)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
