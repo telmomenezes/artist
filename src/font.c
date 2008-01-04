@@ -7,18 +7,10 @@
  * license. The license text is available in the file COPYING.
  */
 
-#include "FontNull.h"
+#include "font.h"
 
-namespace art
+unsigned int art_getFontHeight(Art_Font* font)
 {
-
-FontNull::FontNull()
-{
-}
-
-FontNull::~FontNull()
-{
-}
-
+    return font->height;
 }
 

@@ -10,12 +10,7 @@
 #if !defined(__ARTIST_INCLUDE_FUNCTIONS)
 #define __ARTIST_INCLUDE_FUNCTIONS
 
-namespace art
-{
-
-int nextPowerOfTwo(int value);
-
-}
+int _art_nextPowerOfTwo(int value);
 
 #endif
 

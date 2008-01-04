@@ -1,23 +1,29 @@
+0.4
+
+    * Corrected Window::removeLayer() bug
+    * ...
+
+
 0.3 alpha release
 16-Dec-2007
 
-      * Project changes name to Artist
-      * Layer2D::setRotation() and Layer2D::clearRotation()
-      * Layer2D::setScale() and Layer2D::clearScale()
-      * Layer2D::setTranslation() and Layer2D::clearTranslation()
-      * Layer2D::setScreenTranslation() and Layer2D::clearScreenTranslation()
-      * Layer2D::drawText() changed to texture system, text can be scaled and rotated like anything else
-      * Rotation parameter removed from drawSquare() and fillSquare()
-      * Layer2D::drawSquare() and Layer2D::fillSquare() now use side length instead of radius
-      * Layer2D::drawRectangle() and Layer2D:fillRectangle()
-      * Layer2D::drawEllipse() and Layer2D::fillEllipse()
-      * Layer::setCurveAngleStep()
-      * Font::getTextSize()
-      * Artist::getTime()
-      * createPNGLayer() replaced with more general loadImage()
-      * pnglib no longer used
-      * Low level image loading handled by stbi-1.00 - public domain JPEG/PNG reader
-      * SystemNull
+    * Project changes name to Artist
+    * Layer2D::setRotation() and Layer2D::clearRotation()
+    * Layer2D::setScale() and Layer2D::clearScale()
+    * Layer2D::setTranslation() and Layer2D::clearTranslation()
+    * Layer2D::setScreenTranslation() and Layer2D::clearScreenTranslation()
+    * Layer2D::drawText() changed to texture system, text can be scaled and rotated like anything else
+    * Rotation parameter removed from drawSquare() and fillSquare()
+    * Layer2D::drawSquare() and Layer2D::fillSquare() now use side length instead of radius
+    * Layer2D::drawRectangle() and Layer2D:fillRectangle()
+    * Layer2D::drawEllipse() and Layer2D::fillEllipse()
+    * Layer::setCurveAngleStep()
+    * Font::getTextSize()
+    * Artist::getTime()
+    * createPNGLayer() replaced with more general loadImage()
+    * pnglib no longer used
+    * Low level image loading handled by stbi-1.00 - public domain JPEG/PNG reader
+    * SystemNull
 
 0.2 alpha release
 24-Set-2007
