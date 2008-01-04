@@ -15,7 +15,7 @@
 
 // SDL on macs needs this
 // We'll get rid of this hack when we have a mac-specific system
-#if defined __APPLE__
+#if defined _OSX_SDL_
 #define main SDL_main
 //extern "C" int SDL_main(int argc, char *argv[]);
 int SDL_main(int argc, char *argv[]);

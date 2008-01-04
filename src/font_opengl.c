@@ -169,7 +169,7 @@ float art_getTextWidth(char* text)
     return width;
 }
 
-_art_destroyFont(Art_Font* font)
+int _art_destroyFont(Art_Font* font)
 {
     Art_FontOpenGL* extraData = (Art_FontOpenGL*)font->extraData;
     glDeleteLists(extraData->listBase, 128);
@@ -186,4 +186,6 @@ _art_destroyFont(Art_Font* font)
         free(extraData->widths);
         extraData->widths = NULL;
     }
+
+    return 0;
 }
