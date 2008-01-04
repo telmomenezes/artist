@@ -71,3 +71,33 @@ void art_drawLayer(Art_Layer* layer, float x, float y)
     art_drawScaledLayer(layer, x, y, 0, 0);
 }
 
+void art_drawCircle(float x,
+                    float y,
+                    float rad)
+{
+    art_drawCircleSlice(x, y, rad, 0, 6.283185307179586f);
+}
+
+void art_drawEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY)
+{
+    art_drawEllipseSlice(x, y, radX, radY, 0, 6.283185307179586f);
+}
+
+void art_fillCircle(float x,
+                    float y,
+                    float rad)
+{
+    art_fillCircleSlice(x, y, rad, 0, 6.283185307179586f);
+}
+
+void art_fillEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY)
+{
+    art_fillEllipseSlice(x, y, radX, radY, 0, 6.283185307179586f);
+}
+

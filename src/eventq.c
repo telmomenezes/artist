@@ -38,7 +38,7 @@ void _art_resetEventQValues()
     artG_eventData.resizeHeight = 0;
 }
 
-void _art_updateMouseButton(MouseButton button, int val)
+void _art_updateMouseButton(Art_MouseButton button, int val)
 {
     switch (button)
     {
@@ -54,12 +54,12 @@ void _art_updateMouseButton(MouseButton button, int val)
     }
 }
 
-EventType art_getEventType()
+Art_EventType art_getEventType()
 {
     return artG_eventData.type;
 }
 
-KeyCode art_getKeyCode()
+Art_KeyCode art_getKeyCode()
 {
     return artG_eventData.keyCode;
 }
@@ -69,7 +69,7 @@ unsigned int art_getKeyChar()
     return artG_eventData.keyChar;
 }
 
-MouseButton art_getMouseButton()
+Art_MouseButton art_getMouseButton()
 {
     return artG_eventData.mouseButton;
 }

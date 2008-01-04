@@ -14,7 +14,7 @@ typedef enum
 {
     ART_SYSTEM_NULL,
     ART_SYSTEM_SDL_OPENGL
-} System;
+} Art_System;
 
 typedef enum
 {
@@ -28,7 +28,7 @@ typedef enum
     ART_EVENT_MOUSE_WHEEL_DOWN,
     ART_EVENT_RESIZE,
     ART_EVENT_QUIT
-} EventType;
+} Art_EventType;
 
 typedef enum
 {
@@ -166,7 +166,7 @@ typedef enum
     ART_KEY_MENU,
     ART_KEY_POWER,
     ART_KEY_EURO
-} KeyCode;
+} Art_KeyCode;
 
 typedef enum
 {
@@ -174,7 +174,7 @@ typedef enum
     ART_BUTTON_LEFT,
     ART_BUTTON_MIDDLE,
     ART_BUTTON_RIGHT
-} MouseButton;
+} Art_MouseButton;
 
 #endif
 

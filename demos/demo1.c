@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
     while (!exit)
     {
-        art_fillCircle(x, y, 50.0f, 0, M_PI * 2);
+        art_fillCircle(x, y, 50.0f);
 
         art_update();
 

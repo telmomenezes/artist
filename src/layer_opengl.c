@@ -315,7 +315,7 @@ void art_drawRectangle(float x,
     glEnd();
 }
 
-void art_drawCircle(float x,
+void art_drawCircleSlice(float x,
                 float y,
                 float rad,
                 float beginAngle,
@@ -345,7 +345,7 @@ void art_drawCircle(float x,
     glEnd();
 }
 
-void art_drawEllipse(float x,
+void art_drawEllipseSlice(float x,
                     float y,
                     float radX,
                     float radY,
@@ -428,7 +428,7 @@ void art_fillRectangle(float x,
     glEnd();
 }
 
-void art_fillCircle(float x,
+void art_fillCircleSlice(float x,
                     float y,
                     float rad,
                     float beginAngle,
@@ -460,7 +460,7 @@ void art_fillCircle(float x,
     glEnd();
 }
 
-void art_fillEllipse(float x,
+void art_fillEllipseSlice(float x,
                     float y,
                     float radX,
                     float radY,

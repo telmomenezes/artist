@@ -14,8 +14,8 @@
 
 typedef struct
 {
-    EventType type; 
-    KeyCode keyCode;
+    Art_EventType type; 
+    Art_KeyCode keyCode;
     unsigned int keyChar;
     int ctrl;
     int shift;
@@ -23,7 +23,7 @@ typedef struct
     int meta;
     int caps;
     int num;
-    MouseButton mouseButton;
+    Art_MouseButton mouseButton;
     int mousePosX;
     int mousePosY;
     int mouseRelX;
@@ -41,10 +41,10 @@ int art_nextEvent();
 
 void art_enableKeyChar(int enable);
 
-EventType art_getEventType();
-KeyCode art_getKeyCode();
+Art_EventType art_getEventType();
+Art_KeyCode art_getKeyCode();
 unsigned int art_getKeyChar();
-MouseButton art_getMouseButton();
+Art_MouseButton art_getMouseButton();
 int art_getMousePosX();
 int art_getMousePosY();
 int art_getMouseRelX();
@@ -62,7 +62,7 @@ int art_getNum();
 int _art_initEventQ();
 void _art_initEventQData();
 void _art_resetEventQValues();
-void _art_updateMouseButton(MouseButton button, int val);
+void _art_updateMouseButton(Art_MouseButton button, int val);
 
 #endif
 

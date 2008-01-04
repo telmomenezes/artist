@@ -89,11 +89,20 @@ void art_drawRectangle(float x,
 
 void art_drawCircle(float x,
                     float y,
+                    float rad);
+
+void art_drawCircleSlice(float x,
+                    float y,
                     float rad,
                     float beginAngle,
                     float endAngle);
 
 void art_drawEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY);
+
+void art_drawEllipseSlice(float x,
                     float y,
                     float radX,
                     float radY,
@@ -118,11 +127,20 @@ void art_fillRectangle(float x,
 
 void art_fillCircle(float x,
                     float y,
+                    float rad);
+
+void art_fillCircleSlice(float x,
+                    float y,
                     float rad,
                     float beginAngle,
                     float endAngle);
 
 void art_fillEllipse(float x,
+                    float y,
+                    float radX,
+                    float radY);
+
+void art_fillEllipseSlice(float x,
                     float y,
                     float radX,
                     float radY,

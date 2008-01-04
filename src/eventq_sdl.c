@@ -16,7 +16,7 @@ int _art_initEventQ()
     return 0;
 }
 
-KeyCode _art_getKeyCode(int key)
+Art_KeyCode _art_getKeyCode(int key)
 {
     switch(key)
     {
@@ -301,7 +301,7 @@ void _art_updateKeyModifiers(int modifiers)
     artG_eventData.num = modifiers & KMOD_NUM;
 }
 
-MouseButton _art_getMouseButton(int button)
+Art_MouseButton _art_getMouseButton(int button)
 {
     switch (button)
     {
