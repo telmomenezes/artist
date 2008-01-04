@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    art_init(800, 600, 0, 0, 0, 1);
+    art_initSimple(800, 600, 0);
 
     art_setWinTitle("Artist Demo #1");
 

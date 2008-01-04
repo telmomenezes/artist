@@ -34,6 +34,11 @@ int art_init(int width,
                 int colorDepth,
                 int resizable,
                 int windowDecorations);
+
+int art_initSimple(int width,
+                int height,
+                int fullScreen);
+
 int art_close();
 
 double art_getTime();
