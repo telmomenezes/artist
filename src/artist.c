@@ -20,6 +20,8 @@
 #define EPOCHFILETIME (116444736000000000i64)
 #endif
 
+Art_Session artG_session;
+
 int art_initSimple(int width,
                     int height,
                     int fullScreen)
@@ -69,6 +71,7 @@ double art_getTime()
 Art_Layer* art_createLayer(int width, int height)
 {
     Art_Layer* layer = (Art_Layer*)malloc(sizeof(Art_Layer));
+    _art_initLayer(layer);
 
     if (_art_initEmptyLayer(layer, width, height) != 0)
     {
@@ -76,7 +79,11 @@ Art_Layer* art_createLayer(int width, int height)
         return NULL;
     }
 
-    artG_session.layers->prevLayer = layer;
+
+    if (artG_session.layers != NULL)
+    {
+        artG_session.layers->prevLayer = layer;
+    }    
     layer->nextLayer = artG_session.layers;
     layer->prevLayer = NULL;
     artG_session.layers = layer;
@@ -87,6 +94,7 @@ Art_Layer* art_createLayer(int width, int height)
 Art_Layer* art_loadImage(char* filePath)
 {
     Art_Layer* layer = malloc(sizeof(Art_Layer));
+    _art_initLayer(layer);
 
     if (_art_loadImageLayer(layer, filePath) != 0)
     {
@@ -94,7 +102,10 @@ Art_Layer* art_loadImage(char* filePath)
         return NULL;
     }
 
-    artG_session.layers->prevLayer = layer;
+    if (artG_session.layers != NULL)
+    {
+        artG_session.layers->prevLayer = layer;
+    }
     layer->nextLayer = artG_session.layers;
     layer->prevLayer = NULL;
     artG_session.layers = layer;
@@ -107,7 +118,10 @@ Art_Font* art_loadFont(char* fontName, unsigned int height)
     Art_Font* font = malloc(sizeof(Art_Font));
     _art_initFont(font, fontName, height);
 
-    artG_session.fonts->prevFont = font;
+    if (artG_session.fonts != NULL)
+    {
+        artG_session.fonts->prevFont = font;
+    }
     font->nextFont = artG_session.fonts;
     font->prevFont = NULL;
     artG_session.fonts = font;

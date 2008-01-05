@@ -12,6 +12,10 @@
 
 #include "artist_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     Art_EventType type; 
@@ -34,8 +38,6 @@ typedef struct
     int middleButton;
     int rightButton;
 } Art_EventData;
-
-Art_EventData artG_eventData;
 
 int art_nextEvent();
 
@@ -63,6 +65,10 @@ int _art_initEventQ();
 void _art_initEventQData();
 void _art_resetEventQValues();
 void _art_updateMouseButton(Art_MouseButton button, int val);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

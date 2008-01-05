@@ -10,7 +10,15 @@
 #if !defined(__ARTIST_INCLUDE_FUNCTIONS)
 #define __ARTIST_INCLUDE_FUNCTIONS
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int _art_nextPowerOfTwo(int value);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

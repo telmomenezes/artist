@@ -8,6 +8,7 @@
  */
 
 #include "eventq.h"
+#include "artist.h"
 #include "SDL.h"
 
 int _art_initEventQ()
@@ -293,12 +294,12 @@ Art_KeyCode _art_getKeyCode(int key)
 
 void _art_updateKeyModifiers(int modifiers)
 {
-    artG_eventData.ctrl = modifiers & KMOD_CTRL;
-    artG_eventData.shift = modifiers & KMOD_SHIFT;
-    artG_eventData.alt = modifiers & KMOD_ALT;
-    artG_eventData.meta = modifiers & KMOD_META;
-    artG_eventData.caps = modifiers & KMOD_CAPS;
-    artG_eventData.num = modifiers & KMOD_NUM;
+    artG_session.eventData.ctrl = modifiers & KMOD_CTRL;
+    artG_session.eventData.shift = modifiers & KMOD_SHIFT;
+    artG_session.eventData.alt = modifiers & KMOD_ALT;
+    artG_session.eventData.meta = modifiers & KMOD_META;
+    artG_session.eventData.caps = modifiers & KMOD_CAPS;
+    artG_session.eventData.num = modifiers & KMOD_NUM;
 }
 
 Art_MouseButton _art_getMouseButton(int button)
@@ -339,66 +340,66 @@ int art_nextEvent()
         switch (event.type)
         {
             case SDL_KEYDOWN:
-                artG_eventData.type = ART_EVENT_KEY_DOWN;
-                artG_eventData.keyCode = _art_getKeyCode(event.key.keysym.sym);
-                artG_eventData.keyChar = event.key.keysym.unicode;
+                artG_session.eventData.type = ART_EVENT_KEY_DOWN;
+                artG_session.eventData.keyCode = _art_getKeyCode(event.key.keysym.sym);
+                artG_session.eventData.keyChar = event.key.keysym.unicode;
                 _art_updateKeyModifiers(event.key.keysym.mod);
                 break;
             case SDL_KEYUP:
-                artG_eventData.type = ART_EVENT_KEY_UP;
-                artG_eventData.keyCode = _art_getKeyCode(event.key.keysym.sym);
-                artG_eventData.keyChar = event.key.keysym.unicode;
+                artG_session.eventData.type = ART_EVENT_KEY_UP;
+                artG_session.eventData.keyCode = _art_getKeyCode(event.key.keysym.sym);
+                artG_session.eventData.keyChar = event.key.keysym.unicode;
                 _art_updateKeyModifiers(event.key.keysym.mod);
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button <= 3)
                 {
-                    artG_eventData.type = ART_EVENT_MOUSE_BUTTON_DOWN;
-                    artG_eventData.mouseButton = _art_getMouseButton(event.button.button);
-                    _art_updateMouseButton(artG_eventData.mouseButton, 1);
+                    artG_session.eventData.type = ART_EVENT_MOUSE_BUTTON_DOWN;
+                    artG_session.eventData.mouseButton = _art_getMouseButton(event.button.button);
+                    _art_updateMouseButton(artG_session.eventData.mouseButton, 1);
                 }
                 else
                 {
                     if (event.button.button == 4)
                     {
-                        artG_eventData.type = ART_EVENT_MOUSE_WHEEL_UP;
+                        artG_session.eventData.type = ART_EVENT_MOUSE_WHEEL_UP;
                     }
                     if (event.button.button == 5)
                     {
-                        artG_eventData.type = ART_EVENT_MOUSE_WHEEL_DOWN;
+                        artG_session.eventData.type = ART_EVENT_MOUSE_WHEEL_DOWN;
                     }
                 }
-                artG_eventData.mousePosX = event.button.x;
-                artG_eventData.mousePosY = event.button.y;
+                artG_session.eventData.mousePosX = event.button.x;
+                artG_session.eventData.mousePosY = event.button.y;
                 break;
             case SDL_MOUSEBUTTONUP:
                 if (event.button.button <= 3)
                 {
-                    artG_eventData.type = ART_EVENT_MOUSE_BUTTON_UP;
-                    artG_eventData.mouseButton = _art_getMouseButton(event.button.button);
+                    artG_session.eventData.type = ART_EVENT_MOUSE_BUTTON_UP;
+                    artG_session.eventData.mouseButton = _art_getMouseButton(event.button.button);
                 }
                 else
                 {
                     return 0;
                 }
-                artG_eventData.mousePosX = event.button.x;
-                artG_eventData.mousePosY = event.button.y;
-                _art_updateMouseButton(artG_eventData.mouseButton, 0);
+                artG_session.eventData.mousePosX = event.button.x;
+                artG_session.eventData.mousePosY = event.button.y;
+                _art_updateMouseButton(artG_session.eventData.mouseButton, 0);
                 break;
             case SDL_MOUSEMOTION:
-                artG_eventData.type = ART_EVENT_MOUSE_MOTION;
-                artG_eventData.mousePosX = event.motion.x;
-                artG_eventData.mousePosY = event.motion.y;
-                artG_eventData.mouseRelX = event.motion.xrel;
-                artG_eventData.mouseRelY = event.motion.yrel;
+                artG_session.eventData.type = ART_EVENT_MOUSE_MOTION;
+                artG_session.eventData.mousePosX = event.motion.x;
+                artG_session.eventData.mousePosY = event.motion.y;
+                artG_session.eventData.mouseRelX = event.motion.xrel;
+                artG_session.eventData.mouseRelY = event.motion.yrel;
                 break;
             case SDL_QUIT:
-                artG_eventData.type = ART_EVENT_QUIT;
+                artG_session.eventData.type = ART_EVENT_QUIT;
                 break;
             case SDL_VIDEORESIZE:
-                artG_eventData.type = ART_EVENT_RESIZE;
-                artG_eventData.resizeWidth = event.resize.w;
-                artG_eventData.resizeHeight = event.resize.h;
+                artG_session.eventData.type = ART_EVENT_RESIZE;
+                artG_session.eventData.resizeWidth = event.resize.w;
+                artG_session.eventData.resizeHeight = event.resize.h;
                 break;
             default:
                 break;

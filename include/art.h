@@ -17,7 +17,11 @@
 // We'll get rid of this hack when we have a mac-specific system
 #if defined _OSX_SDL_
 #define main SDL_main
-//extern "C" int SDL_main(int argc, char *argv[]);
-int SDL_main(int argc, char *argv[]);
+#ifdef __cplusplus
+extern "C" int SDL_main(int argc, char *argv[]);
+#else
+extern int SDL_main(int argc, char *argv[]);
+#endif
+
 #endif
 

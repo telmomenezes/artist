@@ -106,3 +106,8 @@ void art_showCursor(int show)
     }
 }
 
+char* art_systemName()
+{
+    return "SDLOpenGL";
+}
+

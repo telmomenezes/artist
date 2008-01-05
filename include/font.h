@@ -10,6 +10,10 @@
 #if !defined(__INCLUDE_ARTIST_FONT_H)
 #define __INCLUDE_ARTIST_FONT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     unsigned int height;
@@ -23,6 +27,10 @@ float art_getTextWidth(char* text);
 
 int _art_initFont(Art_Font* font, char* fontFile, unsigned int height);
 int _art_destroyFont(Art_Font* font);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

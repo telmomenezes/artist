@@ -10,6 +10,10 @@
 #if !defined(__INCLUDE_ARTIST_TYPES_H)
 #define __INCLUDE_ARTIST_TYPES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum
 {
     ART_SYSTEM_NULL,
@@ -175,6 +179,10 @@ typedef enum
     ART_BUTTON_MIDDLE,
     ART_BUTTON_RIGHT
 } Art_MouseButton;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

@@ -14,8 +14,8 @@
 #include "font.h"
 #include <math.h>
 
-#if defined(__ARTIST_COMPILER_CL)
-#define M_PI 3.14159265f
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 typedef struct
@@ -169,6 +169,10 @@ void _art_layerLock(Art_Layer* layer);
 void _art_layerUnlock(Art_Layer* layer);
 int _art_initEmptyLayer(Art_Layer* layer, int width, int height);
 int _art_loadImageLayer(Art_Layer* layer, char* filePath);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

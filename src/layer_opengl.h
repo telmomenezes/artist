@@ -21,6 +21,10 @@
 #include <GL/gl.h>
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     int locked;
@@ -53,6 +57,10 @@ typedef struct
     float screenTransX;
     float screenTransY;
 } Art_LayerOpenGL;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

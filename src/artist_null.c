@@ -42,3 +42,8 @@ void art_showCursor(int show)
 {
 }
 
+char* systemName()
+{
+    return "Null";
+}
+

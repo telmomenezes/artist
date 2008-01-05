@@ -32,6 +32,10 @@
 #include <GL/gl.h>
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     GLuint* textures;
@@ -40,6 +44,10 @@ typedef struct
 } Art_FontOpenGL;
 
 int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

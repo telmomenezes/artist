@@ -15,6 +15,10 @@
 #include "layer.h"
 #include "font.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
     int windowWidth;
@@ -24,9 +28,10 @@ typedef struct
     int clearOnUpdate;
     Art_Layer* layers;
     Art_Font* fonts;
+    Art_EventData eventData;
 } Art_Session;
 
-Art_Session artG_session;
+extern Art_Session artG_session;
 
 int art_init(int width,
                 int height,
@@ -61,13 +66,16 @@ int art_removeFont(Art_Font* font);
 
 void art_setClearWindowOnUpdate(int clear);
 
-int art_isReal();
+char* art_systemName();
 
 int art_drawToLayer(Art_Layer* layer);
 int art_drawToRoot();
 
 void _art_sessionInit();
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
