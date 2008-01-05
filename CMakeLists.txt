@@ -118,11 +118,13 @@ TARGET_LINK_LIBRARIES(artist ${ARTIST_LINK_LIBRARIES} ${EXTRA_LIBS})
 
 ADD_EXECUTABLE(demo1 demos/demo1.c ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo1 artist)
+ADD_EXECUTABLE(demo2 demos/demo2.c ${EXTRA_SRC_FILES})
+TARGET_LINK_LIBRARIES(demo2 artist)
 
 ######################
 # A bug in Mac OS X Leopard forces us to use this workaround for now
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET_TARGET_PROPERTIES(artist demo1 PROPERTIES LINK_FLAGS "-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib")
+    SET_TARGET_PROPERTIES(artist demo1 demo2 PROPERTIES LINK_FLAGS "-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib")
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 

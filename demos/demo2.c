@@ -1,5 +1,5 @@
 /*
- * Artist Demo #1
+ * Artist Demo #2
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -15,37 +15,36 @@ int main(int argc, char *argv[])
     art_initSimple(800, 600, 0);
 
     /* Initial window settings */
-    art_setWinTitle("Artist Demo #1");
+    art_setWinTitle("Artist Demo #2");
     art_setBackgroundColor(255, 255, 255);
+    art_setColor(0, 200, 0, 255);
 
     int exit = 0;
+    float x = 400.0f;
+    float y = 300.0f;
+    float deltaX = 3.0f;
+    float deltaY = 3.0f;
 
     /* Drawing loop */
     while (!exit)
     {
         /* Draw frame */
-        art_setColor(255, 0, 0, 255);
-        art_drawTriangle(50.0, 150.0, 150.0, 150.0, 100.0, 50.0);
-        art_drawSquare(300.0, 100.0, 100.0);
-        art_drawCircle(500.0, 100.0, 50.0);
-        art_drawRectangle(680.0, 50.0, 40.0, 100.0);
-        art_drawRectangle(650.0, 80.0, 100.0, 40.0);
-
-        art_setColor(0, 255, 0, 255);
-        art_fillTriangle(50.0, 350.0, 150.0, 350.0, 100.0, 250.0);
-        art_fillSquare(300.0, 300.0, 100.0);
-        art_fillCircle(500.0, 300.0, 50.0);
-        art_fillRectangle(680.0, 250.0, 40.0, 100.0);
-        art_fillRectangle(650.0, 280.0, 100.0, 40.0);
-
-        art_setColor(0, 0, 255, 255);
-        art_fillCircleSlice(100.0f, 500.0f, 50.0f, 0.0, M_PI * 0.5);
-        art_fillCircleSlice(300.0f, 500.0f, 50.0f, 0.0, M_PI);
-        art_fillCircleSlice(500.0f, 500.0f, 50.0f, 0.0, M_PI * 1.5);
-        art_fillCircle(700.0f, 500.0f, 50.0f);
+        art_fillCircle(x, y, 50.0f);
 
         /* Update window */
         art_update();
+
+        x += deltaX;
+        y += deltaY;
+
+        if ((x >= 750) || (x <= 50))
+        {
+            deltaX = -deltaX;
+        }
+        if ((y >= 550) || (y <= 50))
+        {
+            deltaY = -deltaY;
+        }
 
         /* Check events */
         while (art_nextEvent())
