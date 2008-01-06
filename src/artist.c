@@ -140,7 +140,10 @@ int art_removeLayer(Art_Layer* layer)
     Art_Layer* nextLayer = (Art_Layer*)layer->nextLayer;
     Art_Layer* prevLayer = (Art_Layer*)layer->prevLayer;
 
-    nextLayer->prevLayer = prevLayer;
+    if (nextLayer != NULL)
+    {
+        nextLayer->prevLayer = prevLayer;
+    }
 
     if (prevLayer == NULL)
     {
@@ -169,7 +172,10 @@ int art_removeFont(Art_Font* font)
     Art_Font* nextFont = (Art_Font*)font->nextFont;
     Art_Font* prevFont = (Art_Font*)font->prevFont;
 
-    nextFont->prevFont = prevFont;
+    if (nextFont != NULL)
+    {
+        nextFont->prevFont = prevFont;
+    }
 
     if (prevFont == NULL)
     {
