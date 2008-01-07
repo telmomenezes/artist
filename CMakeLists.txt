@@ -58,7 +58,7 @@ IF(${SYSTEM_TYPE} MATCHES "SDLOpenGL")
         src/layer.c
         src/layer_opengl.c
         src/font.c
-        src/font_opengL.c
+        src/font_opengl.c
         src/stb_image.c
         src/functions.c)
 
