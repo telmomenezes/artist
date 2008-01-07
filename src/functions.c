@@ -9,10 +9,7 @@
 
 #include "functions.h"
 
-namespace art
-{
-
-int nextPowerOfTwo(int value)
+int _art_nextPowerOfTwo(int value)
 {
     int result = 2;
 
@@ -22,7 +19,5 @@ int nextPowerOfTwo(int value)
     }
 
     return result;
-}
-
 }
 
