@@ -42,7 +42,7 @@ void art_showCursor(int show)
 {
 }
 
-char* systemName()
+char* art_systemName()
 {
     return "Null";
 }
