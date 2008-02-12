@@ -38,7 +38,8 @@ int art_init(int width,
                 int fullScreen,
                 int colorDepth,
                 int resizable,
-                int windowDecorations);
+                int windowDecorations,
+                int vsync);
 
 int art_initSimple(int width,
                 int height,

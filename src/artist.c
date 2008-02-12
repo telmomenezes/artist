@@ -26,7 +26,7 @@ int art_initSimple(int width,
                     int height,
                     int fullScreen)
 {
-    return art_init(width, height, fullScreen, 0, 0, 1);
+    return art_init(width, height, fullScreen, 0, 0, 1, 1);
 }
 
 void _art_sessionInit()

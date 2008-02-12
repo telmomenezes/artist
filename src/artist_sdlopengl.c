@@ -22,7 +22,8 @@ int art_init(int width,
                 int fullScreen,
                 int colorDepth,
                 int resizable,
-                int windowDecorations)
+                int windowDecorations,
+                int vsync)
 {
     _art_sessionInit();
 
@@ -70,12 +71,14 @@ int art_init(int width,
 
     art_drawToRoot();
 
-    // Activate vertical refresh synch on macs
-    // TODO: turn this on/off ??
-    #if defined (__ARTIST_OS_OSX)
-    GLint VBL = 1;
-    CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
-    #endif
+    if (vsync)
+    {
+        // Activate vertical refresh synch on macs
+        #if defined (__ARTIST_OS_OSX)
+        GLint VBL = 1;
+        CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
+        #endif
+    }
 }
 
 void art_update()
