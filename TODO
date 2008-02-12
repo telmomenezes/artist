@@ -5,6 +5,7 @@
 * Gradients
 * Window::setIcon()
 * Tidy up demos
+* vsync flag working on linux and windows
 * Layer3D...
 
 == Drawing Primitives ==
