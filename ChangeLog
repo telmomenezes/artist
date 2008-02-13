@@ -1,6 +1,7 @@
 0.5
 
     * vsync flag in art_init()
+    * Corrected bug in art_setBackgroundColor()
     * ...
 
 0.4 alpha release

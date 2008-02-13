@@ -217,7 +217,7 @@ void art_setBackgroundColor(unsigned int red,
     extraData->fGreen = ((float)green) / 255.0f;
     extraData->fBlue = ((float)blue) / 255.0f;
 
-    glClearColor(red, green, blue, 1.0f);
+    glClearColor(extraData->fRed, extraData->fGreen, extraData->fBlue, 1.0f);
 
 }
 
