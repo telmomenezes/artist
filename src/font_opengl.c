@@ -101,6 +101,8 @@ int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch)
     glEndList();
 
     fontOGL->widths[ch] = bitmapGlyph->left + advance;
+
+    return 0;
 }
 
 int _art_initFont(Art_Font* font, char* fontFile, unsigned int height)

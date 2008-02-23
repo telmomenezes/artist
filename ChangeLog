@@ -2,6 +2,8 @@
 
     * vsync flag in art_init()
     * Corrected bug in art_setBackgroundColor()
+    * Corrected bug in font initalization
+    * demo4.c
     * ...
 
 0.4 alpha release

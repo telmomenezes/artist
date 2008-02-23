@@ -17,20 +17,39 @@ int main(int argc, char *argv[])
     /* Initial window settings */
     art_setWinTitle("Artist Demo #4");
     art_setBackgroundColor(255, 255, 255);
-    art_setColor(0, 200, 0, 255);
-
-    Art_Layer* layer = art_createLayer(100.0, 100.0); 
-    art_drawToLayer(layer);
-    art_fillCircle(50.0, 50.0, 50.0);
-    art_drawToRoot();
 
     int exit = 0;
+
+    /* Initialize various sizes of fonts */
+    int sizeCount = 6;
+    Art_Font* fonts[sizeCount];
+
+    int i;
+    int size = 4;
+    for (i = 0; i < sizeCount; i++)
+    {
+        fonts[i] = art_loadFont("media/vera/Vera.ttf", size);
+        size *= 2;
+    }
+    
+    char* text = "Hello Artist World :)";
 
     /* Drawing loop */
     while (!exit)
     {
-        /* Draw frame */
-        art_drawLayer(layer, 100.0, 100.0);
+        size = 4;
+        int y = 100;
+        for (i = 0; i < sizeCount; i++)
+        {
+            art_setFont(fonts[i]);
+            float textWidth = art_getTextWidth(text);
+            art_setColor(10, 10, 10, 255);
+            art_drawLine(0, y, textWidth, y);
+            art_setColor(255, 0, 0, 255);
+            art_drawText(0, y, text);
+            y += size * 3;
+            size *= 2;
+        }
 
         /* Update window */
         art_update();
