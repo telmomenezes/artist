@@ -2,7 +2,7 @@
 
 PROJECT(artist)
 SET(ARTIST_MAJOR "0")
-SET(ARTIST_MINOR "4")
+SET(ARTIST_MINOR "5")
 SET(VERSION "${ARTIST_MAJOR}.${ARTIST_MINOR}")
 SET(PACKAGE artist)
 
@@ -20,9 +20,9 @@ SET(SYSTEM_TYPE "SDLOpenGL" CACHE STRING "System type: [SDLOpenGL; Null]")
 
 IF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     IF(DEBUG)
-        SET(CMAKE_CXX_FLAGS "-Wno-deprecated -g")
+        SET(CMAKE_CXX_FLAGS "-g")
     ELSE(DEBUG)
-        SET(CMAKE_CXX_FLAGS "-Wno-deprecated -O3")
+        SET(CMAKE_CXX_FLAGS "-O3")
     ENDIF(DEBUG)
     SET(DEFINITIONS ${DEFINITIONS} -D__ARTIST_COMPILER_GCC)
 ENDIF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
@@ -124,11 +124,18 @@ ADD_EXECUTABLE(demo3 demos/demo3.c ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo3 artist)
 ADD_EXECUTABLE(demo4 demos/demo4.c ${EXTRA_SRC_FILES})
 TARGET_LINK_LIBRARIES(demo4 artist)
+ADD_EXECUTABLE(demo5 demos/demo5.c ${EXTRA_SRC_FILES})
+TARGET_LINK_LIBRARIES(demo5 artist)
+ADD_EXECUTABLE(demo6 demos/demo6.c ${EXTRA_SRC_FILES})
+TARGET_LINK_LIBRARIES(demo6 artist)
+ADD_EXECUTABLE(demo7 demos/demo7.c ${EXTRA_SRC_FILES})
+TARGET_LINK_LIBRARIES(demo7 artist)
+
 
 ######################
 # A bug in Mac OS X Leopard forces us to use this workaround for now
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET_TARGET_PROPERTIES(artist demo1 demo2 demo3 demo4 PROPERTIES LINK_FLAGS "-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib")
+    SET_TARGET_PROPERTIES(artist demo1 demo2 demo3 demo4 demo5 demo6 demo7 PROPERTIES LINK_FLAGS "-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib")
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 
