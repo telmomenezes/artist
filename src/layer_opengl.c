@@ -37,6 +37,23 @@
         glTranslatef(X, Y, 0.0f); \
     }
 
+#define APPLY_BRUSH() \
+    Art_Layer* brush = (Art_Layer*)artG_session.currentLayer->currentBrush; \
+    float widthRatio = 0; \
+    float heightRatio = 0; \
+    if (brush == NULL) \
+    { \
+        glDisable(GL_TEXTURE_2D); \
+    } \
+    else \
+    { \
+        Art_LayerOpenGL* edBrush = brush->extraData; \
+        glBindTexture(GL_TEXTURE_2D, edBrush->texture); \
+        glEnable(GL_TEXTURE_2D); \
+        widthRatio = edBrush->widthRatio; \
+        heightRatio = edBrush->heightRatio; \
+    } \
+
 void _art_initExtraLayerData(Art_Layer* layer)
 {
     Art_LayerOpenGL* layerOGL = malloc(sizeof(Art_LayerOpenGL));
@@ -62,6 +79,8 @@ void _art_initExtraLayerData(Art_Layer* layer)
     layerOGL->screenTransX = 0;
     layerOGL->screenTransY = 0;
     layer->extraData = layerOGL;
+    layerOGL->widthRatio = 0;
+    layerOGL->heightRatio = 0;
 }
 
 void _art_destroyLayer(Art_Layer* layer)
@@ -383,6 +402,7 @@ void art_fillTriangle(float x1,
                     float x3,
                     float y3)
 {
+    APPLY_BRUSH()
     APPLY_TRANSFORMS(x1, y1)
 
     float xa = x2 - x1;
@@ -391,8 +411,11 @@ void art_fillTriangle(float x1,
     float yb = y3 - y1;
 
     glBegin(GL_TRIANGLES);
+        glTexCoord2d(0.0f, 0.0f);
         glVertex3f(0.0f, 0.0f, 0.0f);
+        glTexCoord2d(xb * widthRatio, yb * heightRatio);
         glVertex3f(xb, yb, 0.0f);
+        glTexCoord2d(xa * widthRatio, ya * heightRatio);
         glVertex3f(xa, ya, 0.0f);
     glEnd();
 }
@@ -401,14 +424,22 @@ void art_fillSquare(float x,
                     float y,
                     float side)
 {
+    APPLY_BRUSH()
     APPLY_TRANSFORMS(x, y)
 
     float halfSide = side / 2.0f;
 
+    float texWidth = widthRatio * halfSide * 2.0f;
+    float texHeight = heightRatio * halfSide * 2.0f;
+
     glBegin(GL_QUADS);
+        glTexCoord2d(texWidth, texHeight);
         glVertex3f(halfSide, halfSide, 0.0f);
+        glTexCoord2d(0, texHeight);
         glVertex3f(-halfSide, halfSide, 0.0f);
+        glTexCoord2d(0, 0);
         glVertex3f(-halfSide, -halfSide, 0.0f);
+        glTexCoord2d(texWidth, 0);
         glVertex3f(halfSide, -halfSide, 0.0f);
     glEnd();
 }
@@ -418,12 +449,20 @@ void art_fillRectangle(float x,
                 float width,
                 float height)
 {
+    APPLY_BRUSH()
     APPLY_TRANSFORMS(x, y)
 
+    float texWidth = widthRatio * width;
+    float texHeight = heightRatio * height;
+
     glBegin(GL_QUADS);
+        glTexCoord2d(texWidth, texHeight);
         glVertex3f(width, height, 0.0f);
+        glTexCoord2d(0, texHeight);
         glVertex3f(0, height, 0.0f);
+        glTexCoord2d(0, 0);
         glVertex3f(0, 0, 0.0f);
+        glTexCoord2d(texWidth, 0);
         glVertex3f(width, 0, 0.0f);
     glEnd();
 }
@@ -434,6 +473,7 @@ void art_fillCircleSlice(float x,
                     float beginAngle,
                     float endAngle)
 {
+    APPLY_BRUSH()
     APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
@@ -441,6 +481,7 @@ void art_fillCircleSlice(float x,
 
     glBegin(GL_POLYGON);
 
+    glTexCoord2d(rad * widthRatio, rad * heightRatio);
     glVertex3f(0.0f, 0.0f, 0.0f);
 
     while (!stop)
@@ -450,10 +491,11 @@ void art_fillCircleSlice(float x,
             ang = endAngle;
             stop = 1;
         }
-
-        glVertex3f(cosf(ang) * rad,
-            sinf(ang) * rad,
-            0.0f);
+        
+        float cx = cosf(ang) * rad;
+        float cy = sinf(ang) * rad;
+        glTexCoord2d((cx + rad) * widthRatio, (cy + rad) * heightRatio);
+        glVertex3f(cx, cy, 0.0f);
         ang += artG_session.currentLayer->curveAngleStep;
     }
 
@@ -467,6 +509,7 @@ void art_fillEllipseSlice(float x,
                     float beginAngle,
                     float endAngle)
 {
+    APPLY_BRUSH()
     APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
@@ -474,6 +517,7 @@ void art_fillEllipseSlice(float x,
 
     glBegin(GL_POLYGON);
 
+    glTexCoord2d(radX * widthRatio, radY * heightRatio);
     glVertex3f(0.0f, 0.0f, 0.0f);
 
     while (!stop)
@@ -484,9 +528,10 @@ void art_fillEllipseSlice(float x,
             stop = 1;
         }
 
-        glVertex3f(cosf(ang) * radX,
-            sinf(ang) * radY,
-            0.0f);
+        float cx = cosf(ang) * radX;
+        float cy = sinf(ang) * radY;
+        glTexCoord2d((cx + radX) * widthRatio, (cy + radY) * heightRatio);
+        glVertex3f(cx, cy, 0.0f);
         ang += artG_session.currentLayer->curveAngleStep;
     }
 
@@ -592,6 +637,8 @@ int _art_initEmptyLayer(Art_Layer* layer, int width, int height)
     extraData->textureHeight = texHeight;
     layer->width = width;
     layer->height = height;
+    extraData->widthRatio = 1.0f / width;
+    extraData->heightRatio = 1.0f / height;
 
     return 0;
 }
@@ -613,6 +660,8 @@ int _art_loadImageLayer(Art_Layer* layer, char* filePath)
     
     layer->width = width;
     layer->height = height;
+    extraData->widthRatio = 1.0f / width;
+    extraData->heightRatio = 1.0f / height;
 
     extraData->textureWidth = _art_nextPowerOfTwo(width);
     extraData->textureHeight = _art_nextPowerOfTwo(height);
@@ -639,11 +688,23 @@ int _art_loadImageLayer(Art_Layer* layer, char* filePath)
 
     unsigned int x;
     unsigned int y;
-    for (y = 0; y < height; y++)
+    unsigned int dataX;
+    unsigned int dataY;
+    for (y = 0; y < extraData->textureHeight; y++)
     {
-        for (x = 0; x < dataRowBytes; x++)
+        dataY = y;
+        if (dataY >= height)
         {
-            textureData[(textureDataRowBytes * y) + x] = data[(dataRowBytes * y) + x];
+            dataY -= height;
+        }
+        for (x = 0; x < textureDataRowBytes; x++)
+        {
+            dataX = x;
+            if (dataX >= dataRowBytes)
+            {
+                dataX -= dataRowBytes;
+            }
+            textureData[(textureDataRowBytes * y) + x] = data[(dataRowBytes * dataY) + dataX];
         }
     }
 

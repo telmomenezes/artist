@@ -12,10 +12,11 @@
 
 #if defined (__ARTIST_OS_OSX)
 #include <OpenGL/OpenGL.h>
+#else
+#include "SDL_opengl.h"
 #endif
 
 #include "SDL.h"
-#include "SDL_opengl.h"
 
 int art_init(int width,
                 int height,

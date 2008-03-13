@@ -21,6 +21,8 @@ void _art_initLayer(Art_Layer* layer)
     layer->blue = 255;
     layer->alpha = 255;
     layer->curveAngleStep = 0.1f;
+    layer->currentFont = NULL;
+    layer->currentBrush = NULL;
     layer->clearOnUpdate = 1;
     layer->prevLayer = NULL;
     layer->nextLayer = NULL;
@@ -43,6 +45,16 @@ int art_getLayerWidth()
 int art_getLayerHeight()
 {
     return artG_session.currentLayer->height;
+}
+
+void art_setBrush(Art_Layer* layer)
+{
+    artG_session.currentLayer->currentBrush = layer;
+}
+
+void art_clearBrush()
+{
+    artG_session.currentLayer->currentBrush = NULL;
 }
 
 void art_setCurveAngleStep(float angle)

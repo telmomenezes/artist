@@ -29,6 +29,7 @@ typedef struct
     unsigned int alpha;
     float curveAngleStep;
     Art_Font* currentFont;
+    void* currentBrush;
     int clearOnUpdate;
     void* extraData;
     void* prevLayer;
@@ -48,6 +49,9 @@ void art_setBackgroundColor(unsigned int red,
 
 void art_setPointSize(float size);
 void art_setLineWidth(float width);
+
+void art_setBrush(Art_Layer* layer);
+void art_clearBrush();
 
 void art_setCurveAngleStep(float angle);
 

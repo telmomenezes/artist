@@ -56,6 +56,9 @@ typedef struct
     int screenTranslate;
     float screenTransX;
     float screenTransY;
+
+    float widthRatio;
+    float heightRatio;
 } Art_LayerOpenGL;
 
 #ifdef __cplusplus
