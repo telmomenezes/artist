@@ -777,3 +777,30 @@ int art_drawText(float x, float y, char* text)
     return 0;
 }
 
+void art_drawPixels(char* pixels)
+{
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glRasterPos2f(0, 0);
+    glPixelZoom(1.0f, -1.0f);
+
+    unsigned int width;
+    unsigned int height;
+
+    if (artG_session.currentLayer != NULL)
+    {
+        width = artG_session.currentLayer->width;
+        height = artG_session.currentLayer->height;
+    }
+    else
+    {
+        width = artG_session.windowWidth;
+        height = artG_session.windowHeight;
+    }
+
+    glDrawPixels(width,
+                    height, 
+                    GL_RGBA,
+                    GL_UNSIGNED_BYTE,
+                    (const GLvoid*)pixels);
+}
+

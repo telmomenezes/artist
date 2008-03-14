@@ -193,3 +193,7 @@ int art_drawText(float x, float y, char* text)
     return 0;
 }
 
+void art_drawPixels(char* pixels)
+{
+}
+

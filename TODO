@@ -1,9 +1,11 @@
 == Features ==
 
-* Draw pixel matrix
 * Gradients
 * Window::setIcon()
 * vsync flag working on linux and windows
+* Verify if layer is current texture when removing it
+* Verify if font is current font when removing it
+* Error system
 
 == Drawing Primitives ==
 

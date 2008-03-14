@@ -168,6 +168,8 @@ void art_setFont(Art_Font* font);
 
 int art_drawText(float x, float y, char* text);
 
+void art_drawPixels(char* pixels);
+
 void art_setClearLayerOnUpdate(Art_Layer* layer, int clear);
 
 void _art_initLayer(Art_Layer* layer);
