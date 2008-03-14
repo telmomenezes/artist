@@ -1,12 +1,9 @@
 == Features ==
 
 * Draw pixel matrix
-* setFill(layer)
 * Gradients
 * Window::setIcon()
-* Tidy up demos
 * vsync flag working on linux and windows
-* Layer3D...
 
 == Drawing Primitives ==
 
@@ -15,7 +12,7 @@
 
 == OpenGL ==
 
-* Layers with pbuffers when supported
+* Layers with pbuffers when supported (?)
 * Draw to non-root layer before update
 
 == Systems ==

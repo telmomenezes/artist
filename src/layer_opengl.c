@@ -37,21 +37,25 @@
         glTranslatef(X, Y, 0.0f); \
     }
 
-#define APPLY_BRUSH() \
-    Art_Layer* brush = (Art_Layer*)artG_session.currentLayer->currentBrush; \
-    float widthRatio = 0; \
-    float heightRatio = 0; \
-    if (brush == NULL) \
+#define APPLY_TEXTURE() \
+    Art_Layer* tex = (Art_Layer*)artG_session.currentLayer->currentTexture; \
+    float widthRatio = 0.0f; \
+    float heightRatio = 0.0f; \
+    float texX = 0.0f; \
+    float texY = 0.0f; \
+    if (tex == NULL) \
     { \
         glDisable(GL_TEXTURE_2D); \
     } \
     else \
     { \
-        Art_LayerOpenGL* edBrush = brush->extraData; \
-        glBindTexture(GL_TEXTURE_2D, edBrush->texture); \
+        Art_LayerOpenGL* edTex = tex->extraData; \
+        glBindTexture(GL_TEXTURE_2D, edTex->texture); \
         glEnable(GL_TEXTURE_2D); \
-        widthRatio = edBrush->widthRatio; \
-        heightRatio = edBrush->heightRatio; \
+        widthRatio = edTex->widthRatio * artG_session.currentLayer->texScale; \
+        heightRatio = edTex->heightRatio * artG_session.currentLayer->texScale; \
+        texX = artG_session.currentLayer->texX * widthRatio; \
+        texY = artG_session.currentLayer->texY * heightRatio; \
     } \
 
 void _art_initExtraLayerData(Art_Layer* layer)
@@ -402,7 +406,7 @@ void art_fillTriangle(float x1,
                     float x3,
                     float y3)
 {
-    APPLY_BRUSH()
+    APPLY_TEXTURE()
     APPLY_TRANSFORMS(x1, y1)
 
     float xa = x2 - x1;
@@ -411,11 +415,11 @@ void art_fillTriangle(float x1,
     float yb = y3 - y1;
 
     glBegin(GL_TRIANGLES);
-        glTexCoord2d(0.0f, 0.0f);
+        glTexCoord2d(texX, texY);
         glVertex3f(0.0f, 0.0f, 0.0f);
-        glTexCoord2d(xb * widthRatio, yb * heightRatio);
+        glTexCoord2d((xb * widthRatio) + texX, (yb * heightRatio) + texY);
         glVertex3f(xb, yb, 0.0f);
-        glTexCoord2d(xa * widthRatio, ya * heightRatio);
+        glTexCoord2d((xa * widthRatio) + texX, (ya * heightRatio) + texY);
         glVertex3f(xa, ya, 0.0f);
     glEnd();
 }
@@ -424,22 +428,22 @@ void art_fillSquare(float x,
                     float y,
                     float side)
 {
-    APPLY_BRUSH()
+    APPLY_TEXTURE()
     APPLY_TRANSFORMS(x, y)
 
     float halfSide = side / 2.0f;
 
-    float texWidth = widthRatio * halfSide * 2.0f;
-    float texHeight = heightRatio * halfSide * 2.0f;
+    float offsetX = (widthRatio * side) + texX;
+    float offsetY = (heightRatio * side) + texY;
 
     glBegin(GL_QUADS);
-        glTexCoord2d(texWidth, texHeight);
+        glTexCoord2d(offsetX, offsetY);
         glVertex3f(halfSide, halfSide, 0.0f);
-        glTexCoord2d(0, texHeight);
+        glTexCoord2d(texX, offsetY);
         glVertex3f(-halfSide, halfSide, 0.0f);
-        glTexCoord2d(0, 0);
+        glTexCoord2d(texX, texY);
         glVertex3f(-halfSide, -halfSide, 0.0f);
-        glTexCoord2d(texWidth, 0);
+        glTexCoord2d(offsetX, texY);
         glVertex3f(halfSide, -halfSide, 0.0f);
     glEnd();
 }
@@ -449,20 +453,20 @@ void art_fillRectangle(float x,
                 float width,
                 float height)
 {
-    APPLY_BRUSH()
+    APPLY_TEXTURE()
     APPLY_TRANSFORMS(x, y)
 
-    float texWidth = widthRatio * width;
-    float texHeight = heightRatio * height;
+    float offsetX = (widthRatio * width) + texX;
+    float offsetY = (heightRatio * height) + texY;
 
     glBegin(GL_QUADS);
-        glTexCoord2d(texWidth, texHeight);
+        glTexCoord2d(offsetX, offsetY);
         glVertex3f(width, height, 0.0f);
-        glTexCoord2d(0, texHeight);
+        glTexCoord2d(texX, offsetY);
         glVertex3f(0, height, 0.0f);
-        glTexCoord2d(0, 0);
+        glTexCoord2d(texX, texY);
         glVertex3f(0, 0, 0.0f);
-        glTexCoord2d(texWidth, 0);
+        glTexCoord2d(offsetX, texY);
         glVertex3f(width, 0, 0.0f);
     glEnd();
 }
@@ -473,7 +477,7 @@ void art_fillCircleSlice(float x,
                     float beginAngle,
                     float endAngle)
 {
-    APPLY_BRUSH()
+    APPLY_TEXTURE()
     APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
@@ -481,7 +485,7 @@ void art_fillCircleSlice(float x,
 
     glBegin(GL_POLYGON);
 
-    glTexCoord2d(rad * widthRatio, rad * heightRatio);
+    glTexCoord2d((rad * widthRatio) + texX, (rad * heightRatio) + texY);
     glVertex3f(0.0f, 0.0f, 0.0f);
 
     while (!stop)
@@ -494,7 +498,8 @@ void art_fillCircleSlice(float x,
         
         float cx = cosf(ang) * rad;
         float cy = sinf(ang) * rad;
-        glTexCoord2d((cx + rad) * widthRatio, (cy + rad) * heightRatio);
+        glTexCoord2d(((cx + rad) * widthRatio) + texX,
+                        ((cy + rad) * heightRatio) + texY);
         glVertex3f(cx, cy, 0.0f);
         ang += artG_session.currentLayer->curveAngleStep;
     }
@@ -509,7 +514,7 @@ void art_fillEllipseSlice(float x,
                     float beginAngle,
                     float endAngle)
 {
-    APPLY_BRUSH()
+    APPLY_TEXTURE()
     APPLY_TRANSFORMS(x, y)
 
     float ang = beginAngle;
@@ -517,7 +522,7 @@ void art_fillEllipseSlice(float x,
 
     glBegin(GL_POLYGON);
 
-    glTexCoord2d(radX * widthRatio, radY * heightRatio);
+    glTexCoord2d((radX * widthRatio) + texX, (radY * heightRatio) + texY);
     glVertex3f(0.0f, 0.0f, 0.0f);
 
     while (!stop)
@@ -530,7 +535,8 @@ void art_fillEllipseSlice(float x,
 
         float cx = cosf(ang) * radX;
         float cy = sinf(ang) * radY;
-        glTexCoord2d((cx + radX) * widthRatio, (cy + radY) * heightRatio);
+        glTexCoord2d(((cx + radX) * widthRatio) + texX,
+                        ((cy + radY) * heightRatio) + texY);
         glVertex3f(cx, cy, 0.0f);
         ang += artG_session.currentLayer->curveAngleStep;
     }
@@ -573,6 +579,10 @@ void art_drawScaledLayer(Art_Layer* layer,
     float origY1 = 0.0f;
     float origX2 = ((float)layer->width) / ((float)extraData->textureWidth);
     float origY2 = ((float)layer->height) / ((float)extraData->textureHeight);
+
+    // Hack to prevent anomalies in borders when rotating
+    origX1 += 0.001f;
+    origY1 += 0.001f;
 
     glBindTexture(GL_TEXTURE_2D, extraData->texture);
     glEnable(GL_TEXTURE_2D);

@@ -22,7 +22,10 @@ void _art_initLayer(Art_Layer* layer)
     layer->alpha = 255;
     layer->curveAngleStep = 0.1f;
     layer->currentFont = NULL;
-    layer->currentBrush = NULL;
+    layer->currentTexture = NULL;
+    layer->texScale = 1.0f;
+    layer->texX = 0.0f;
+    layer->texY = 0.0f;
     layer->clearOnUpdate = 1;
     layer->prevLayer = NULL;
     layer->nextLayer = NULL;
@@ -47,14 +50,29 @@ int art_getLayerHeight()
     return artG_session.currentLayer->height;
 }
 
-void art_setBrush(Art_Layer* layer)
+void art_setTexture(Art_Layer* layer)
 {
-    artG_session.currentLayer->currentBrush = layer;
+    art_clearTexture();
+    artG_session.currentLayer->currentTexture = layer;
 }
 
-void art_clearBrush()
+void art_setTextureScale(float scale)
 {
-    artG_session.currentLayer->currentBrush = NULL;
+    artG_session.currentLayer->texScale = fabsf(scale);
+}
+
+void art_setTexturePosition(float x, float y)
+{
+    artG_session.currentLayer->texX = x;
+    artG_session.currentLayer->texY = y;
+}
+
+void art_clearTexture()
+{
+    artG_session.currentLayer->currentTexture = NULL;
+    artG_session.currentLayer->texScale = 1.0f;
+    artG_session.currentLayer->texX = 0.0f;
+    artG_session.currentLayer->texY = 0.0f;
 }
 
 void art_setCurveAngleStep(float angle)

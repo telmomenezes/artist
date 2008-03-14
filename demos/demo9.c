@@ -1,5 +1,5 @@
 /*
- * Artist Demo #8
+ * Artist Demo #9
  * Copyright (C) 2007 Telmo Menezes.
  * telmo@telmomenezes.com
  *
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     art_initSimple(800, 600, 0);
 
     /* Initial window settings */
-    art_setWinTitle("Artist Demo #8");
+    art_setWinTitle("Artist Demo #9");
     art_setBackgroundColor(255, 255, 255);
 
     int exit = 0;
@@ -23,31 +23,30 @@ int main(int argc, char *argv[])
     // Load images to a layers
     Art_Layer* grass = art_loadImage("media/grass.jpg");
     Art_Layer* fabric = art_loadImage("media/fabric.jpg");
+    Art_Layer* saturn = art_loadImage("media/saturn.jpg");
 
-    float grassX = 0;
-    float grassY = 0;
+    float v1 = 0.0f;
 
     /* Drawing loop */
     while (!exit)
     {
+        art_setColor(255, 0, 0, 255);
+        art_setTexture(fabric);
+        art_setTexturePosition(v1 * 100, cos(v1 * 1.7) * 200);
+        art_fillCircle(200.0f, 150.0f, 100.0f);
+
         art_setColor(0, 255, 0, 255);
         art_setTexture(grass);
-        art_fillSquare(sin(grassX) * 100, grassY, 5000);
+        art_setTexturePosition(cos(v1 * 1.4) * 150, sin(v1 * 1.5) * 170);
+        art_setTextureScale(cos(v1 * 1.3));
+        art_fillCircle(400.0f, 450.0f, 100.0f);
 
-        grassX += 0.03f;
-        grassY += 2.0f;
-        if (grassY > grass->height)
-        {
-            grassY = 0.0f;
-        }
+        art_setColor(255, 255, 255, 255);
+        art_setTexture(saturn);
+        art_setTextureScale(sin(v1));
+        art_fillCircle(600.0f, 150.0f, 100.0f);
 
-        art_setColor(255, 0, 0, 100);
-        art_setTexture(fabric);
-        art_fillCircle(400.0f, 300.0f, 120.0f);
-        art_setColor(255, 0, 0, 255);
-        art_fillCircle(400.0f, 300.0f, 100.0f);
-        art_clearTexture();
-        art_fillCircle(400.0f, 300.0f, 50.0f);
+        v1 += 0.01f;
 
         /* Update window */
         art_update();

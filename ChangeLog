@@ -3,8 +3,8 @@
     * vsync flag in art_init()
     * Corrected bug in art_setBackgroundColor()
     * Corrected bug in font initalization
-    * demo4.c, demo5.c, demo6.c, demo7.c, demo8.c
-    * art_setBrush(), art_clearBrush()
+    * demo4.c, demo5.c, demo6.c, demo7.c, demo8.c, demo9.c
+    * art_setTexture(), art_clearTexture(), art_setTextureScale(), art_setTexturePosition()
     * ...
 
 0.4 alpha release
