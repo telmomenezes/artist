@@ -26,27 +26,27 @@
 # everything still works.
 FIND_PATH(FREETYPE_INCLUDE_DIR_ft2build ft2build.h 
     $ENV{FREETYPE_DIR}
+    /opt/include
+    /opt/local/include
     /usr/local/include
     /usr/include
     /usr/local/X11R6
     /usr/X11R6/include
     /sw/include
-    /opt/local/include
     /opt/csw/include
-    /opt/include
     /usr/freeware/include/freetype2
 )
 
 FIND_PATH(FREETYPE_INCLUDE_DIR_freetype2 freetype/config/ftheader.h 
     $ENV{FREETYPE_DIR}/include/freetype2
+    /opt/include/freetype2
+    /opt/local/include/freetype2
+    /opt/csw/include/freetype2
     /usr/local/include/freetype2
     /usr/include/freetype2
     /usr/local/X11R6/include/freetype2
     /usr/X11R6/include/freetype2
     /sw/include/freetype2
-    /opt/local/include/freetype2
-    /opt/csw/include/freetype2
-    /opt/include/freetype2
     /usr/freeware/include/freetype2
 )
 
@@ -55,14 +55,14 @@ FIND_LIBRARY(FREETYPE_LIBRARY
     PATHS
     $ENV{FREETYPE_DIR}/lib
     $ENV{FREETYPE_DIR}/lib
+    /opt/lib
+    /opt/local/lib
+    /opt/csw/lib
     /usr/local/lib
     /usr/lib
     /usr/local/X11R6/lib
     /usr/X11R6/lib
     /sw/lib
-    /opt/local/lib
-    /opt/csw/lib
-    /opt/lib
     /usr/freeware/lib64
 )
 

@@ -1,11 +1,13 @@
 == Features ==
 
 * Gradients
-* Window::setIcon()
+* art_setIcon()
 * vsync flag working on linux and windows
 * Verify if layer is current texture when removing it
 * Verify if font is current font when removing it
 * Error system
+* Get supported resolution list
+* Resize windows
 
 == Drawing Primitives ==
 
