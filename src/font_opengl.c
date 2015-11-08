@@ -22,14 +22,14 @@ int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch)
 {
     if (FT_Load_Glyph(*face, FT_Get_Char_Index(*face, ch), FT_LOAD_DEFAULT))
     {
-        // TODO: set error: "Error processing font file: FT_Load_Glyph failed"
+        printf("Error processing font file: FT_Load_Glyph failed\n");
         return -1;
     }
 
     FT_Glyph glyph;
     if (FT_Get_Glyph((*face)->glyph, &glyph))
     {
-        // TODO: set error: "Error processing font file: FT_Load_Glyph failed"
+        printf("Error processing font file: FT_Load_Glyph failed\n");
         return -1;
     }
 
@@ -55,7 +55,7 @@ int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch)
         }
     }
 
-    glBindTexture( GL_TEXTURE_2D, fontOGL->textures[ch]);
+    glBindTexture(GL_TEXTURE_2D, fontOGL->textures[ch]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
@@ -77,25 +77,25 @@ int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch)
 
     glTranslatef(bitmapGlyph->left, 0, 0);
 
-    float texX = (float)bitmap->width / (float)width;
-    float texY = (float)bitmap->rows / (float)height;
+    GLdouble texX = (GLdouble)bitmap->width / (GLdouble)width;
+    GLdouble texY = (GLdouble)bitmap->rows / (GLdouble)height;
 
-    float lower = bitmapGlyph->top-bitmap->rows;
-    float y1 = -bitmap->rows - lower;
-    float y2 = -lower;
-    float advance = ((float)(*face)->glyph->advance.x) / 64.0f;
+    GLfloat lower = (float)bitmapGlyph->top-bitmap->rows;
+    GLfloat y1 = -((GLfloat)bitmap->rows) - lower;
+    GLfloat y2 = -lower;
+    GLfloat advance = ((GLfloat)(*face)->glyph->advance.x) / 64.0f;
 
     glBegin(GL_QUADS);
-        glTexCoord2d(0, 0);
-        glVertex2f(0, y1);
-        glTexCoord2d(0, texY);
-        glVertex2f(0, y2);
-        glTexCoord2d(texX, texY);
-        glVertex2f(bitmap->width, y2);
-        glTexCoord2d(texX, 0);
-        glVertex2f(bitmap->width, y1);
+    
+    glTexCoord2d(0.0, 0.0);
+    glVertex2f(0.0, y1);
+    glTexCoord2d(0.0, texY);
+    glVertex2f(0.0, y2);
+    glTexCoord2d(texX, texY);
+    glVertex2f(bitmap->width, y2);
+    glTexCoord2d(texX, 0.0);
+    glVertex2f(bitmap->width, y1);
     glEnd();
-
     glTranslatef(advance, 0.0f, 0.0f);
 
     glEndList();
@@ -119,14 +119,14 @@ int _art_initFont(Art_Font* font, char* fontFile, unsigned int height)
     FT_Library library;
     if (FT_Init_FreeType(&library))
     {
-        // TODO: set error: "Failed to initialize the FreeType library"
+        printf("Failed to initialize the FreeType library\n");
         return -1;
     }
 
     FT_Face face;
     if (FT_New_Face(library, fontFile, 0, &face)) 
     {
-        // TODO: set error: "Failed to load font file: " + fontFile"
+        printf("Failed to load font file: %s\n", fontFile);
         return -1;
     }
 

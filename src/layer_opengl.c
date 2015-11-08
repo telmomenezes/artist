@@ -748,7 +748,7 @@ int art_drawText(float x, float y, char* text)
 {
     if (artG_session.currentLayer->currentFont == NULL)
     {
-        // TODO: set error: "Attempting to print text without setting a font first"
+        printf("Attempting to print text without setting a font first\n");
         return -1;
     }
 

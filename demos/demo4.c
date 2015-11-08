@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     int size = 4;
     for (i = 0; i < sizeCount; i++)
     {
-        fonts[i] = art_loadFont("media/vera/Vera.ttf", size);
+        fonts[i] = art_loadFont("./media/vera/Vera.ttf", size);
         size *= 2;
     }
     

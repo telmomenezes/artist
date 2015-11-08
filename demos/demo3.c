@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 
     int exit = 0;
 
+    art_clear();
     /* Drawing loop */
     while (!exit)
     {
