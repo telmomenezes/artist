@@ -2146,13 +2146,13 @@ static stbi_uc *bmp_load(int *x, int *y, int *comp, int req_comp)
    bpp = get16le();
    if (bpp == 1) return (stbi_uc *)(ep("monochrome", "BMP type not supported: 1-bit"));
    flip_vertically = img_y > 0;
-   img_y = abs(img_y);
+   //img_y = abs(img_y);
    if (hsz == 12) {
       if (bpp < 24)
          psize = (offset - 14 - 24) / 3;
    } else {
       compress = get32le();
-      if (compress == 1 || compress == 2) (stbi_uc *)(ep("BMP RLE", "BMP type not supported: RLE"));
+      //if (compress == 1 || compress == 2) (stbi_uc *)(ep("BMP RLE", "BMP type not supported: RLE"));
       get32le(); // discard sizeof
       get32le(); // discard hres
       get32le(); // discard vres

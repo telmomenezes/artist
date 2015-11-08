@@ -52,6 +52,8 @@ void _art_updateMouseButton(Art_MouseButton button, int val)
     case ART_BUTTON_RIGHT:
         artG_session.eventData.rightButton = val;
         break;
+    default:
+        break;
     }
 }
 

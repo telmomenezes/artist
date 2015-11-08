@@ -80,6 +80,8 @@ int art_init(int width,
         CGLSetParameter(CGLGetCurrentContext(),  kCGLCPSwapInterval, &VBL);
         #endif
     }
+
+    return 0;
 }
 
 void art_update()
