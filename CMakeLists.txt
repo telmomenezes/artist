@@ -16,6 +16,9 @@ OPTION(DEBUG "Debug settings" OFF)
 OPTION(SYSTEM_SDLOPENGL "SDLOpenGL Support" ON)
 SET(SYSTEM_TYPE "SDLOpenGL" CACHE STRING "System type: [SDLOpenGL; Null]")
 
+if(APPLE)
+    set(CMAKE_MACOSX_RPATH ON)
+endif()
 
 ########### Compiler settings ###########
 
