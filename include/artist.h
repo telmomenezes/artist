@@ -51,7 +51,7 @@ double art_getTime();
 
 void art_update();
 
-void art_setWinTitle(char* title);
+void art_setWinTitle(const char* title);
 
 int art_getWinWidth();
 int art_getWinHeight();
