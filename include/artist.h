@@ -59,10 +59,10 @@ int art_getWinHeight();
 void art_showCursor(int show);
 
 Art_Layer* art_createLayer(int width, int height);
-Art_Layer* art_loadImage(char* filePath);
+Art_Layer* art_loadImage(const char* filePath);
 int art_removeLayer(Art_Layer* layer);
 
-Art_Font* art_loadFont(char* fontName, unsigned int height);
+Art_Font* art_loadFont(const char* fontName, unsigned int height);
 int art_removeFont(Art_Font* font);
 
 void art_setClearWindowOnUpdate(int clear);

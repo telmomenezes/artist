@@ -105,7 +105,7 @@ int _art_fontMakedlist(Art_FontOpenGL* fontOGL, FT_Face* face, char ch)
     return 0;
 }
 
-int _art_initFont(Art_Font* font, char* fontFile, unsigned int height)
+int _art_initFont(Art_Font* font, const char* fontFile, unsigned int height)
 {
     font->height = height;
     font->nextFont = NULL;
@@ -151,7 +151,7 @@ int _art_initFont(Art_Font* font, char* fontFile, unsigned int height)
     return 0;
 }
 
-float art_getTextWidth(char* text)
+float art_getTextWidth(const char* text)
 {
     if (artG_session.currentLayer->currentFont == NULL)
     {

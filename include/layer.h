@@ -179,7 +179,7 @@ void _art_setRoot(Art_Layer* layer, int width, int height);
 void _art_layerLock(Art_Layer* layer);
 void _art_layerUnlock(Art_Layer* layer);
 int _art_initEmptyLayer(Art_Layer* layer, int width, int height);
-int _art_loadImageLayer(Art_Layer* layer, char* filePath);
+int _art_loadImageLayer(Art_Layer* layer, const char* filePath);
 
 #ifdef __cplusplus
 }

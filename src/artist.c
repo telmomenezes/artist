@@ -91,7 +91,7 @@ Art_Layer* art_createLayer(int width, int height)
     return layer;
 }
 
-Art_Layer* art_loadImage(char* filePath)
+Art_Layer* art_loadImage(const char* filePath)
 {
     Art_Layer* layer = malloc(sizeof(Art_Layer));
     _art_initLayer(layer);
@@ -113,7 +113,7 @@ Art_Layer* art_loadImage(char* filePath)
     return layer;
 }
 
-Art_Font* art_loadFont(char* fontName, unsigned int height)
+Art_Font* art_loadFont(const char* fontName, unsigned int height)
 {
     Art_Font* font = malloc(sizeof(Art_Font));
     _art_initFont(font, fontName, height);

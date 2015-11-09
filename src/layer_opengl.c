@@ -653,14 +653,15 @@ int _art_initEmptyLayer(Art_Layer* layer, int width, int height)
     return 0;
 }
 
-int _art_loadImageLayer(Art_Layer* layer, char* filePath)
+int _art_loadImageLayer(Art_Layer* layer, const char* filePath)
 {
     Art_LayerOpenGL* extraData = (Art_LayerOpenGL*)layer->extraData;
 
     int width;
     int height;
     int bpp;
-    unsigned char *data = stbi_load(filePath, &width, &height, &bpp, 0);
+    char *path = (char*)filePath;
+    unsigned char *data = stbi_load(path, &width, &height, &bpp, 0);
     
     if (data == NULL)
     {

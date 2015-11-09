@@ -23,9 +23,9 @@ typedef struct
 } Art_Font;
 
 unsigned int art_getFontHeight(Art_Font* font);
-float art_getTextWidth(char* text);
+float art_getTextWidth(const char* text);
 
-int _art_initFont(Art_Font* font, char* fontFile, unsigned int height);
+int _art_initFont(Art_Font* font, const char* fontFile, unsigned int height);
 int _art_destroyFont(Art_Font* font);
 
 #ifdef __cplusplus
