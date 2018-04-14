@@ -21,10 +21,8 @@
 #endif
 
 #include <ft2build.h>
-#include <freetype2/freetype.h>
-#include <freetype2/ftglyph.h>
-#include <freetype2/ftoutln.h>
-#include <freetype2/fttrigon.h>
+#include FT_FREETYPE_H
+#include FT_GLYPH_H
 
 #if defined(__ARTIST_OS_OSX)
 #include <OpenGL/gl.h>
